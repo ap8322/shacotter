@@ -1,0 +1,148 @@
+map:{
+    ; 2016/07/05 21:34:06 = map:{
+        ; diffDate = 2016/07/05 21:34:06
+        ; tableCount = map:{
+            ; next = 16
+            ; previous = 15
+        }
+        ; tableDiff = map:{
+            ; member_following = map:{
+                ; tableName = member_following
+                ; diffType = ADD
+            }
+            ; product_status = map:{
+                ; tableName = product_status
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; DISPLAY_ORDER = map:{
+                        ; columnName = DISPLAY_ORDER
+                        ; diffType = ADD
+                    }
+                }
+                ; uniqueKeyDiff = map:{
+                    ; DISPLAY_ORDER = map:{
+                        ; constraintName = DISPLAY_ORDER
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+    ; 2016/07/05 20:50:00 = map:{
+        ; diffDate = 2016/07/05 20:50:00
+        ; tableDiff = map:{
+            ; member_security = map:{
+                ; tableName = member_security
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; REMINDER_USE_COUNT = map:{
+                        ; columnName = REMINDER_USE_COUNT
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; member_service = map:{
+                ; tableName = member_service
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; MEMBER_SERVICE_ID = map:{
+                        ; columnName = MEMBER_SERVICE_ID
+                        ; diffType = ADD
+                    }
+                }
+                ; primaryKeyDiff = map:{
+                    ; PRIMARY = map:{
+                        ; constraintName = PRIMARY
+                        ; diffType = CHANGE
+                        ; columnDiff = map:{
+                            ; next = MEMBER_SERVICE_ID
+                            ; previous = MEMBER_ID
+                        }
+                    }
+                }
+                ; uniqueKeyDiff = map:{
+                    ; MEMBER_ID = map:{
+                        ; constraintName = MEMBER_ID
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+    ; 2016/07/05 07:50:15 = map:{
+        ; diffDate = 2016/07/05 07:50:15
+        ; tableDiff = map:{
+            ; member_service = map:{
+                ; tableName = member_service
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; SERVICE_POINT_COUNT = map:{
+                        ; columnName = SERVICE_POINT_COUNT
+                        ; diffType = ADD
+                    }
+                    ; AKIRAKANI_OKASHII_KARAMU_MEI = map:{
+                        ; columnName = AKIRAKANI_OKASHII_KARAMU_MEI
+                        ; diffType = DELETE
+                    }
+                }
+                ; indexDiff = map:{
+                    ; IX_MEMBER_SERVICE_POINT_COUNT = map:{
+                        ; constraintName = IX_MEMBER_SERVICE_POINT_COUNT
+                        ; diffType = CHANGE
+                        ; columnDiff = map:{
+                            ; next = SERVICE_POINT_COUNT
+                            ; previous = AKIRAKANI_OKASHII_KARAMU_MEI
+                        }
+                    }
+                }
+            }
+            ; product = map:{
+                ; tableName = product
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; REGULAR_PRICE = map:{
+                        ; columnName = REGULAR_PRICE
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = true
+                            ; previous = false
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ; 2016/07/05 07:27:29 = map:{
+        ; diffDate = 2016/07/05 07:27:29
+        ; tableDiff = map:{
+            ; member_service = map:{
+                ; tableName = member_service
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; AKIRAKANI_OKASHII_KARAMU_MEI = map:{
+                        ; columnName = AKIRAKANI_OKASHII_KARAMU_MEI
+                        ; diffType = ADD
+                    }
+                    ; SERVICE_POINT_COUNT = map:{
+                        ; columnName = SERVICE_POINT_COUNT
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; product = map:{
+                ; tableName = product
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; REGULAR_PRICE = map:{
+                        ; columnName = REGULAR_PRICE
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = false
+                            ; previous = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
