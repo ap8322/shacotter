@@ -1,0 +1,18 @@
+[Saved Previous Resources]: 2016/07/05 20:58:39
+playsql/migration/previous/replace-schema-00-system.sql
+playsql/migration/previous/replace-schema-10-basic.sql
+playsql/migration/previous/replace-schema-50-procedure.sql
+playsql/migration/previous/take-finally.sql
+playsql/migration/previous/data/common/xls/.DS_Store
+playsql/migration/previous/data/common/xls/10-master.xls
+playsql/migration/previous/data/common/xls/xls-data-result.dfmark
+playsql/migration/previous/data/common/.DS_Store
+playsql/migration/previous/data/ut/xls/20-member.xls
+playsql/migration/previous/data/ut/xls/30-product.xls
+playsql/migration/previous/data/ut/xls/defaultValueMap.dataprop
+playsql/migration/previous/data/ut/xls/xls-data-result.dfmark
+playsql/migration/previous/data/ut/.DS_Store
+playsql/migration/previous/data/.DS_Store
+(14 files)
+
+Look at the log for detail.
