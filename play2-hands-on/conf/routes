@@ -15,10 +15,10 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 # Mapping to /user/list
 GET     /user/list                  controllers.UserController.list
 # Mapping to /user/edit or /user/edit?id=<number>
-GET     /user/edit                  controllers.UserController.edit(id: Option[Long] ?= None)
+GET     /user/edit                  controllers.UserController.edit(memberId: Option[Int] ?= None)
 # Mapping to /user/create
 POST    /user/create                controllers.UserController.create
 # Mapping to /user/update
 POST    /user/update                controllers.UserController.update
 # Mapping to /user/remove/<number>
-POST    /user/remove/:id            controllers.UserController.remove(id: Long)
+POST    /user/remove/:memberId            controllers.UserController.remove(memberId: Int)

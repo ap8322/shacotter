@@ -13585,3 +13585,1029 @@ _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
  {Take Finally}: success=4 failure=0 (in 1 files)
   o take-finally.sql
 _/_/_/_/_/_/_/_/_/_/ {ReplaceSchema}
+2016-07-31 12:52:04,999 [main] INFO  (DfReplaceSchemaTask#begin():91) - +------------------------------------------+
+2016-07-31 12:52:05,003 [main] INFO  (DfReplaceSchemaTask#begin():92) - |                                          |
+2016-07-31 12:52:05,003 [main] INFO  (DfReplaceSchemaTask#begin():93) - |              ReplaceSchema               |
+2016-07-31 12:52:05,009 [main] INFO  (DfReplaceSchemaTask#begin():101) - |                                          |
+2016-07-31 12:52:05,010 [main] INFO  (DfReplaceSchemaTask#begin():102) - +------------------------------------------+
+2016-07-31 12:52:05,012 [main] INFO  (DfReplaceSchemaTask#waitBeforeReps():342) - ...Waiting for your GO SIGN from stdin before ReplaceSchema:
+2016-07-31 12:52:06,393 [main] INFO  (DfDataSourceHandler#prepare():78) - ...Preparing data source:
+2016-07-31 12:52:06,394 [main] INFO  (DfDataSourceHandler#prepare():79) -   driver = com.mysql.jdbc.Driver
+2016-07-31 12:52:06,394 [main] INFO  (DfDataSourceHandler#prepare():80) -   url    = jdbc:mysql://localhost:3306/maihamadb
+2016-07-31 12:52:06,394 [main] INFO  (DfDataSourceHandler#prepare():81) -   user   = root
+2016-07-31 12:52:06,409 [main] INFO  (DfDataSourceHandler#createConnection():166) - ...Connecting to database by data source:
+2016-07-31 12:52:06,837 [main] INFO  (DfDataSourceHandler#setupConnectionMetaInfo():233) -   product = MySQL 5.7.13
+2016-07-31 12:52:06,837 [main] INFO  (DfDataSourceHandler#setupConnectionMetaInfo():234) -   driver  = MySQL Connector Java mysql-connector-java-5.1.33 ( Revision: alexander.soklakov@oracle.com-20140908134200-8ukofe1izi0r2b63 ) for JDBC 4.0
+2016-07-31 12:52:06,855 [main] INFO  (DfCreateSchemaProcess#initializeSchemaMainDrop():229) - 
+2016-07-31 12:52:06,856 [main] INFO  (DfCreateSchemaProcess#initializeSchemaMainDrop():230) - * * * * * * * * * * *
+2016-07-31 12:52:06,856 [main] INFO  (DfCreateSchemaProcess#initializeSchemaMainDrop():231) - *                   *
+2016-07-31 12:52:06,858 [main] INFO  (DfCreateSchemaProcess#initializeSchemaMainDrop():232) - * Initialize Schema *
+2016-07-31 12:52:06,858 [main] INFO  (DfCreateSchemaProcess#initializeSchemaMainDrop():233) - *                   *
+2016-07-31 12:52:06,859 [main] INFO  (DfCreateSchemaProcess#initializeSchemaMainDrop():234) - * * * * * * * * * * *
+2016-07-31 12:52:06,879 [main] INFO  (DfTableExtractor#doGetTableList():66) - ...Getting tables:
+2016-07-31 12:52:06,880 [main] INFO  (DfTableExtractor#doGetTableList():67) -   schema = {maihamadb.$$NoNameSchema$$ as main}
+2016-07-31 12:52:06,880 [main] INFO  (DfTableExtractor#doGetTableList():68) -   types  = [TABLE, VIEW]
+2016-07-31 12:52:07,010 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - truncate table MEMBER_ADDRESS
+2016-07-31 12:52:07,021 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - truncate table MEMBER_FOLLOWING
+2016-07-31 12:52:07,041 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - truncate table MEMBER_LOGIN
+2016-07-31 12:52:07,065 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - truncate table MEMBER_SECURITY
+2016-07-31 12:52:07,073 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - truncate table MEMBER_SERVICE
+2016-07-31 12:52:07,085 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - truncate table MEMBER_WITHDRAWAL
+2016-07-31 12:52:07,104 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - truncate table PURCHASE_PAYMENT
+2016-07-31 12:52:07,149 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER drop foreign key FK_MEMBER_MEMBER_STATUS
+2016-07-31 12:52:07,199 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_ADDRESS drop foreign key FK_MEMBER_ADDRESS_MEMBER
+2016-07-31 12:52:07,222 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_ADDRESS drop foreign key FK_MEMBER_ADDRESS_REGION
+2016-07-31 12:52:07,254 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_FOLLOWING drop foreign key FK_MEMBER_FOLLOWING_MY_MEMBER
+2016-07-31 12:52:07,272 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_FOLLOWING drop foreign key FK_MEMBER_FOLLOWING_YOUR_MEMBER
+2016-07-31 12:52:07,294 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_LOGIN drop foreign key FK_MEMBER_LOGIN_MEMBER_STATUS
+2016-07-31 12:52:07,315 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_LOGIN drop foreign key FK_MEMBER_LOGIN_MEMBER
+2016-07-31 12:52:07,333 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_SECURITY drop foreign key FK_MEMBER_SECURITY_MEMBER
+2016-07-31 12:52:07,353 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_SERVICE drop foreign key FK_MEMBER_SERVICE_MEMBER
+2016-07-31 12:52:07,372 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_SERVICE drop foreign key FK_MEMBER_SERVICE_SERVICE_RANK_CODE
+2016-07-31 12:52:07,398 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_WITHDRAWAL drop foreign key FK_MEMBER_WITHDRAWAL_MEMBER
+2016-07-31 12:52:07,412 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table MEMBER_WITHDRAWAL drop foreign key FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON
+2016-07-31 12:52:07,434 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table PRODUCT drop foreign key FK_PRODUCT_PRODUCT_CATEGORY
+2016-07-31 12:52:07,451 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table PRODUCT drop foreign key FK_PRODUCT_PRODUCT_STATUS
+2016-07-31 12:52:07,474 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table PRODUCT_CATEGORY drop foreign key FK_PRODUCT_CATEGORY_PARENT
+2016-07-31 12:52:07,495 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table PURCHASE drop foreign key FK_PURCHASE_MEMBER
+2016-07-31 12:52:07,512 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table PURCHASE drop foreign key FK_PURCHASE_PRODUCT
+2016-07-31 12:52:07,534 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - alter table PURCHASE_PAYMENT drop foreign key FK_PURCHASE_PAYMENT_PURCHASE
+2016-07-31 12:52:07,566 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table MEMBER
+2016-07-31 12:52:07,571 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table MEMBER_ADDRESS
+2016-07-31 12:52:07,576 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table MEMBER_FOLLOWING
+2016-07-31 12:52:07,580 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table MEMBER_LOGIN
+2016-07-31 12:52:07,585 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table MEMBER_SECURITY
+2016-07-31 12:52:07,589 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table MEMBER_SERVICE
+2016-07-31 12:52:07,593 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table MEMBER_STATUS
+2016-07-31 12:52:07,597 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table MEMBER_WITHDRAWAL
+2016-07-31 12:52:07,602 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table PRODUCT
+2016-07-31 12:52:07,607 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table PRODUCT_CATEGORY
+2016-07-31 12:52:07,611 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table PRODUCT_STATUS
+2016-07-31 12:52:07,614 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table PURCHASE
+2016-07-31 12:52:07,618 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table PURCHASE_PAYMENT
+2016-07-31 12:52:07,621 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table REGION
+2016-07-31 12:52:07,624 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table SERVICE_RANK
+2016-07-31 12:52:07,628 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop table WITHDRAWAL_REASON
+2016-07-31 12:52:07,738 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop procedure SP_IN_OUT_PARAMETER
+2016-07-31 12:52:07,752 [main] INFO  (DfSchemaInitializerJdbc#logReplaceSql():609) - drop procedure SP_RETURN_RESULT_SET
+2016-07-31 12:52:07,754 [main] INFO  (DfCreateSchemaProcess#createSchema():266) - 
+2016-07-31 12:52:07,754 [main] INFO  (DfCreateSchemaProcess#createSchema():267) - * * * * * * * * *
+2016-07-31 12:52:07,755 [main] INFO  (DfCreateSchemaProcess#createSchema():268) - *               *
+2016-07-31 12:52:07,755 [main] INFO  (DfCreateSchemaProcess#createSchema():269) - * Create Schema *
+2016-07-31 12:52:07,756 [main] INFO  (DfCreateSchemaProcess#createSchema():270) - *               *
+2016-07-31 12:52:07,756 [main] INFO  (DfCreateSchemaProcess#createSchema():271) - * * * * * * * * *
+2016-07-31 12:52:07,761 [main] INFO  (DfSqlFileFireMan#fire():64) - ...Firing: replace-schema-00-system.sql
+2016-07-31 12:52:07,766 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+-- #df:changeUser(system)#
+-- #df:checkUser(mainSchema)#
+create database maihamadb
+2016-07-31 12:52:07,768 [main] INFO  (DfCreateSchemaProcess$1#dispatch():295) - ...Creating a connection to system
+2016-07-31 12:52:07,770 [main] INFO  (DfReplaceSchemaProperties#createAdditionalUserConnection():520) - ...Creating a connection for additional user: root
+2016-07-31 12:52:07,785 [main] INFO  (DfCreateSchemaProcess$1#dispatch():321) - ...Saying good-bye to the user 'system' because of checked: [mainSchema]
+2016-07-31 12:52:07,786 [main] INFO  (DfCreateSchemaProcess$1#dispatch():323) -  -> Can't create database 'maihamadb'; database exists
+2016-07-31 12:52:07,787 [main] INFO  (DfCreateSchemaProcess$DfSqlFileRunnerExecuteCreateSchema#isTargetSql():433) - ...Reviving the user 'system' until the end of this SQL file
+2016-07-31 12:52:07,788 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+-- #df:reviveUser()#
+-- #df:checkUser(mainUser, grant)#
+grant all privileges on maihamadb.*
+  to root@localhost identified by ''
+2016-07-31 12:52:07,819 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - flush privileges
+2016-07-31 12:52:07,826 [main] INFO  (DfSqlFileRunnerBase#traceResult():172) -  -> success=2 failure=0
+2016-07-31 12:52:07,827 [main] INFO  (DfSqlFileFireMan#fire():64) - ...Firing: replace-schema-10-basic.sql
+2016-07-31 12:52:07,828 [main] INFO  (DfCreateSchemaProcess$DfSqlFileRunnerExecuteCreateSchema#restoreRevivedUser():370) - ...Saying good-bye to the user 'system' again
+2016-07-31 12:52:07,829 [main] INFO  (DfCreateSchemaProcess$DfSqlFileRunnerExecuteCreateSchema#restoreRevivedUser():374) - ...Clearing revived users
+2016-07-31 12:52:07,829 [main] INFO  (DfCreateSchemaProcess$DfSqlFileRunnerExecuteCreateSchema#restoreCurrentUser():381) - ...Coming back to the main user from the user 'system'
+2016-07-31 12:52:07,839 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table MEMBER(
+    MEMBER_ID INTEGER AUTO_INCREMENT NOT NULL COMMENT '会員ID: 会員を識別するID。連番として基本的に自動採番される。
+（会員IDだけに限らず）採番方法はDBMSによって変わる。',
+    MEMBER_NAME VARCHAR(160) NOT NULL COMMENT '会員名称: 会員のフルネームの名称。',
+    MEMBER_ACCOUNT VARCHAR(50) NOT NULL COMMENT '会員アカウント: 会員がログイン時に利用するアカウントNO。',
+    MEMBER_STATUS_CODE CHAR(3) NOT NULL COMMENT '会員ステータスコード',
+    FORMALIZED_DATETIME DATETIME COMMENT '正式会員日時: 会員が正式に確定した日時。一度確定したら更新されない。
+仮会員のときはnull。',
+    BIRTHDATE DATE COMMENT '生年月日: 必須項目ではないので、このデータがない会員もいる。',
+    REGISTER_DATETIME DATETIME NOT NULL COMMENT '登録日時: レコードが登録された日時。共通カラムの一つ。',
+    REGISTER_USER VARCHAR(200) NOT NULL COMMENT '登録ユーザ: レコードを登録したユーザ。共通カラムの一つ。',
+    UPDATE_DATETIME DATETIME NOT NULL COMMENT '更新日時: レコードが（最後に）更新された日時。共通カラムの一つ。',
+    UPDATE_USER VARCHAR(200) NOT NULL COMMENT '更新ユーザ: レコードを更新したユーザ。',
+    VERSION_NO BIGINT NOT NULL COMMENT 'バージョンNO: レコードのバージョンを示すNO。
+更新回数と等しく、主に排他制御のために利用される。',
+    PRIMARY KEY (MEMBER_ID),
+    UNIQUE (MEMBER_ACCOUNT)
+) COMMENT='会員: 会員登録時にデータが登録される。
+基本的に物理削除はなく、退会したらステータスが退会会員になる。'
+2016-07-31 12:52:07,888 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table MEMBER_ADDRESS(
+    MEMBER_ADDRESS_ID INTEGER AUTO_INCREMENT NOT NULL COMMENT '会員住所ID: 会員住所を識別するID。
+履歴分も含むテーブルなので、これ自体はFKではない。',
+    MEMBER_ID INTEGER NOT NULL COMMENT '会員ID: 会員を参照するID。
+履歴分を含むため、これだけではユニークにはならない。',
+    VALID_BEGIN_DATE DATE NOT NULL COMMENT '有効開始日: 一つの有効期間の開始を示す日付。
+前の有効終了日の次の日の値が格納される。',
+    VALID_END_DATE DATE NOT NULL COMMENT '有効終了日: 有効期間の終了日。
+次の有効開始日の一日前の値が格納される。
+ただし、次の有効期間がない場合は 9999/12/31 となる。',
+    ADDRESS VARCHAR(200) NOT NULL COMMENT '住所: まるごと住所',
+    REGION_ID INTEGER NOT NULL COMMENT '地域ID: 地域を参照するID。
+ここでは特に住所の内容と連動しているわけではない。',
+    REGISTER_DATETIME DATETIME NOT NULL,
+    REGISTER_USER VARCHAR(200) NOT NULL,
+    UPDATE_DATETIME DATETIME NOT NULL,
+    UPDATE_USER VARCHAR(200) NOT NULL,
+    VERSION_NO BIGINT NOT NULL,
+    PRIMARY KEY (MEMBER_ADDRESS_ID),
+    UNIQUE (MEMBER_ID, VALID_BEGIN_DATE)
+) COMMENT='会員住所情報: 会員の住所に関する情報。
+同時に有効期間ごとに履歴管理されている。'
+2016-07-31 12:52:07,912 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table MEMBER_LOGIN(
+    MEMBER_LOGIN_ID BIGINT AUTO_INCREMENT NOT NULL COMMENT '会員ログインID',
+    MEMBER_ID INTEGER NOT NULL COMMENT '会員ID',
+    LOGIN_DATETIME DATETIME NOT NULL COMMENT 'ログイン日時: ログインした瞬間の日時。',
+    MOBILE_LOGIN_FLG INTEGER NOT NULL COMMENT 'モバイルログインフラグ: モバイル機器からのログインか否か。',
+    LOGIN_MEMBER_STATUS_CODE CHAR(3) NOT NULL COMMENT 'ログイン会員ステータスコード: ログイン時の会員ステータス',
+    PRIMARY KEY (MEMBER_LOGIN_ID),
+    UNIQUE (MEMBER_ID, LOGIN_DATETIME)
+) COMMENT='会員ログイン情報: ログインするたびに登録されるログイン履歴。'
+2016-07-31 12:52:07,924 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table MEMBER_SECURITY(
+    MEMBER_ID INTEGER NOT NULL COMMENT '会員ID: そのまま one-to-one を構成するためのFKとなる。',
+    LOGIN_PASSWORD VARCHAR(50) NOT NULL COMMENT 'ログインパスワード: ログイン時に利用するパスワード。
+本当は良くないが、Exampleなのでひとまず暗号化していない。',
+    REMINDER_QUESTION VARCHAR(50) NOT NULL COMMENT 'リマインダ質問: パスワードを忘れた際のリマインダ機能における質問の内容。',
+    REMINDER_ANSWER VARCHAR(50) NOT NULL COMMENT 'リマインダ回答: パスワードを忘れた際のリマインダ機能における質問の答え。',
+    REMINDER_USE_COUNT INTEGER NOT NULL COMMENT 'リマインダ回数: 忘れっぽい人を分析するためのもの。',
+    REGISTER_DATETIME DATETIME NOT NULL,
+    REGISTER_USER VARCHAR(200) NOT NULL,
+    UPDATE_DATETIME DATETIME NOT NULL,
+    UPDATE_USER VARCHAR(200) NOT NULL,
+    VERSION_NO BIGINT NOT NULL,
+    PRIMARY KEY (MEMBER_ID)
+) COMMENT='会員セキュリティ情報: 会員とは one-to-one で、会員一人につき必ず一つのセキュリティ情報がある'
+2016-07-31 12:52:07,938 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table MEMBER_SERVICE(
+	MEMBER_SERVICE_ID INTEGER AUTO_INCREMENT NOT NULL COMMENT '会員サービスID: 代理キー。律儀にIDの役割を分ける',
+    MEMBER_ID INTEGER NOT NULL COMMENT '会員ID: 会員を参照するID。ユニークなので、会員とは one-to-one の関係に。',
+    SERVICE_POINT_COUNT INTEGER NOT NULL COMMENT 'サービスポイント数: 会員が現在利用できるサービスポイントの数。
+基本的に、購入時には増えてポイントを使ったら減る。',
+    SERVICE_RANK_CODE CHAR(3) NOT NULL COMMENT 'サービスランクコード: サービスランクを参照するコード。
+どんなランクがあるのかドキドキですね。',
+    REGISTER_DATETIME DATETIME NOT NULL,
+    REGISTER_USER VARCHAR(200) NOT NULL,
+    UPDATE_DATETIME DATETIME NOT NULL,
+    UPDATE_USER VARCHAR(200) NOT NULL,
+    VERSION_NO BIGINT NOT NULL,
+    PRIMARY KEY (MEMBER_SERVICE_ID),
+    UNIQUE (MEMBER_ID)
+) COMMENT='会員サービス: 会員のサービス情報（ポイントサービスなど）。'
+2016-07-31 12:52:07,950 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table MEMBER_WITHDRAWAL(
+    MEMBER_ID INTEGER NOT NULL,
+    WITHDRAWAL_REASON_CODE CHAR(3) COMMENT '退会理由コード: 退会した定型理由を参照するコード。
+何も言わずに退会する会員もいるので必須項目ではない。',
+    WITHDRAWAL_REASON_INPUT_TEXT TEXT COMMENT '退会理由入力テキスト: 会員がフリーテキストで入力できる退会理由。
+もう言いたいこと言ってもらう感じ。',
+    WITHDRAWAL_DATETIME DATETIME NOT NULL COMMENT '退会日時: 退会した瞬間の日時。
+正式会員日時と違い、こっちはone-to-oneの別テーブルで。',
+    REGISTER_DATETIME DATETIME NOT NULL,
+    REGISTER_USER VARCHAR(200) NOT NULL,
+    UPDATE_DATETIME DATETIME NOT NULL,
+    UPDATE_USER VARCHAR(200) NOT NULL,
+    PRIMARY KEY (MEMBER_ID)
+) COMMENT='会員退会情報: 退会会員の退会に関する詳細な情報。
+退会会員のみデータが存在する。'
+2016-07-31 12:52:07,961 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table PURCHASE(
+    PURCHASE_ID BIGINT AUTO_INCREMENT NOT NULL COMMENT '購入ID: 連番',
+    MEMBER_ID INTEGER NOT NULL COMMENT '会員ID: 会員を参照するID。
+購入を識別する自然キー（複合ユニーク制約）の筆頭要素。',
+    PRODUCT_ID INTEGER NOT NULL COMMENT '商品ID: 商品を参照するID。',
+    PURCHASE_DATETIME DATETIME NOT NULL COMMENT '購入日時: 購入した瞬間の日時。',
+    PURCHASE_COUNT INTEGER NOT NULL COMMENT '購入数量: 購入した商品の（一回の購入における）数量。',
+    PURCHASE_PRICE INTEGER NOT NULL COMMENT '購入価格: 購入によって実際に会員が支払った（支払う予定の）価格。
+基本は商品の定価に購入数量を掛けたものになるが、
+ポイント利用や割引があったりと必ずしもそうはならない。',
+    PAYMENT_COMPLETE_FLG INTEGER NOT NULL COMMENT '支払完了フラグ: この購入に関しての支払いが完了しているか否か。',
+    REGISTER_DATETIME DATETIME NOT NULL,
+    REGISTER_USER VARCHAR(200) NOT NULL,
+    UPDATE_DATETIME DATETIME NOT NULL,
+    UPDATE_USER VARCHAR(200) NOT NULL,
+    VERSION_NO BIGINT NOT NULL,
+    PRIMARY KEY (PURCHASE_ID),
+    UNIQUE (MEMBER_ID, PRODUCT_ID, PURCHASE_DATETIME),
+    KEY (MEMBER_ID),
+    KEY (PRODUCT_ID)
+) COMMENT='購入: 一つの商品に対する一回の購入を表現する。
+一回の購入で一つの商品を複数個買うこともある。'
+2016-07-31 12:52:08,018 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table PURCHASE_PAYMENT(
+    PURCHASE_PAYMENT_ID BIGINT AUTO_INCREMENT NOT NULL COMMENT '購入支払ID: 連番',
+    PURCHASE_ID BIGINT NOT NULL COMMENT '購入ID: 支払い対象の購入へのID',
+    PAYMENT_AMOUNT DECIMAL(10,2) NOT NULL COMMENT '支払金額: 支払った金額。さて、小数点なのはなぜでしょう？',
+    PAYMENT_DATETIME DATETIME NOT NULL COMMENT '支払日時: 支払ったときの日時',
+    PAYMENT_METHOD_CODE CHAR(3) NOT NULL COMMENT '支払方法コード: 手渡しや銀行振込など',
+    REGISTER_DATETIME DATETIME NOT NULL,
+    REGISTER_USER VARCHAR(200) NOT NULL,
+    UPDATE_DATETIME DATETIME NOT NULL,
+    UPDATE_USER VARCHAR(200) NOT NULL,
+    PRIMARY KEY (PURCHASE_PAYMENT_ID)
+) COMMENT='購入支払: 購入に対する支払。
+分割払いもできるのでmanyとなり、会員からの孫テーブルのテストができてうれしい。'
+2016-07-31 12:52:08,029 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table PRODUCT(
+    PRODUCT_ID INTEGER AUTO_INCREMENT NOT NULL,
+    PRODUCT_NAME VARCHAR(50) NOT NULL COMMENT '商品名称',
+    PRODUCT_HANDLE_CODE VARCHAR(100) NOT NULL COMMENT '商品ハンドルコード: 商品を識別する業務上のコード。',
+    PRODUCT_CATEGORY_CODE CHAR(3) NOT NULL,
+    PRODUCT_STATUS_CODE CHAR(3) NOT NULL,
+    REGULAR_PRICE INTEGER NOT NULL COMMENT '定価',
+    REGISTER_DATETIME DATETIME NOT NULL,
+    REGISTER_USER VARCHAR(200) NOT NULL,
+    UPDATE_DATETIME DATETIME NOT NULL,
+    UPDATE_USER VARCHAR(200) NOT NULL,
+    VERSION_NO BIGINT NOT NULL,
+    PRIMARY KEY (PRODUCT_ID),
+    UNIQUE (PRODUCT_HANDLE_CODE)
+) COMMENT='商品'
+2016-07-31 12:52:08,076 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table PRODUCT_CATEGORY(
+    PRODUCT_CATEGORY_CODE CHAR(3) NOT NULL COMMENT '商品カテゴリコード',
+    PRODUCT_CATEGORY_NAME VARCHAR(50) NOT NULL COMMENT '商品カテゴリ名称',
+    PARENT_CATEGORY_CODE CHAR(3) COMMENT '親カテゴリコード: 最上位の場合はデータなし。',
+    PRIMARY KEY (PRODUCT_CATEGORY_CODE)
+) COMMENT='商品カテゴリ: 商品のカテゴリを表現するマスタ。
+自己参照の階層になっている。'
+2016-07-31 12:52:08,087 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table PRODUCT_STATUS(
+    PRODUCT_STATUS_CODE CHAR(3) NOT NULL COMMENT '商品ステータスコード',
+    PRODUCT_STATUS_NAME VARCHAR(50) NOT NULL COMMENT '商品ステータス名称',
+    DISPLAY_ORDER INTEGER NOT NULL,
+    PRIMARY KEY (PRODUCT_STATUS_CODE),
+    UNIQUE (DISPLAY_ORDER)
+) COMMENT='商品ステータス'
+2016-07-31 12:52:08,099 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table REGION(
+    REGION_ID INTEGER NOT NULL COMMENT '地域ID',
+    REGION_NAME VARCHAR(50) NOT NULL COMMENT '地域名称',
+    PRIMARY KEY (REGION_ID)
+) COMMENT='地域: 主に会員の住所に対応する地域。
+かなりざっくりした感じではある。'
+2016-07-31 12:52:08,109 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table SERVICE_RANK(
+    SERVICE_RANK_CODE CHAR(3) NOT NULL COMMENT 'サービスランクコード: サービスランクを識別するコード。',
+    SERVICE_RANK_NAME VARCHAR(50) NOT NULL COMMENT 'サービスランク名称: サービスランクの名称。
+（ゴールドとかプラチナとか基本的には威厳のある名前）',
+    SERVICE_POINT_INCIDENCE NUMERIC(5, 3) NOT NULL COMMENT 'サービスポイント発生率: 購入ごとのサービスポイントの発生率。
+購入価格にこの値をかけた数が発生ポイント。',
+    NEW_ACCEPTABLE_FLG INTEGER NOT NULL COMMENT '新規受け入れ可能フラグ: このランクへの新規受け入れができるかどうか。',
+    DESCRIPTION VARCHAR(200) NOT NULL,
+    DISPLAY_ORDER INTEGER NOT NULL,
+    PRIMARY KEY (SERVICE_RANK_CODE),
+    UNIQUE (DISPLAY_ORDER)
+) COMMENT='サービスランク: 会員のサービスレベルを表現するランク。
+（ゴールドとかプラチナとか）'
+2016-07-31 12:52:08,157 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table MEMBER_STATUS(
+    MEMBER_STATUS_CODE CHAR(3) NOT NULL COMMENT '会員ステータスコード: 会員ステータスを識別するコード。',
+    MEMBER_STATUS_NAME VARCHAR(50) NOT NULL COMMENT '会員ステータス名称',
+    DESCRIPTION VARCHAR(200) NOT NULL COMMENT '説明: 会員ステータスそれぞれの説明。
+気の利いた説明があるとディベロッパーがとても助かる。',
+    DISPLAY_ORDER INTEGER NOT NULL COMMENT '表示順: UI上のステータスの表示順を示すNO。
+並べるときは、このカラムに対して昇順のソート条件にする。',
+    PRIMARY KEY (MEMBER_STATUS_CODE),
+    UNIQUE (DISPLAY_ORDER)
+) COMMENT='会員ステータス'
+2016-07-31 12:52:08,172 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table WITHDRAWAL_REASON(
+    WITHDRAWAL_REASON_CODE CHAR(3) NOT NULL COMMENT '退会理由コード',
+    WITHDRAWAL_REASON_TEXT TEXT NOT NULL COMMENT '退会理由テキスト: 退会理由の内容。テキスト形式なので目いっぱい書けるが、
+そうするとUI側できれいに見せるのが大変でしょうね。',
+    DISPLAY_ORDER INTEGER NOT NULL COMMENT '表示順',
+    PRIMARY KEY (WITHDRAWAL_REASON_CODE),
+    UNIQUE (DISPLAY_ORDER)
+) COMMENT='退会理由: 会員に選ばせる定型的な退会理由のマスタ。'
+2016-07-31 12:52:08,185 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create table MEMBER_FOLLOWING(
+    MEMBER_FOLLOWING_ID BIGINT AUTO_INCREMENT NOT NULL COMMENT '会員フォローイングID: 連番',
+    MY_MEMBER_ID INTEGER NOT NULL COMMENT 'わたし: 気になった人がいて...勇気を振り絞った会員のID。',
+    YOUR_MEMBER_ID INTEGER NOT NULL COMMENT 'あなた: いきなりのアクションに...ちょっと心揺らいだ会員のID。',
+    FOLLOW_DATETIME DATETIME NOT NULL COMMENT 'その瞬間: ふりかえるとちょっと恥ずかしい気持ちになる日時',
+    PRIMARY KEY (MEMBER_FOLLOWING_ID),
+    UNIQUE (MY_MEMBER_ID, YOUR_MEMBER_ID)
+) COMMENT='会員フォローイング: とある会員が他の会員をフォローできる。すると、フォローした会員の購入履歴が閲覧できる。'
+2016-07-31 12:52:08,202 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER add constraint FK_MEMBER_MEMBER_STATUS 
+    foreign key (MEMBER_STATUS_CODE) references MEMBER_STATUS (MEMBER_STATUS_CODE)
+2016-07-31 12:52:08,224 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_ADDRESS add constraint FK_MEMBER_ADDRESS_MEMBER 
+    foreign key (MEMBER_ID) references MEMBER (MEMBER_ID)
+2016-07-31 12:52:08,257 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_ADDRESS add constraint FK_MEMBER_ADDRESS_REGION 
+    foreign key (REGION_ID) references REGION (REGION_ID)
+2016-07-31 12:52:08,279 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_LOGIN add constraint FK_MEMBER_LOGIN_MEMBER_STATUS 
+    foreign key (LOGIN_MEMBER_STATUS_CODE) references MEMBER_STATUS (MEMBER_STATUS_CODE)
+2016-07-31 12:52:08,309 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_LOGIN add constraint FK_MEMBER_LOGIN_MEMBER 
+    foreign key (MEMBER_ID) references MEMBER (MEMBER_ID)
+2016-07-31 12:52:08,359 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_SERVICE add constraint FK_MEMBER_SERVICE_MEMBER 
+    foreign key (MEMBER_ID) references MEMBER (MEMBER_ID)
+2016-07-31 12:52:08,377 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_SERVICE add constraint FK_MEMBER_SERVICE_SERVICE_RANK_CODE 
+    foreign key (SERVICE_RANK_CODE) references SERVICE_RANK (SERVICE_RANK_CODE)
+2016-07-31 12:52:08,399 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_SECURITY add constraint FK_MEMBER_SECURITY_MEMBER 
+    foreign key (MEMBER_ID) references MEMBER (MEMBER_ID)
+2016-07-31 12:52:08,426 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_WITHDRAWAL add constraint FK_MEMBER_WITHDRAWAL_MEMBER 
+    foreign key (MEMBER_ID) references MEMBER (MEMBER_ID)
+2016-07-31 12:52:08,446 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_WITHDRAWAL add constraint FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON 
+    foreign key (WITHDRAWAL_REASON_CODE) references WITHDRAWAL_REASON (WITHDRAWAL_REASON_CODE)
+2016-07-31 12:52:08,466 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table PURCHASE add constraint FK_PURCHASE_MEMBER 
+    foreign key (MEMBER_ID) references MEMBER (MEMBER_ID)
+2016-07-31 12:52:08,493 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table PURCHASE add constraint FK_PURCHASE_PRODUCT 
+    foreign key (PRODUCT_ID) references PRODUCT (PRODUCT_ID)
+2016-07-31 12:52:08,521 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table PURCHASE_PAYMENT add constraint FK_PURCHASE_PAYMENT_PURCHASE 
+    foreign key (PURCHASE_ID) references PURCHASE (PURCHASE_ID)
+2016-07-31 12:52:08,547 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table PRODUCT add constraint FK_PRODUCT_PRODUCT_CATEGORY 
+    foreign key (PRODUCT_CATEGORY_CODE) references PRODUCT_CATEGORY (PRODUCT_CATEGORY_CODE)
+2016-07-31 12:52:08,572 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table PRODUCT add constraint FK_PRODUCT_PRODUCT_STATUS 
+    foreign key (PRODUCT_STATUS_CODE) references PRODUCT_STATUS (PRODUCT_STATUS_CODE)
+2016-07-31 12:52:08,600 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table PRODUCT_CATEGORY add constraint FK_PRODUCT_CATEGORY_PARENT 
+    foreign key (PARENT_CATEGORY_CODE) references PRODUCT_CATEGORY (PRODUCT_CATEGORY_CODE)
+2016-07-31 12:52:08,628 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_FOLLOWING add constraint FK_MEMBER_FOLLOWING_MY_MEMBER 
+    foreign key (MY_MEMBER_ID) references MEMBER (MEMBER_ID)
+2016-07-31 12:52:08,665 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+alter table MEMBER_FOLLOWING add constraint FK_MEMBER_FOLLOWING_YOUR_MEMBER 
+    foreign key (YOUR_MEMBER_ID) references MEMBER (MEMBER_ID)
+2016-07-31 12:52:08,690 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_MEMBER_FOLLOWING_UNIQUE_REVERSE on MEMBER_FOLLOWING(YOUR_MEMBER_ID, MY_MEMBER_ID)
+2016-07-31 12:52:08,707 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_MEMBER_FOLLOWING_FOLLOW_DATETIME on MEMBER_FOLLOWING(FOLLOW_DATETIME)
+2016-07-31 12:52:08,721 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_MEMBER_MEMBER_NAME on MEMBER(MEMBER_NAME)
+2016-07-31 12:52:08,734 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_MEMBER_FORMALIZED_DATETIME on MEMBER(FORMALIZED_DATETIME)
+2016-07-31 12:52:08,753 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_MEMBER_LOGIN_DATETIME on MEMBER_LOGIN(LOGIN_DATETIME)
+2016-07-31 12:52:08,773 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_MEMBER_SERVICE_POINT_COUNT on MEMBER_SERVICE(SERVICE_POINT_COUNT)
+2016-07-31 12:52:08,792 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_PURCHASE_PRODUCT_DATETIME on PURCHASE(PRODUCT_ID, PURCHASE_DATETIME)
+2016-07-31 12:52:08,813 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_PURCHASE_DATETIME_MEMBER on PURCHASE(PURCHASE_DATETIME, MEMBER_ID)
+2016-07-31 12:52:08,833 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_PURCHASE_PRICE on PURCHASE(PURCHASE_PRICE)
+2016-07-31 12:52:08,854 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_PURCHASE_PAYMENT_DATETIME on PURCHASE_PAYMENT(PAYMENT_DATETIME, PAYMENT_AMOUNT)
+2016-07-31 12:52:08,874 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - create index IX_PRODUCT_PRODUCT_NAME on PRODUCT(PRODUCT_NAME)
+2016-07-31 12:52:08,892 [main] INFO  (DfSqlFileRunnerBase#traceResult():172) -  -> success=45 failure=0
+2016-07-31 12:52:08,893 [main] INFO  (DfSqlFileFireMan#fire():64) - ...Firing: replace-schema-50-procedure.sql
+2016-07-31 12:52:08,900 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create procedure SP_IN_OUT_PARAMETER(
+	in v_in_varchar varchar(32)
+	, out v_out_varchar varchar(32)
+	, inout v_inout_varchar varchar(32)
+)
+begin
+	set v_out_varchar = v_inout_varchar;
+	set v_inout_varchar = v_in_varchar;
+end;
+
+2016-07-31 12:52:08,907 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+create procedure SP_RETURN_RESULT_SET(in birthdateFrom DATE)
+begin
+  select MEMBER_NAME, BIRTHDATE, MEMBER_STATUS_CODE
+    from MEMBER
+   where BIRTHDATE >= birthdateFrom
+   order by BIRTHDATE desc, MEMBER_ID asc;
+  select MEMBER_STATUS_CODE, MEMBER_STATUS_NAME
+    from MEMBER_STATUS
+   order by DISPLAY_ORDER;
+end;
+
+2016-07-31 12:52:08,910 [main] INFO  (DfSqlFileRunnerBase#traceResult():172) -  -> success=2 failure=0
+2016-07-31 12:52:08,910 [main] INFO  (DfSqlFileFireMan#fire():89) - {Create Schema}: success=49 failure=0 (in 3 files)
+2016-07-31 12:52:08,910 [main] INFO  (DfCreateSchemaProcess#destroyChangeUserConnection():564) - ...Closing connections to change-users: [system]
+2016-07-31 12:52:09,052 [main] INFO  (DfLoadDataProcess#execute():129) - 
+2016-07-31 12:52:09,053 [main] INFO  (DfLoadDataProcess#execute():130) - * * * * * * * * * * *
+2016-07-31 12:52:09,053 [main] INFO  (DfLoadDataProcess#execute():131) - *                   *
+2016-07-31 12:52:09,053 [main] INFO  (DfLoadDataProcess#execute():132) - * Load Data         *
+2016-07-31 12:52:09,054 [main] INFO  (DfLoadDataProcess#execute():133) - *                   *
+2016-07-31 12:52:09,054 [main] INFO  (DfLoadDataProcess#execute():134) - * * * * * * * * * * *
+2016-07-31 12:52:09,090 [main] INFO  (DfXlsDataHandlerImpl#writeSeveralData():128) - /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+2016-07-31 12:52:09,090 [main] INFO  (DfXlsDataHandlerImpl#writeSeveralData():129) - writeData(playsql/data/common/xls/10-master.xls)
+2016-07-31 12:52:09,090 [main] INFO  (DfXlsDataHandlerImpl#writeSeveralData():130) - = = = = = = =/
+2016-07-31 12:52:09,440 [main] INFO  (DfTableExtractor#doGetTableList():66) - ...Getting tables:
+2016-07-31 12:52:09,441 [main] INFO  (DfTableExtractor#doGetTableList():67) -   schema = {maihamadb.$$NoNameSchema$$ as main}
+2016-07-31 12:52:09,441 [main] INFO  (DfTableExtractor#doGetTableList():68) -   types  = [TABLE, VIEW]
+2016-07-31 12:52:09,483 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_STATUS:{PRV, 仮会員, 入会直後のステータスで一部のサイトサービスが利用可能, 3}
+2016-07-31 12:52:09,540 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_STATUS:{FML, 正式会員, 正式な会員としてサイトサービスが利用可能, 1}
+2016-07-31 12:52:09,540 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_STATUS:{WDL, 退会会員, 退会が確定した会員でサイトサービスはダメ, 2}
+2016-07-31 12:52:09,541 [main] INFO  (DfXlsDataHandlerImpl#doWriteDataTable():212) - ...Skipping the terminal garbage row
+2016-07-31 12:52:09,561 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 3 rows are loaded to MEMBER_STATUS
+2016-07-31 12:52:09,563 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - REGION:{1, アメリカ}
+2016-07-31 12:52:09,563 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - REGION:{2, カナダ}
+2016-07-31 12:52:09,564 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - REGION:{3, 中国}
+2016-07-31 12:52:09,564 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - REGION:{4, 千葉}
+2016-07-31 12:52:09,570 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 4 rows are loaded to REGION
+2016-07-31 12:52:09,571 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - SERVICE_RANK:{PLT, PLATINUM, 12.3, 1, platinum rank, 1}
+2016-07-31 12:52:09,572 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - SERVICE_RANK:{GLD, GOLD, 9.2, 1, gold rank, 2}
+2016-07-31 12:52:09,573 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - SERVICE_RANK:{SIL, SILVER, 6.74, 1, silver rank, 3}
+2016-07-31 12:52:09,574 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - SERVICE_RANK:{BRZ, BRONZE, 2, 1, bronze rank, 4}
+2016-07-31 12:52:09,574 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - SERVICE_RANK:{PLS, PLASTIC, 0.1, 0, plastic rank, 5}
+2016-07-31 12:52:09,581 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 5 rows are loaded to SERVICE_RANK
+2016-07-31 12:52:09,582 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - WITHDRAWAL_REASON:{SIT, サイトが使いにくいから, 1}
+2016-07-31 12:52:09,583 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - WITHDRAWAL_REASON:{OTH, その他理由, 4}
+2016-07-31 12:52:09,583 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - WITHDRAWAL_REASON:{FRT, フリテンだから, 3}
+2016-07-31 12:52:09,583 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - WITHDRAWAL_REASON:{PRD, 商品に魅力がないから, 2}
+2016-07-31 12:52:09,590 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 4 rows are loaded to WITHDRAWAL_REASON
+2016-07-31 12:52:09,592 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT_CATEGORY:{MSC, 音楽, null}
+2016-07-31 12:52:09,593 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT_CATEGORY:{FOD, 食品, null}
+2016-07-31 12:52:09,593 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT_CATEGORY:{MCD, 音楽CD, MSC}
+2016-07-31 12:52:09,594 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT_CATEGORY:{INS, 楽器, MSC}
+2016-07-31 12:52:09,594 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT_CATEGORY:{HEB, ハーブ, FOD}
+2016-07-31 12:52:09,600 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 5 rows are loaded to PRODUCT_CATEGORY
+2016-07-31 12:52:09,601 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT_STATUS:{ONS, 生産販売可能, 1}
+2016-07-31 12:52:09,601 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT_STATUS:{PST, 生産中止, 2}
+2016-07-31 12:52:09,602 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT_STATUS:{SST, 販売中止, 3}
+2016-07-31 12:52:09,607 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 3 rows are loaded to PRODUCT_STATUS
+2016-07-31 12:52:09,609 [main] INFO  (DfXlsDataHandlerImpl#writeSeveralData():128) - /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+2016-07-31 12:52:09,610 [main] INFO  (DfXlsDataHandlerImpl#writeSeveralData():129) - writeData(playsql/data/ut/xls/20-member.xls)
+2016-07-31 12:52:09,610 [main] INFO  (DfXlsDataHandlerImpl#writeSeveralData():130) - = = = = = = =/
+2016-07-31 12:52:09,795 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{1, Stojkovic, Pixy, FML, 2007/12/01 11:01:10, 1965/03/03, 2016-07-31 12:52:09.794, foo, 2016-07-31 12:52:09.794, foo, 0}
+2016-07-31 12:52:09,809 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{2, Savicevic, Genius, PRV, null, 1966/09/15, 2016-07-31 12:52:09.809, foo, 2016-07-31 12:52:09.809, foo, 0}
+2016-07-31 12:52:09,811 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{3, Mijatovic, Mijato, WDL, 2005/10/03 13:03:30, null, 2016-07-31 12:52:09.811, foo, 2016-07-31 12:52:09.811, foo, 0}
+2016-07-31 12:52:09,813 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{4, Stankovic, Stanko, FML, 2006/09/04 14:04:40, 1978/09/11, 2016-07-31 12:52:09.813, foo, 2016-07-31 12:52:09.813, foo, 0}
+2016-07-31 12:52:09,817 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{5, Milosevic, Milose, FML, 2007/08/05 15:05:50, null, 2016-07-31 12:52:09.816, foo, 2016-07-31 12:52:09.816, foo, 0}
+2016-07-31 12:52:09,818 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{6, Mihajlovic, FreeKick, WDL, 2006/07/06 16:06:40, 1969/02/20, 2016-07-31 12:52:09.818, foo, 2016-07-31 12:52:09.818, foo, 0}
+2016-07-31 12:52:09,821 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{7, アカギ, Akagi, FML, 2005/06/07 17:07:30, null, 2016-07-31 12:52:09.821, foo, 2016-07-31 12:52:09.821, foo, 0}
+2016-07-31 12:52:09,822 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{8, Kezman, RedCard, FML, 2006/05/08 18:08:20, null, 2016-07-31 12:52:09.822, foo, 2016-07-31 12:52:09.822, foo, 0}
+2016-07-31 12:52:09,824 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{9, Maslovar, JEFUnited, FML, 2007/12/31 00:00:00, 1967/02/20, 2016-07-31 12:52:09.824, foo, 2016-07-31 12:52:09.824, foo, 0}
+2016-07-31 12:52:09,827 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{10, 諸葛亮孔明, ShokatsuGoGo, PRV, null, null, 2016-07-31 12:52:09.827, foo, 2016-07-31 12:52:09.827, foo, 0}
+2016-07-31 12:52:09,829 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{11, Boban, Boban, FML, 2007/12/01 11:01:10, 1968/10/08, 2016-07-31 12:52:09.828, foo, 2016-07-31 12:52:09.828, foo, 0}
+2016-07-31 12:52:09,831 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{12, Suker, Suker, PRV, null, 1968/01/01, 2016-07-31 12:52:09.831, foo, 2016-07-31 12:52:09.831, foo, 0}
+2016-07-31 12:52:09,833 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{13, Jarni, Jarni, WDL, 2005/10/03 13:03:30, 1968/10/26, 2016-07-31 12:52:09.833, foo, 2016-07-31 12:52:09.833, foo, 0}
+2016-07-31 12:52:09,836 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{14, Boksic, Boksic, FML, 2006/09/04 14:04:40, 1970/01/21, 2016-07-31 12:52:09.836, foo, 2016-07-31 12:52:09.836, foo, 0}
+2016-07-31 12:52:09,839 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{15, Prosinecki, Prosinecki, FML, 2004/08/05 15:05:50, 1969/01/12, 2016-07-31 12:52:09.838, foo, 2016-07-31 12:52:09.838, foo, 0}
+2016-07-31 12:52:09,841 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{16, RobeltKovac, RobeltKovac, WDL, 2006/07/06 16:06:40, null, 2016-07-31 12:52:09.841, foo, 2016-07-31 12:52:09.841, foo, 0}
+2016-07-31 12:52:09,844 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{17, NikoKovac, NikoKovac, FML, 2005/06/07 17:07:30, null, 2016-07-31 12:52:09.843, foo, 2016-07-31 12:52:09.843, foo, 0}
+2016-07-31 12:52:09,846 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{18, Jovanovic, Jovano, FML, 2006/05/08 18:08:20, 1981/04/18, 2016-07-31 12:52:09.845, foo, 2016-07-31 12:52:09.845, foo, 0}
+2016-07-31 12:52:09,850 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{19, Milko, Milko, FML, 2005/12/31 12:34:56, 1974/09/10, 2016-07-31 12:52:09.85, foo, 2016-07-31 12:52:09.85, foo, 0}
+2016-07-31 12:52:09,853 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER:{20, 諸葛瑾子瑜, ShokatsuKinKin, FML, 2001/12/31 23:59:59, null, 2016-07-31 12:52:09.852, foo, 2016-07-31 12:52:09.852, foo, 0}
+2016-07-31 12:52:09,879 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 20 rows are loaded to MEMBER
+2016-07-31 12:52:09,881 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{1, 1, 2007/03/24, 2015/12/31, Nagara, 4, 2016-07-31 12:52:09.881, foo, 2016-07-31 12:52:09.881, foo, 0}
+2016-07-31 12:52:09,885 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{2, 1, 1949/01/01, 1997/03/31, New York, 1, 2016-07-31 12:52:09.885, foo, 2016-07-31 12:52:09.885, foo, 0}
+2016-07-31 12:52:09,888 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{3, 1, 1997/04/01, 2000/09/30, Los Angels, 1, 2016-07-31 12:52:09.888, foo, 2016-07-31 12:52:09.888, foo, 0}
+2016-07-31 12:52:09,893 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{4, 1, 2000/10/01, 2003/08/31, New York, 1, 2016-07-31 12:52:09.893, foo, 2016-07-31 12:52:09.893, foo, 0}
+2016-07-31 12:52:09,896 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{5, 1, 2003/09/01, 2004/12/22, San Francisco Powell, 1, 2016-07-31 12:52:09.896, foo, 2016-07-31 12:52:09.896, foo, 0}
+2016-07-31 12:52:09,898 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{6, 1, 2004/12/23, 2006/03/23, San Francisco Daly City, 1, 2016-07-31 12:52:09.898, foo, 2016-07-31 12:52:09.898, foo, 0}
+2016-07-31 12:52:09,912 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{7, 1, 2016/01/01, 9999/12/31, Victoria, 2, 2016-07-31 12:52:09.912, foo, 2016-07-31 12:52:09.912, foo, 0}
+2016-07-31 12:52:09,914 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{8, 2, 2004/12/24, 9999/12/31, Ichihara, 4, 2016-07-31 12:52:09.914, foo, 2016-07-31 12:52:09.914, foo, 0}
+2016-07-31 12:52:09,916 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{9, 3, 2004/12/24, 2007/03/23, Mobara, 4, 2016-07-31 12:52:09.916, foo, 2016-07-31 12:52:09.916, foo, 0}
+2016-07-31 12:52:09,918 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{10, 4, 2002/11/01, 9999/12/31, Sousa, 4, 2016-07-31 12:52:09.918, foo, 2016-07-31 12:52:09.918, foo, 0}
+2016-07-31 12:52:09,920 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{11, 6, 2002/11/01, 9999/12/31, Yokoshiba, 4, 2016-07-31 12:52:09.92, foo, 2016-07-31 12:52:09.92, foo, 0}
+2016-07-31 12:52:09,923 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{12, 9, 2010/11/01, 9999/12/31, Tateyama, 4, 2016-07-31 12:52:09.923, foo, 2016-07-31 12:52:09.923, foo, 0}
+2016-07-31 12:52:09,927 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{13, 10, 1970/01/01, 9999/12/31, Shoku, 3, 2016-07-31 12:52:09.927, foo, 2016-07-31 12:52:09.927, foo, 0}
+2016-07-31 12:52:09,933 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{14, 12, 2000/11/01, 2001/11/01, Oohara, 4, 2016-07-31 12:52:09.933, foo, 2016-07-31 12:52:09.933, foo, 0}
+2016-07-31 12:52:09,936 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{15, 15, 2002/11/01, 2006/10/30, MinamiBousou, 4, 2016-07-31 12:52:09.936, foo, 2016-07-31 12:52:09.936, foo, 0}
+2016-07-31 12:52:09,938 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{16, 15, 2007/11/01, 9999/12/31, Tomisato, 4, 2016-07-31 12:52:09.938, foo, 2016-07-31 12:52:09.938, foo, 0}
+2016-07-31 12:52:09,940 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{17, 18, 2001/03/21, 2007/11/21, Katsuura, 4, 2016-07-31 12:52:09.94, foo, 2016-07-31 12:52:09.94, foo, 0}
+2016-07-31 12:52:09,943 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{18, 18, 2007/11/22, 9999/12/31, Kamogawa, 4, 2016-07-31 12:52:09.943, foo, 2016-07-31 12:52:09.943, foo, 0}
+2016-07-31 12:52:09,945 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{19, 19, 2000/11/01, 9999/12/31, Yotsukaido, 4, 2016-07-31 12:52:09.945, foo, 2016-07-31 12:52:09.945, foo, 0}
+2016-07-31 12:52:09,947 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_ADDRESS:{20, 20, 1970/01/01, 9999/12/31, Go, 3, 2016-07-31 12:52:09.947, foo, 2016-07-31 12:52:09.947, foo, 0}
+2016-07-31 12:52:09,966 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 20 rows are loaded to MEMBER_ADDRESS
+2016-07-31 12:52:09,967 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{1, 3, 2006/12/24 23:59:59, 0, FML}
+2016-07-31 12:52:09,970 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{2, 6, 2007/11/11 16:16:16, 0, FML}
+2016-07-31 12:52:09,972 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{3, 1, 2006/12/23 22:56:29, 0, FML}
+2016-07-31 12:52:09,974 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{4, 6, 2007/11/01 02:13:00, 0, FML}
+2016-07-31 12:52:09,975 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{5, 7, 2006/05/24 23:12:59, 0, FML}
+2016-07-31 12:52:09,977 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{6, 6, 2005/11/11 16:32:01, 0, PRV}
+2016-07-31 12:52:09,978 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{7, 6, 2006/01/28 23:59:59, 1, FML}
+2016-07-31 12:52:09,979 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{8, 6, 2007/11/09 16:23:00, 0, FML}
+2016-07-31 12:52:09,980 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{9, 8, 2006/12/22 23:59:59, 0, FML}
+2016-07-31 12:52:09,981 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{10, 6, 2007/11/11 09:01:00, 0, FML}
+2016-07-31 12:52:09,982 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{11, 1, 2006/12/23 23:59:59, 0, FML}
+2016-07-31 12:52:09,983 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{12, 9, 2007/11/15 12:43:00, 0, FML}
+2016-07-31 12:52:09,984 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{13, 10, 2006/12/24 23:59:59, 0, FML}
+2016-07-31 12:52:09,985 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{14, 6, 2007/04/01 16:23:01, 0, FML}
+2016-07-31 12:52:09,986 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{15, 7, 2006/12/24 23:59:20, 1, FML}
+2016-07-31 12:52:09,987 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{16, 6, 2007/05/01 12:23:02, 0, FML}
+2016-07-31 12:52:09,988 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{17, 7, 2006/12/24 23:59:21, 0, FML}
+2016-07-31 12:52:09,989 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{18, 6, 2007/06/11 17:23:03, 0, FML}
+2016-07-31 12:52:09,990 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{19, 4, 2006/12/24 23:59:22, 0, FML}
+2016-07-31 12:52:09,991 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{20, 3, 2007/11/01 16:12:04, 0, FML}
+2016-07-31 12:52:09,992 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{21, 11, 2006/12/24 23:59:23, 0, FML}
+2016-07-31 12:52:09,993 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{22, 1, 2007/11/01 16:23:05, 0, PRV}
+2016-07-31 12:52:09,994 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{23, 9, 2006/12/24 23:59:24, 1, FML}
+2016-07-31 12:52:09,995 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{24, 8, 2007/11/01 16:23:06, 0, FML}
+2016-07-31 12:52:09,996 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{25, 7, 2007/12/24 11:59:25, 1, FML}
+2016-07-31 12:52:09,997 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{26, 6, 2007/06/21 01:23:57, 0, FML}
+2016-07-31 12:52:09,998 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{27, 5, 2006/12/24 23:59:26, 0, FML}
+2016-07-31 12:52:09,999 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{28, 3, 2007/11/01 16:23:08, 0, FML}
+2016-07-31 12:52:09,999 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{29, 3, 2006/12/24 23:59:27, 0, FML}
+2016-07-31 12:52:10,000 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{30, 10, 2007/11/01 16:23:09, 0, FML}
+2016-07-31 12:52:10,001 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{31, 15, 2006/07/24 23:59:28, 0, FML}
+2016-07-31 12:52:10,002 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{32, 14, 2007/11/01 17:23:10, 0, FML}
+2016-07-31 12:52:10,004 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{33, 15, 2007/11/01 16:23:10, 0, FML}
+2016-07-31 12:52:10,005 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{34, 18, 2006/07/24 23:59:29, 0, FML}
+2016-07-31 12:52:10,006 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{35, 3, 2007/11/01 17:23:11, 0, PRV}
+2016-07-31 12:52:10,006 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{36, 5, 2007/11/01 16:23:11, 1, FML}
+2016-07-31 12:52:10,007 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{37, 11, 2006/07/24 23:59:30, 0, FML}
+2016-07-31 12:52:10,008 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{38, 20, 2007/11/01 17:23:12, 1, FML}
+2016-07-31 12:52:10,009 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{39, 19, 2007/11/01 16:23:12, 0, FML}
+2016-07-31 12:52:10,009 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{40, 4, 2006/07/24 23:59:31, 0, FML}
+2016-07-31 12:52:10,010 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{41, 4, 2007/11/01 17:23:13, 0, FML}
+2016-07-31 12:52:10,011 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{42, 4, 2007/11/01 16:23:13, 0, FML}
+2016-07-31 12:52:10,012 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{43, 4, 2006/07/24 23:52:32, 0, FML}
+2016-07-31 12:52:10,013 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{44, 4, 2007/11/01 11:23:14, 0, FML}
+2016-07-31 12:52:10,014 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{45, 4, 2007/11/21 06:23:14, 0, FML}
+2016-07-31 12:52:10,014 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{46, 12, 2006/07/24 23:52:33, 0, PRV}
+2016-07-31 12:52:10,015 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{47, 13, 2007/11/01 11:23:15, 1, FML}
+2016-07-31 12:52:10,016 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{48, 14, 2007/11/21 06:23:15, 0, FML}
+2016-07-31 12:52:10,017 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{49, 17, 2006/07/24 23:52:34, 1, FML}
+2016-07-31 12:52:10,017 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{50, 18, 2007/11/01 11:23:16, 0, FML}
+2016-07-31 12:52:10,018 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{51, 16, 2007/11/21 06:23:16, 0, FML}
+2016-07-31 12:52:10,019 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{52, 4, 2006/07/24 23:52:35, 0, FML}
+2016-07-31 12:52:10,020 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{53, 5, 2007/11/01 11:23:17, 0, FML}
+2016-07-31 12:52:10,022 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{54, 5, 2007/11/21 06:23:17, 0, FML}
+2016-07-31 12:52:10,024 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{55, 11, 2006/07/24 23:52:36, 0, FML}
+2016-07-31 12:52:10,026 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_LOGIN:{56, 12, 2007/11/01 11:23:18, 0, FML}
+2016-07-31 12:52:10,077 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 56 rows are loaded to MEMBER_LOGIN
+2016-07-31 12:52:10,078 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{1, aaa, 30符3飜は？, 自分で数えろ, 1, 2016-07-31 12:52:10.078, foo, 2016-07-31 12:52:10.078, foo, 0}
+2016-07-31 12:52:10,080 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{2, bbb, 50符2飜は？, 自分で数えろ, 2, 2016-07-31 12:52:10.08, foo, 2016-07-31 12:52:10.08, foo, 0}
+2016-07-31 12:52:10,081 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{3, ccc, 110符2飜は？, 自分で数えろ, 3, 2016-07-31 12:52:10.081, foo, 2016-07-31 12:52:10.081, foo, 0}
+2016-07-31 12:52:10,082 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{4, ddd, タンヤオ？, そう, 4, 2016-07-31 12:52:10.082, foo, 2016-07-31 12:52:10.082, foo, 0}
+2016-07-31 12:52:10,082 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{5, eee2, ピンフ？, そう, 5, 2016-07-31 12:52:10.082, foo, 2016-07-31 12:52:10.082, foo, 0}
+2016-07-31 12:52:10,083 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{6, fff, サンアンコウ？, そう, 6, 2016-07-31 12:52:10.083, foo, 2016-07-31 12:52:10.083, foo, 0}
+2016-07-31 12:52:10,084 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{7, ggg3, イーペーコウ？, そう, 7, 2016-07-31 12:52:10.084, foo, 2016-07-31 12:52:10.084, foo, 0}
+2016-07-31 12:52:10,085 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{8, hhh555, リャンペーコウ？, そう, 8, 2016-07-31 12:52:10.085, foo, 2016-07-31 12:52:10.085, foo, 0}
+2016-07-31 12:52:10,086 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{9, iii, サンペーコウはないよね？, 当たり前だ, 9, 2016-07-31 12:52:10.086, foo, 2016-07-31 12:52:10.086, foo, 0}
+2016-07-31 12:52:10,086 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{10, jjj, 私はイカサマしません, 実はする, 10, 2016-07-31 12:52:10.086, foo, 2016-07-31 12:52:10.086, foo, 0}
+2016-07-31 12:52:10,088 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{11, qwe, 70符3飜は？, 自分で数えろ, 11, 2016-07-31 12:52:10.088, foo, 2016-07-31 12:52:10.088, foo, 0}
+2016-07-31 12:52:10,089 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{12, sdf, 20符4飜は？, 自分で数えろ, 12, 2016-07-31 12:52:10.089, foo, 2016-07-31 12:52:10.089, foo, 0}
+2016-07-31 12:52:10,091 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{13, dfgsf, 大三元は？, 役満だよ, 13, 2016-07-31 12:52:10.091, foo, 2016-07-31 12:52:10.091, foo, 0}
+2016-07-31 12:52:10,092 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{14, ert, タンヤオ？, そう, 14, 2016-07-31 12:52:10.092, foo, 2016-07-31 12:52:10.092, foo, 0}
+2016-07-31 12:52:10,094 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{15, fhgf, ピンフ？, そう, 15, 2016-07-31 12:52:10.093, foo, 2016-07-31 12:52:10.093, foo, 0}
+2016-07-31 12:52:10,095 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{16, ghj, サンアンコウ？, そう, 16, 2016-07-31 12:52:10.095, foo, 2016-07-31 12:52:10.095, foo, 0}
+2016-07-31 12:52:10,096 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{17, tyuffff, サンレンコウ？, そう, 17, 2016-07-31 12:52:10.096, foo, 2016-07-31 12:52:10.096, foo, 0}
+2016-07-31 12:52:10,097 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{18, jkl, イーペーコウ？, そう, 18, 2016-07-31 12:52:10.096, foo, 2016-07-31 12:52:10.096, foo, 0}
+2016-07-31 12:52:10,097 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{19, ghjfff, 左ハイは？, 痛い, 19, 2016-07-31 12:52:10.097, foo, 2016-07-31 12:52:10.097, foo, 0}
+2016-07-31 12:52:10,098 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SECURITY:{20, cvb, 孫権は？, 呉, 20, 2016-07-31 12:52:10.098, foo, 2016-07-31 12:52:10.098, foo, 0}
+2016-07-31 12:52:10,132 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 20 rows are loaded to MEMBER_SECURITY
+2016-07-31 12:52:10,133 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{1, 1, 1234, PLT, 2016-07-31 12:52:10.133, foo, 2016-07-31 12:52:10.133, foo, 0}
+2016-07-31 12:52:10,134 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{2, 2, 2345, GLD, 2016-07-31 12:52:10.134, foo, 2016-07-31 12:52:10.134, foo, 0}
+2016-07-31 12:52:10,135 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{3, 3, 3456, GLD, 2016-07-31 12:52:10.135, foo, 2016-07-31 12:52:10.135, foo, 0}
+2016-07-31 12:52:10,136 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{4, 4, 875, BRZ, 2016-07-31 12:52:10.136, foo, 2016-07-31 12:52:10.136, foo, 0}
+2016-07-31 12:52:10,137 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{5, 5, 1111, BRZ, 2016-07-31 12:52:10.137, foo, 2016-07-31 12:52:10.137, foo, 0}
+2016-07-31 12:52:10,138 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{6, 6, 5422, SIL, 2016-07-31 12:52:10.138, foo, 2016-07-31 12:52:10.138, foo, 0}
+2016-07-31 12:52:10,139 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{7, 7, 24678, SIL, 2016-07-31 12:52:10.139, foo, 2016-07-31 12:52:10.139, foo, 0}
+2016-07-31 12:52:10,140 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{8, 8, 234, SIL, 2016-07-31 12:52:10.14, foo, 2016-07-31 12:52:10.14, foo, 0}
+2016-07-31 12:52:10,141 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{9, 9, 3, SIL, 2016-07-31 12:52:10.141, foo, 2016-07-31 12:52:10.141, foo, 0}
+2016-07-31 12:52:10,142 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{10, 10, 98765, PLT, 2016-07-31 12:52:10.142, foo, 2016-07-31 12:52:10.142, foo, 0}
+2016-07-31 12:52:10,143 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{11, 11, 34, GLD, 2016-07-31 12:52:10.143, foo, 2016-07-31 12:52:10.143, foo, 0}
+2016-07-31 12:52:10,144 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{12, 12, 532, PLT, 2016-07-31 12:52:10.144, foo, 2016-07-31 12:52:10.144, foo, 0}
+2016-07-31 12:52:10,144 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{13, 13, 23678, GLD, 2016-07-31 12:52:10.144, foo, 2016-07-31 12:52:10.144, foo, 0}
+2016-07-31 12:52:10,146 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{14, 14, 432, GLD, 2016-07-31 12:52:10.146, foo, 2016-07-31 12:52:10.146, foo, 0}
+2016-07-31 12:52:10,147 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{15, 15, 543, BRZ, 2016-07-31 12:52:10.146, foo, 2016-07-31 12:52:10.146, foo, 0}
+2016-07-31 12:52:10,147 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{16, 16, 23545, PLT, 2016-07-31 12:52:10.147, foo, 2016-07-31 12:52:10.147, foo, 0}
+2016-07-31 12:52:10,148 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{17, 17, 2345, GLD, 2016-07-31 12:52:10.148, foo, 2016-07-31 12:52:10.148, foo, 0}
+2016-07-31 12:52:10,149 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{18, 18, 8763, SIL, 2016-07-31 12:52:10.149, foo, 2016-07-31 12:52:10.149, foo, 0}
+2016-07-31 12:52:10,150 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{19, 19, 34567, SIL, 2016-07-31 12:52:10.15, foo, 2016-07-31 12:52:10.15, foo, 0}
+2016-07-31 12:52:10,151 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_SERVICE:{20, 20, 43, GLD, 2016-07-31 12:52:10.151, foo, 2016-07-31 12:52:10.151, foo, 0}
+2016-07-31 12:52:10,174 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 20 rows are loaded to MEMBER_SERVICE
+2016-07-31 12:52:10,175 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_WITHDRAWAL:{3, null, 俺はワールドカップでPK外した…, 2006/12/24 23:59:59.123, 2016-07-31 12:52:10.175, foo, 2016-07-31 12:52:10.175, foo}
+2016-07-31 12:52:10,177 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_WITHDRAWAL:{6, SIT, null, 2007/11/11 16:00:00.456, 2016-07-31 12:52:10.177, foo, 2016-07-31 12:52:10.177, foo}
+2016-07-31 12:52:10,178 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_WITHDRAWAL:{13, PRD, 左サイドで走りすぎて疲れた, 2006/12/24 05:52:29.789, 2016-07-31 12:52:10.178, foo, 2016-07-31 12:52:10.178, foo}
+2016-07-31 12:52:10,180 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_WITHDRAWAL:{16, SIT, コバチが２人いるため, 2007/11/13 16:00:00.456, 2016-07-31 12:52:10.18, foo, 2016-07-31 12:52:10.18, foo}
+2016-07-31 12:52:10,191 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 4 rows are loaded to MEMBER_WITHDRAWAL
+2016-07-31 12:52:10,193 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{1, 1, 2, 2006/12/24 23:59:59}
+2016-07-31 12:52:10,194 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{2, 1, 3, 2007/11/11 16:16:16}
+2016-07-31 12:52:10,195 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{3, 1, 4, 2006/12/23 22:56:29}
+2016-07-31 12:52:10,196 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{4, 1, 5, 2007/11/01 02:13:00}
+2016-07-31 12:52:10,197 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{5, 1, 6, 2012/05/24 23:12:59}
+2016-07-31 12:52:10,198 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{6, 1, 9, 2005/11/11 16:32:01}
+2016-07-31 12:52:10,199 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{7, 1, 15, 2006/01/28 23:59:59}
+2016-07-31 12:52:10,200 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{8, 1, 18, 2007/11/09 16:23:00}
+2016-07-31 12:52:10,200 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{9, 2, 1, 2009/12/22 23:59:59}
+2016-07-31 12:52:10,201 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{10, 2, 3, 2007/11/11 09:01:00}
+2016-07-31 12:52:10,202 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{11, 2, 4, 2006/11/23 23:59:59}
+2016-07-31 12:52:10,202 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{12, 2, 9, 2012/11/15 12:43:00}
+2016-07-31 12:52:10,219 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{13, 2, 14, 2006/12/24 23:59:59}
+2016-07-31 12:52:10,220 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{14, 2, 19, 2011/04/01 16:23:01}
+2016-07-31 12:52:10,221 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{15, 3, 1, 2006/12/24 23:59:20}
+2016-07-31 12:52:10,278 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{16, 3, 2, 2008/05/01 12:23:02}
+2016-07-31 12:52:10,281 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{17, 3, 4, 2006/12/24 23:59:21}
+2016-07-31 12:52:10,288 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{18, 3, 6, 2009/06/11 17:23:03}
+2016-07-31 12:52:10,290 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{19, 3, 9, 2010/12/24 23:59:22}
+2016-07-31 12:52:10,298 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{20, 3, 10, 2007/11/01 16:12:04}
+2016-07-31 12:52:10,299 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{21, 4, 1, 2006/12/24 23:59:23}
+2016-07-31 12:52:10,300 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{22, 4, 2, 2007/11/01 16:23:05}
+2016-07-31 12:52:10,301 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{23, 4, 3, 2011/12/24 23:59:24}
+2016-07-31 12:52:10,302 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{24, 4, 4, 2007/11/01 16:23:06}
+2016-07-31 12:52:10,302 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{25, 4, 5, 2013/05/24 11:59:25}
+2016-07-31 12:52:10,303 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{26, 4, 6, 2007/06/21 01:23:57}
+2016-07-31 12:52:10,304 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{27, 4, 9, 2006/12/24 23:59:26}
+2016-07-31 12:52:10,305 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{28, 4, 11, 2007/11/01 16:23:08}
+2016-07-31 12:52:10,305 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{29, 4, 12, 2013/02/24 23:59:27}
+2016-07-31 12:52:10,306 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{30, 4, 13, 2012/11/01 16:23:03}
+2016-07-31 12:52:10,307 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{31, 4, 14, 2006/07/24 23:59:28}
+2016-07-31 12:52:10,308 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{32, 4, 15, 2007/11/01 17:23:10}
+2016-07-31 12:52:10,309 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{33, 4, 16, 2007/11/01 16:23:10}
+2016-07-31 12:52:10,313 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{34, 4, 17, 2006/07/24 23:59:29}
+2016-07-31 12:52:10,315 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{35, 4, 18, 2011/11/01 17:23:11}
+2016-07-31 12:52:10,316 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{36, 4, 19, 2007/11/01 16:23:11}
+2016-07-31 12:52:10,317 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{37, 5, 1, 2008/07/24 23:59:30}
+2016-07-31 12:52:10,323 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{38, 5, 3, 2007/11/01 17:23:12}
+2016-07-31 12:52:10,326 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{39, 5, 6, 2007/11/01 16:23:12}
+2016-07-31 12:52:10,329 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{40, 6, 1, 2006/07/24 23:59:31}
+2016-07-31 12:52:10,330 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{41, 6, 2, 2007/11/01 17:23:13}
+2016-07-31 12:52:10,331 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{42, 6, 3, 2007/11/01 16:23:13}
+2016-07-31 12:52:10,334 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{43, 6, 4, 2006/07/24 23:52:32}
+2016-07-31 12:52:10,335 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{44, 6, 5, 2007/11/01 11:23:14}
+2016-07-31 12:52:10,336 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{45, 6, 6, 2007/11/21 06:23:14}
+2016-07-31 12:52:10,337 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{46, 8, 1, 2011/07/24 23:52:33}
+2016-07-31 12:52:10,337 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{47, 8, 2, 2007/11/01 11:23:15}
+2016-07-31 12:52:10,339 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{48, 8, 3, 2007/11/21 06:23:15}
+2016-07-31 12:52:10,340 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{49, 9, 1, 2006/07/24 23:52:34}
+2016-07-31 12:52:10,341 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{50, 9, 2, 208/11/01 11:23:16}
+2016-07-31 12:52:10,345 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{51, 9, 3, 2007/11/21 06:23:16}
+2016-07-31 12:52:10,345 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{52, 9, 10, 2006/07/24 23:52:35}
+2016-07-31 12:52:10,346 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{53, 9, 20, 2009/11/01 11:23:17}
+2016-07-31 12:52:10,347 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{54, 10, 1, 2007/11/21 06:23:17}
+2016-07-31 12:52:10,349 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{55, 10, 2, 2006/07/24 23:52:36}
+2016-07-31 12:52:10,350 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{56, 10, 3, 2010/11/01 11:23:18}
+2016-07-31 12:52:10,350 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{57, 10, 4, 2006/12/21 23:59:59}
+2016-07-31 12:52:10,351 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{58, 10, 5, 2007/11/1 16:16:16}
+2016-07-31 12:52:10,353 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{59, 10, 6, 2006/08/23 22:56:29}
+2016-07-31 12:52:10,354 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{60, 10, 9, 2007/11/01 02:11:00}
+2016-07-31 12:52:10,354 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{61, 10, 11, 2012/05/24 23:12:59}
+2016-07-31 12:52:10,357 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{62, 10, 12, 2005/11/10 16:32:01}
+2016-07-31 12:52:10,359 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{63, 10, 13, 2006/01/28 23:59:59}
+2016-07-31 12:52:10,361 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{64, 10, 14, 2007/10/09 16:23:00}
+2016-07-31 12:52:10,362 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{65, 10, 15, 2009/12/22 23:59:59}
+2016-07-31 12:52:10,363 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{66, 10, 16, 2007/11/01 09:01:00}
+2016-07-31 12:52:10,364 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{67, 10, 17, 2006/11/23 23:59:59}
+2016-07-31 12:52:10,365 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{68, 10, 18, 2011/11/15 12:43:00}
+2016-07-31 12:52:10,366 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{69, 10, 19, 2006/07/24 23:59:59}
+2016-07-31 12:52:10,367 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{70, 10, 20, 2011/08/01 16:23:01}
+2016-07-31 12:52:10,367 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{71, 11, 12, 2006/09/24 23:59:20}
+2016-07-31 12:52:10,368 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{72, 11, 13, 2008/01/01 12:23:02}
+2016-07-31 12:52:10,369 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{73, 11, 14, 2006/12/24 23:59:21}
+2016-07-31 12:52:10,369 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{74, 11, 15, 2009/02/11 17:23:03}
+2016-07-31 12:52:10,370 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{75, 11, 16, 2010/03/24 23:59:22}
+2016-07-31 12:52:10,372 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{76, 11, 17, 2007/09/01 16:12:04}
+2016-07-31 12:52:10,374 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{77, 11, 19, 2006/12/24 23:59:23}
+2016-07-31 12:52:10,375 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{78, 12, 1, 2007/11/01 16:23:05}
+2016-07-31 12:52:10,376 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{79, 12, 11, 2011/05/24 23:59:24}
+2016-07-31 12:52:10,377 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{80, 12, 13, 2007/11/01 16:23:06}
+2016-07-31 12:52:10,378 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{81, 12, 14, 2013/06/24 11:59:25}
+2016-07-31 12:52:10,379 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{82, 12, 15, 2007/06/21 01:23:57}
+2016-07-31 12:52:10,380 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{83, 12, 19, 2006/12/24 23:59:26}
+2016-07-31 12:52:10,381 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{84, 13, 11, 2007/08/01 16:23:08}
+2016-07-31 12:52:10,382 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{85, 13, 12, 2013/02/24 23:59:27}
+2016-07-31 12:52:10,383 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{86, 13, 14, 2012/11/01 16:23:03}
+2016-07-31 12:52:10,384 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{87, 14, 1, 2006/07/24 23:59:28}
+2016-07-31 12:52:10,385 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{88, 14, 10, 2012/05/24 23:12:59}
+2016-07-31 12:52:10,385 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{89, 14, 11, 2005/11/10 16:32:01}
+2016-07-31 12:52:10,386 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{90, 14, 20, 2006/01/28 23:59:59}
+2016-07-31 12:52:10,387 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{91, 16, 17, 2007/10/09 16:23:00}
+2016-07-31 12:52:10,399 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{92, 17, 16, 2009/12/22 23:59:59}
+2016-07-31 12:52:10,400 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{93, 18, 1, 2007/11/01 09:01:00}
+2016-07-31 12:52:10,401 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{94, 18, 2, 2006/11/23 23:59:59}
+2016-07-31 12:52:10,401 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{95, 18, 3, 2011/11/15 12:43:00}
+2016-07-31 12:52:10,402 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{96, 18, 4, 2006/07/24 23:59:59}
+2016-07-31 12:52:10,403 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{97, 18, 5, 2011/08/01 16:23:01}
+2016-07-31 12:52:10,411 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{98, 18, 6, 2006/09/24 23:59:20}
+2016-07-31 12:52:10,413 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{99, 18, 9, 2008/01/01 12:23:02}
+2016-07-31 12:52:10,414 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{100, 18, 11, 2006/12/24 23:59:21}
+2016-07-31 12:52:10,415 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{101, 18, 12, 2009/02/11 17:23:03}
+2016-07-31 12:52:10,416 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{102, 18, 13, 2010/03/24 23:59:22}
+2016-07-31 12:52:10,417 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{103, 18, 14, 2007/09/01 16:12:04}
+2016-07-31 12:52:10,418 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{104, 18, 15, 2006/12/24 23:59:23}
+2016-07-31 12:52:10,419 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{105, 19, 1, 2007/11/01 16:23:05}
+2016-07-31 12:52:10,420 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{106, 19, 10, 2011/05/24 23:59:24}
+2016-07-31 12:52:10,420 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{107, 19, 11, 2007/11/01 16:23:06}
+2016-07-31 12:52:10,424 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{108, 19, 12, 2013/06/24 11:59:25}
+2016-07-31 12:52:10,426 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{109, 19, 20, 2013/06/24 11:59:25}
+2016-07-31 12:52:10,428 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{110, 20, 10, 2013/06/24 11:59:25}
+2016-07-31 12:52:10,430 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - MEMBER_FOLLOWING:{111, 20, 19, 2013/06/24 11:59:25}
+2016-07-31 12:52:10,543 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 111 rows are loaded to MEMBER_FOLLOWING
+2016-07-31 12:52:10,544 [main] INFO  (DfXlsDataHandlerImpl#writeSeveralData():128) - /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+2016-07-31 12:52:10,544 [main] INFO  (DfXlsDataHandlerImpl#writeSeveralData():129) - writeData(playsql/data/ut/xls/30-product.xls)
+2016-07-31 12:52:10,545 [main] INFO  (DfXlsDataHandlerImpl#writeSeveralData():130) - = = = = = = =/
+2016-07-31 12:52:10,596 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{1, Cold Spring Harbor, BILLYJOEL-01, MCD, PST, 1100, 2016-07-31 12:52:10.596, foo, 2016-07-31 12:52:10.596, foo, 0}
+2016-07-31 12:52:10,597 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{2, Piano Man, BILLYJOEL-02, MCD, ONS, 1200, 2016-07-31 12:52:10.597, foo, 2016-07-31 12:52:10.597, foo, 0}
+2016-07-31 12:52:10,598 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{3, Streetlife Serenade, BILLYJOEL-03, MCD, ONS, 1300, 2016-07-31 12:52:10.598, foo, 2016-07-31 12:52:10.598, foo, 0}
+2016-07-31 12:52:10,599 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{4, Turnstiles, BILLYJOEL-04, MCD, ONS, 1400, 2016-07-31 12:52:10.599, foo, 2016-07-31 12:52:10.599, foo, 0}
+2016-07-31 12:52:10,599 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{5, The Stranger, BILLYJOEL-05, MCD, ONS, 1500, 2016-07-31 12:52:10.599, foo, 2016-07-31 12:52:10.599, foo, 0}
+2016-07-31 12:52:10,600 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{6, 52nd Street, BILLYJOEL-06, MCD, ONS, 1600, 2016-07-31 12:52:10.6, foo, 2016-07-31 12:52:10.6, foo, 0}
+2016-07-31 12:52:10,601 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{7, Glass House, BILLYJOEL-07, MCD, ONS, 1700, 2016-07-31 12:52:10.6, foo, 2016-07-31 12:52:10.601, foo, 0}
+2016-07-31 12:52:10,601 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{8, Nylon Curtain, BILLYJOEL-08, MCD, ONS, 1800, 2016-07-31 12:52:10.601, foo, 2016-07-31 12:52:10.601, foo, 0}
+2016-07-31 12:52:10,602 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{9, Bridge, BILLYJOEL-09, MCD, ONS, 1900, 2016-07-31 12:52:10.602, foo, 2016-07-31 12:52:10.602, foo, 0}
+2016-07-31 12:52:10,603 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{10, Storm Front, BILLYJOEL-10, MCD, ONS, 2000, 2016-07-31 12:52:10.603, foo, 2016-07-31 12:52:10.603, foo, 0}
+2016-07-31 12:52:10,604 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{11, River of Dreams, BILLYJOEL-11, MCD, ONS, 2100, 2016-07-31 12:52:10.603, foo, 2016-07-31 12:52:10.603, foo, 0}
+2016-07-31 12:52:10,604 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{12, Grand Piano, PIANO-01, INS, ONS, 1400000, 2016-07-31 12:52:10.604, foo, 2016-07-31 12:52:10.604, foo, 0}
+2016-07-31 12:52:10,605 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{13, Upright Piano, PIANO-02, INS, ONS, 1100000, 2016-07-31 12:52:10.605, foo, 2016-07-31 12:52:10.605, foo, 0}
+2016-07-31 12:52:10,606 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{14, Low Price Flute, FLUTE-01, INS, ONS, 50000, 2016-07-31 12:52:10.606, foo, 2016-07-31 12:52:10.606, foo, 0}
+2016-07-31 12:52:10,606 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{15, Silver Flute, FLUTE-02, INS, ONS, 500000, 2016-07-31 12:52:10.606, foo, 2016-07-31 12:52:10.606, foo, 0}
+2016-07-31 12:52:10,607 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{16, Gold Flute, FLUTE-03, INS, ONS, 4000000, 2016-07-31 12:52:10.607, foo, 2016-07-31 12:52:10.607, foo, 0}
+2016-07-31 12:52:10,608 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{17, Rosemary (100g), HARB-100-01, HEB, ONS, 400, 2016-07-31 12:52:10.608, foo, 2016-07-31 12:52:10.608, foo, 0}
+2016-07-31 12:52:10,608 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{18, Lemon Grass (100g), HARB-100-02, HEB, ONS, 380, 2016-07-31 12:52:10.608, foo, 2016-07-31 12:52:10.608, foo, 0}
+2016-07-31 12:52:10,609 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{19, Camomile (100g), HARB-100-03, HEB, ONS, 380, 2016-07-31 12:52:10.609, foo, 2016-07-31 12:52:10.609, foo, 0}
+2016-07-31 12:52:10,610 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PRODUCT:{20, Hatomugi (100g), HARB-100-04, HEB, ONS, 340, 2016-07-31 12:52:10.61, foo, 2016-07-31 12:52:10.61, foo, 0}
+2016-07-31 12:52:10,630 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 20 rows are loaded to PRODUCT
+2016-07-31 12:52:10,631 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{1, 5, 3, 2006/12/24 23:59:59, 1, 1800, 1, 2016-07-31 12:52:10.631, foo, 2016-07-31 12:52:10.631, foo, 0}
+2016-07-31 12:52:10,633 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{2, 15, 7, 2007/11/11 16:16:16, 1, 1700, 1, 2016-07-31 12:52:10.633, foo, 2016-07-31 12:52:10.633, foo, 0}
+2016-07-31 12:52:10,634 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{3, 13, 3, 2006/12/23 22:56:29.235, 1, 1800, 1, 2016-07-31 12:52:10.634, foo, 2016-07-31 12:52:10.634, foo, 0}
+2016-07-31 12:52:10,635 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{4, 2, 5, 2007/11/01 02:13:00, 2, 1700, 1, 2016-07-31 12:52:10.635, foo, 2016-07-31 12:52:10.635, foo, 0}
+2016-07-31 12:52:10,638 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{5, 9, 11, 2008/01/04 23:12:59, 5, 1800, 1, 2016-07-31 12:52:10.638, foo, 2016-07-31 12:52:10.638, foo, 0}
+2016-07-31 12:52:10,639 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{6, 20, 2, 2002/01/01 16:32:01, 1, 2000, 1, 2016-07-31 12:52:10.639, foo, 2016-07-31 12:52:10.639, foo, 0}
+2016-07-31 12:52:10,640 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{7, 19, 9, 2006/01/28 23:59:59.999, 1, 1000, 0, 2016-07-31 12:52:10.64, foo, 2016-07-31 12:52:10.64, foo, 0}
+2016-07-31 12:52:10,641 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{8, 4, 7, 2007/11/09 16:23:00, 1, 1535, 1, 2016-07-31 12:52:10.641, foo, 2016-07-31 12:52:10.641, foo, 0}
+2016-07-31 12:52:10,642 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{9, 4, 10, 2006/12/22 23:59:59, 20, 1700, 1, 2016-07-31 12:52:10.642, foo, 2016-07-31 12:52:10.642, foo, 0}
+2016-07-31 12:52:10,643 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{10, 2, 10, 2007/11/01 02:13:00.345, 1, 1700, 0, 2016-07-31 12:52:10.643, foo, 2016-07-31 12:52:10.643, foo, 0}
+2016-07-31 12:52:10,644 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{11, 5, 2, 2007/11/09 16:23:01, 1, 1800, 1, 2016-07-31 12:52:10.644, foo, 2016-07-31 12:52:10.644, foo, 0}
+2016-07-31 12:52:10,645 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{12, 15, 2, 2006/12/22 23:59:12, 1, 1700, 1, 2016-07-31 12:52:10.645, foo, 2016-07-31 12:52:10.645, foo, 0}
+2016-07-31 12:52:10,646 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{13, 13, 8, 2007/11/01 02:13:00.346, 1, 1800, 1, 2016-07-31 12:52:10.646, foo, 2016-07-31 12:52:10.646, foo, 0}
+2016-07-31 12:52:10,647 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{14, 2, 4, 2007/11/09 16:23:02, 2, 1700, 1, 2016-07-31 12:52:10.647, foo, 2016-07-31 12:52:10.647, foo, 0}
+2016-07-31 12:52:10,648 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{15, 9, 11, 2006/12/22 23:59:32, 5, 1800, 1, 2016-07-31 12:52:10.648, foo, 2016-07-31 12:52:10.648, foo, 0}
+2016-07-31 12:52:10,650 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{16, 20, 1, 2007/11/01 02:13:00.347, 1, 2000, 1, 2016-07-31 12:52:10.65, foo, 2016-07-31 12:52:10.65, foo, 0}
+2016-07-31 12:52:10,651 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{17, 19, 11, 2006/12/22 23:59:33, 2, 1000, 0, 2016-07-31 12:52:10.651, foo, 2016-07-31 12:52:10.651, foo, 0}
+2016-07-31 12:52:10,652 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{18, 4, 10, 2007/11/01 02:13:00.348, 1, 1535, 1, 2016-07-31 12:52:10.652, foo, 2016-07-31 12:52:10.652, foo, 0}
+2016-07-31 12:52:10,655 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{19, 4, 11, 2007/11/01 02:13:00.348, 4, 1700, 1, 2016-07-31 12:52:10.654, foo, 2016-07-31 12:52:10.654, foo, 0}
+2016-07-31 12:52:10,663 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{20, 2, 11, 2006/12/22 23:59:35, 1, 1700, 0, 2016-07-31 12:52:10.663, foo, 2016-07-31 12:52:10.663, foo, 0}
+2016-07-31 12:52:10,664 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{21, 2, 15, 2006/12/22 23:59:35, 1, 400000, 0, 2016-07-31 12:52:10.664, foo, 2016-07-31 12:52:10.664, foo, 0}
+2016-07-31 12:52:10,665 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{22, 3, 6, 2007/11/01 02:13:00.350, 4, 1800, 1, 2016-07-31 12:52:10.665, foo, 2016-07-31 12:52:10.665, foo, 0}
+2016-07-31 12:52:10,667 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{23, 15, 7, 2006/12/22 23:59:36, 1, 1700, 1, 2016-07-31 12:52:10.666, foo, 2016-07-31 12:52:10.666, foo, 0}
+2016-07-31 12:52:10,670 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{24, 13, 3, 2007/09/11 12:13:00.351, 1, 1800, 1, 2016-07-31 12:52:10.67, foo, 2016-07-31 12:52:10.67, foo, 0}
+2016-07-31 12:52:10,671 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{25, 16, 2, 2006/12/22 23:59:37, 2, 1700, 1, 2016-07-31 12:52:10.671, foo, 2016-07-31 12:52:10.671, foo, 0}
+2016-07-31 12:52:10,672 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{26, 3, 4, 2005/12/21 12:13:00.352, 1, 1800, 1, 2016-07-31 12:52:10.672, foo, 2016-07-31 12:52:10.672, foo, 0}
+2016-07-31 12:52:10,674 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{27, 2, 8, 2006/12/22 23:59:38, 1, 2000, 1, 2016-07-31 12:52:10.674, foo, 2016-07-31 12:52:10.674, foo, 0}
+2016-07-31 12:52:10,675 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{28, 6, 17, 2007/11/01 02:13:00.353, 2, 600, 0, 2016-07-31 12:52:10.675, foo, 2016-07-31 12:52:10.675, foo, 0}
+2016-07-31 12:52:10,676 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{29, 4, 4, 2006/12/22 23:59:39, 1, 1535, 1, 2016-07-31 12:52:10.676, foo, 2016-07-31 12:52:10.676, foo, 0}
+2016-07-31 12:52:10,677 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{30, 4, 3, 2007/11/01 02:13:00.354, 4, 1700, 1, 2016-07-31 12:52:10.677, foo, 2016-07-31 12:52:10.677, foo, 0}
+2016-07-31 12:52:10,678 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{31, 4, 10, 2006/12/22 23:59:40, 1, 1700, 0, 2016-07-31 12:52:10.678, foo, 2016-07-31 12:52:10.678, foo, 0}
+2016-07-31 12:52:10,679 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{32, 13, 3, 2006/12/28 12:13:10.355, 1, 1800, 1, 2016-07-31 12:52:10.679, foo, 2016-07-31 12:52:10.679, foo, 0}
+2016-07-31 12:52:10,680 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{33, 16, 2, 2006/12/22 23:59:41, 2, 1700, 1, 2016-07-31 12:52:10.68, foo, 2016-07-31 12:52:10.68, foo, 0}
+2016-07-31 12:52:10,682 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{34, 3, 4, 2007/05/21 12:13:00.356, 1, 1800, 1, 2016-07-31 12:52:10.681, foo, 2016-07-31 12:52:10.681, foo, 0}
+2016-07-31 12:52:10,683 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{35, 2, 8, 2006/12/12 23:59:42, 1, 2000, 1, 2016-07-31 12:52:10.683, foo, 2016-07-31 12:52:10.683, foo, 0}
+2016-07-31 12:52:10,684 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{36, 6, 3, 2007/05/01 02:13:00.357, 2, 1000, 0, 2016-07-31 12:52:10.684, foo, 2016-07-31 12:52:10.684, foo, 0}
+2016-07-31 12:52:10,685 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{37, 4, 4, 2006/12/12 23:59:43, 1, 1535, 1, 2016-07-31 12:52:10.685, foo, 2016-07-31 12:52:10.685, foo, 0}
+2016-07-31 12:52:10,686 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{38, 4, 3, 2007/05/01 02:03:00.358, 4, 1700, 1, 2016-07-31 12:52:10.686, foo, 2016-07-31 12:52:10.686, foo, 0}
+2016-07-31 12:52:10,687 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{39, 4, 10, 2006/12/12 23:59:44, 1, 1700, 0, 2016-07-31 12:52:10.687, foo, 2016-07-31 12:52:10.687, foo, 0}
+2016-07-31 12:52:10,690 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{40, 4, 10, 2007/05/01 12:13:00.359, 1, 1700, 0, 2016-07-31 12:52:10.69, foo, 2016-07-31 12:52:10.69, foo, 0}
+2016-07-31 12:52:10,693 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{41, 4, 11, 2007/11/01 02:13:01.354, 4, 1700, 1, 2016-07-31 12:52:10.693, foo, 2016-07-31 12:52:10.693, foo, 0}
+2016-07-31 12:52:10,696 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{42, 10, 16, 2006/12/22 23:59:40, 1, 2800000, 1, 2016-07-31 12:52:10.696, foo, 2016-07-31 12:52:10.696, foo, 0}
+2016-07-31 12:52:10,697 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{43, 13, 17, 2006/12/28 12:13:10.355, 1, 1800, 1, 2016-07-31 12:52:10.697, foo, 2016-07-31 12:52:10.697, foo, 0}
+2016-07-31 12:52:10,698 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{44, 16, 14, 2006/12/22 23:59:41, 2, 1700, 1, 2016-07-31 12:52:10.698, foo, 2016-07-31 12:52:10.698, foo, 0}
+2016-07-31 12:52:10,699 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{45, 3, 18, 2007/05/21 12:13:00.356, 1, 1800, 1, 2016-07-31 12:52:10.699, foo, 2016-07-31 12:52:10.699, foo, 0}
+2016-07-31 12:52:10,700 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{46, 2, 7, 2006/12/12 23:59:42, 1, 2000, 1, 2016-07-31 12:52:10.7, foo, 2016-07-31 12:52:10.7, foo, 0}
+2016-07-31 12:52:10,701 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{47, 6, 14, 2007/05/01 02:13:00.357, 2, 1000, 0, 2016-07-31 12:52:10.701, foo, 2016-07-31 12:52:10.701, foo, 0}
+2016-07-31 12:52:10,702 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{48, 16, 12, 2006/12/12 23:59:43, 1, 100000, 1, 2016-07-31 12:52:10.702, foo, 2016-07-31 12:52:10.702, foo, 0}
+2016-07-31 12:52:10,703 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{49, 4, 20, 2007/05/01 02:03:00.358, 4, 1700, 1, 2016-07-31 12:52:10.703, foo, 2016-07-31 12:52:10.703, foo, 0}
+2016-07-31 12:52:10,704 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{50, 4, 19, 2006/12/12 23:59:44, 1, 1700, 0, 2016-07-31 12:52:10.703, foo, 2016-07-31 12:52:10.703, foo, 0}
+2016-07-31 12:52:10,705 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{51, 4, 11, 2007/11/21 02:13:00.354, 4, 1700, 1, 2016-07-31 12:52:10.705, foo, 2016-07-31 12:52:10.705, foo, 0}
+2016-07-31 12:52:10,706 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{52, 20, 17, 2006/12/23 23:59:40, 1, 400, 0, 2016-07-31 12:52:10.706, foo, 2016-07-31 12:52:10.706, foo, 0}
+2016-07-31 12:52:10,707 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{53, 13, 16, 2007/12/28 12:13:10.355, 1, 600000, 1, 2016-07-31 12:52:10.707, foo, 2016-07-31 12:52:10.707, foo, 0}
+2016-07-31 12:52:10,708 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{54, 16, 14, 2006/02/22 23:59:41, 2, 1700, 1, 2016-07-31 12:52:10.708, foo, 2016-07-31 12:52:10.708, foo, 0}
+2016-07-31 12:52:10,709 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{55, 3, 3, 2007/07/21 12:13:00.356, 1, 1800, 1, 2016-07-31 12:52:10.709, foo, 2016-07-31 12:52:10.709, foo, 0}
+2016-07-31 12:52:10,710 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{56, 2, 8, 2006/12/22 23:59:42, 1, 2000, 1, 2016-07-31 12:52:10.71, foo, 2016-07-31 12:52:10.71, foo, 0}
+2016-07-31 12:52:10,711 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{57, 6, 19, 2007/02/01 02:13:00.357, 2, 1000, 0, 2016-07-31 12:52:10.711, foo, 2016-07-31 12:52:10.711, foo, 0}
+2016-07-31 12:52:10,712 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{58, 2, 12, 2006/12/12 23:59:43, 1, 4000000, 1, 2016-07-31 12:52:10.712, foo, 2016-07-31 12:52:10.712, foo, 0}
+2016-07-31 12:52:10,713 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{59, 4, 18, 2007/05/01 02:03:00.358, 1, 380, 1, 2016-07-31 12:52:10.713, foo, 2016-07-31 12:52:10.713, foo, 0}
+2016-07-31 12:52:10,714 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{60, 4, 20, 2006/12/12 23:59:44, 2, 680, 0, 2016-07-31 12:52:10.714, foo, 2016-07-31 12:52:10.714, foo, 0}
+2016-07-31 12:52:10,715 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{61, 1, 16, 2008-03-03 06:34:56.000, 3, 12000000, 1, 2016-07-31 12:52:10.715, foo, 2016-07-31 12:52:10.715, foo, 0}
+2016-07-31 12:52:10,716 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{62, 1, 2, 2009-06-04 06:34:56.000, 12, 20000, 1, 2016-07-31 12:52:10.716, foo, 2016-07-31 12:52:10.716, foo, 0}
+2016-07-31 12:52:10,717 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{63, 1, 6, 2010-09-26 06:34:56.000, 2, 2000, 1, 2016-07-31 12:52:10.716, foo, 2016-07-31 12:52:10.716, foo, 0}
+2016-07-31 12:52:10,718 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{64, 1, 8, 2011-03-03 09:45:29.000, 1, 50, 1, 2016-07-31 12:52:10.717, foo, 2016-07-31 12:52:10.717, foo, 0}
+2016-07-31 12:52:10,719 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{65, 1, 13, 2012-06-04 09:45:29.000, 1, 1000000, 1, 2016-07-31 12:52:10.718, foo, 2016-07-31 12:52:10.718, foo, 0}
+2016-07-31 12:52:10,720 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{66, 1, 13, 2013-09-26 09:45:29.000, 1, 900000, 1, 2016-07-31 12:52:10.72, foo, 2016-07-31 12:52:10.72, foo, 0}
+2016-07-31 12:52:10,721 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{67, 1, 5, 2014-03-03 21:02:12.000, 2, 3000, 1, 2016-07-31 12:52:10.72, foo, 2016-07-31 12:52:10.72, foo, 0}
+2016-07-31 12:52:10,721 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{68, 1, 17, 2015-06-04 21:02:12.000, 30, 3000, 1, 2016-07-31 12:52:10.721, foo, 2016-07-31 12:52:10.721, foo, 0}
+2016-07-31 12:52:10,723 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{69, 1, 17, 2016-09-26 21:02:12.000, 1, 1000, 1, 2016-07-31 12:52:10.722, foo, 2016-07-31 12:52:10.722, foo, 0}
+2016-07-31 12:52:10,724 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE:{70, 1, 17, 2017-03-03 01:11:00.000, 1, 1200, 1, 2016-07-31 12:52:10.724, foo, 2016-07-31 12:52:10.724, foo, 0}
+2016-07-31 12:52:10,774 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 70 rows are loaded to PURCHASE
+2016-07-31 12:52:10,775 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{1, 1, 1800, 2006/12/25 23:59:59, BAK, 2016-07-31 12:52:10.775, foo, 2016-07-31 12:52:10.775, foo}
+2016-07-31 12:52:10,778 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{2, 2, 1700, 2007/11/13 16:16:16, BAK, 2016-07-31 12:52:10.778, foo, 2016-07-31 12:52:10.778, foo}
+2016-07-31 12:52:10,779 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{3, 3, 900, 2006/12/23 23:56:29, CRC, 2016-07-31 12:52:10.779, foo, 2016-07-31 12:52:10.779, foo}
+2016-07-31 12:52:10,780 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{4, 3, 900, 2006/12/23 23:56:30, HAN, 2016-07-31 12:52:10.78, foo, 2016-07-31 12:52:10.78, foo}
+2016-07-31 12:52:10,781 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{5, 4, 1700, 2007/12/01 02:13:00, HAN, 2016-07-31 12:52:10.781, foo, 2016-07-31 12:52:10.781, foo}
+2016-07-31 12:52:10,782 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{6, 5, 800.20, 2008/04/04 23:12:59, HAN, 2016-07-31 12:52:10.782, foo, 2016-07-31 12:52:10.782, foo}
+2016-07-31 12:52:10,783 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{7, 5, 1000.90, 2008/05/04 23:12:59, CRC, 2016-07-31 12:52:10.783, foo, 2016-07-31 12:52:10.783, foo}
+2016-07-31 12:52:10,784 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{8, 6, 1000, 2002/01/01 16:32:01, CRC, 2016-07-31 12:52:10.784, foo, 2016-07-31 12:52:10.784, foo}
+2016-07-31 12:52:10,785 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{9, 6, 400.8, 2002/01/01 16:32:01, CRC, 2016-07-31 12:52:10.785, foo, 2016-07-31 12:52:10.785, foo}
+2016-07-31 12:52:10,786 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{10, 6, 599.2, 2002/01/01 16:32:01, HAN, 2016-07-31 12:52:10.786, foo, 2016-07-31 12:52:10.786, foo}
+2016-07-31 12:52:10,788 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{11, 7, 300, 2006/01/28 23:59:59, CRC, 2016-07-31 12:52:10.788, foo, 2016-07-31 12:52:10.788, foo}
+2016-07-31 12:52:10,791 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{12, 8, 535.5, 2007/11/09 16:23:00, BAK, 2016-07-31 12:52:10.791, foo, 2016-07-31 12:52:10.791, foo}
+2016-07-31 12:52:10,792 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{13, 8, 999.5, 2014/11/09 16:23:05, BAK, 2016-07-31 12:52:10.792, foo, 2016-07-31 12:52:10.792, foo}
+2016-07-31 12:52:10,793 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{14, 9, 1700, 2006/12/22 23:59:59, BAK, 2016-07-31 12:52:10.793, foo, 2016-07-31 12:52:10.793, foo}
+2016-07-31 12:52:10,794 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{15, 11, 1799.2, 2014/11/09 16:23:01, CRC, 2016-07-31 12:52:10.794, foo, 2016-07-31 12:52:10.794, foo}
+2016-07-31 12:52:10,795 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{16, 11, 0.8, 2014/11/09 16:23:01, HAN, 2016-07-31 12:52:10.795, foo, 2016-07-31 12:52:10.795, foo}
+2016-07-31 12:52:10,796 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{17, 12, 1690, 2011/12/22 23:59:12, HAN, 2016-07-31 12:52:10.796, foo, 2016-07-31 12:52:10.796, foo}
+2016-07-31 12:52:10,797 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{18, 12, 10, 2011/12/22 23:59:12, CRC, 2016-07-31 12:52:10.797, foo, 2016-07-31 12:52:10.797, foo}
+2016-07-31 12:52:10,798 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{19, 13, 1800.7, 2007/11/01 02:13:00, CRC, 2016-07-31 12:52:10.798, foo, 2016-07-31 12:52:10.798, foo}
+2016-07-31 12:52:10,799 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{20, 14, 1700, 2008/11/09 16:23:02, BAK, 2016-07-31 12:52:10.799, foo, 2016-07-31 12:52:10.799, foo}
+2016-07-31 12:52:10,800 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{21, 15, 300, 2006/12/22 23:59:32, HAN, 2016-07-31 12:52:10.8, foo, 2016-07-31 12:52:10.8, foo}
+2016-07-31 12:52:10,801 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{22, 15, 600, 2007/12/22 23:59:32, BAK, 2016-07-31 12:52:10.801, foo, 2016-07-31 12:52:10.801, foo}
+2016-07-31 12:52:10,802 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{23, 15, 900, 2008/12/22 23:59:32, HAN, 2016-07-31 12:52:10.802, foo, 2016-07-31 12:52:10.802, foo}
+2016-07-31 12:52:10,804 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{24, 16, 2000, 2012/11/01 02:13:00, BAK, 2016-07-31 12:52:10.803, foo, 2016-07-31 12:52:10.803, foo}
+2016-07-31 12:52:10,806 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{25, 18, 1535, 2013/11/01 02:13:00, HAN, 2016-07-31 12:52:10.806, foo, 2016-07-31 12:52:10.806, foo}
+2016-07-31 12:52:10,808 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{26, 19, 1700, 2007/11/01 02:13:00, HAN, 2016-07-31 12:52:10.808, foo, 2016-07-31 12:52:10.808, foo}
+2016-07-31 12:52:10,810 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{27, 20, 5, 2006/12/22 23:59:35, HAN, 2016-07-31 12:52:10.809, foo, 2016-07-31 12:52:10.809, foo}
+2016-07-31 12:52:10,811 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{28, 21, 399999, 2006/12/22 23:59:35, BAK, 2016-07-31 12:52:10.811, foo, 2016-07-31 12:52:10.811, foo}
+2016-07-31 12:52:10,813 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{29, 22, 1800, 2007/11/01 02:13:00, BAK, 2016-07-31 12:52:10.813, foo, 2016-07-31 12:52:10.813, foo}
+2016-07-31 12:52:10,814 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{30, 23, 1700, 2006/12/22 23:59:36, HAN, 2016-07-31 12:52:10.814, foo, 2016-07-31 12:52:10.814, foo}
+2016-07-31 12:52:10,815 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{31, 23, 1700, 2006/12/22 23:59:36, HAN, 2016-07-31 12:52:10.815, foo, 2016-07-31 12:52:10.815, foo}
+2016-07-31 12:52:10,816 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{32, 23, 1700, 2006/12/22 23:59:36, HAN, 2016-07-31 12:52:10.816, foo, 2016-07-31 12:52:10.816, foo}
+2016-07-31 12:52:10,817 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{33, 24, 1000, 2012/09/11 12:13:00, BAK, 2016-07-31 12:52:10.817, foo, 2016-07-31 12:52:10.817, foo}
+2016-07-31 12:52:10,818 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{34, 24, 800, 2015/09/11 12:13:00, BAK, 2016-07-31 12:52:10.818, foo, 2016-07-31 12:52:10.818, foo}
+2016-07-31 12:52:10,819 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{35, 25, 1700, 2013/12/22 23:59:37, BAK, 2016-07-31 12:52:10.818, foo, 2016-07-31 12:52:10.818, foo}
+2016-07-31 12:52:10,820 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{36, 26, 1800, 2005/12/21 12:13:00, BAK, 2016-07-31 12:52:10.82, foo, 2016-07-31 12:52:10.82, foo}
+2016-07-31 12:52:10,821 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{37, 27, 2000, 2006/12/22 23:59:38, HAN, 2016-07-31 12:52:10.82, foo, 2016-07-31 12:52:10.82, foo}
+2016-07-31 12:52:10,822 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{38, 28, 600, 2007/11/01 02:13:00, BAK, 2016-07-31 12:52:10.822, foo, 2016-07-31 12:52:10.822, foo}
+2016-07-31 12:52:10,823 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{39, 29, 1535, 2006/12/22 23:59:39, BAK, 2016-07-31 12:52:10.823, foo, 2016-07-31 12:52:10.823, foo}
+2016-07-31 12:52:10,825 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{40, 30, 100, 2010/09/01 02:13:00, HAN, 2016-07-31 12:52:10.825, foo, 2016-07-31 12:52:10.825, foo}
+2016-07-31 12:52:10,827 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{41, 30, 200, 2011/10/31 02:13:00, CRC, 2016-07-31 12:52:10.827, foo, 2016-07-31 12:52:10.827, foo}
+2016-07-31 12:52:10,828 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{42, 30, 300.75, 2012/11/01 02:13:00, CRC, 2016-07-31 12:52:10.828, foo, 2016-07-31 12:52:10.828, foo}
+2016-07-31 12:52:10,829 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{43, 30, 400.25, 2013/12/01 02:13:00, HAN, 2016-07-31 12:52:10.829, foo, 2016-07-31 12:52:10.829, foo}
+2016-07-31 12:52:10,830 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{44, 30, 300, 2014/09/01 02:13:00, HAN, 2016-07-31 12:52:10.83, foo, 2016-07-31 12:52:10.83, foo}
+2016-07-31 12:52:10,831 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{45, 30, 700, 2014/10/01 02:13:00, HAN, 2016-07-31 12:52:10.83, foo, 2016-07-31 12:52:10.83, foo}
+2016-07-31 12:52:10,831 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{46, 31, 1700.85, 2006/12/22 23:59:40, HAN, 2016-07-31 12:52:10.831, foo, 2016-07-31 12:52:10.831, foo}
+2016-07-31 12:52:10,832 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{47, 32, 1800, 2009/12/28 12:13:10, HAN, 2016-07-31 12:52:10.832, foo, 2016-07-31 12:52:10.832, foo}
+2016-07-31 12:52:10,833 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{48, 33, 1700, 2006/12/22 23:59:41, CRC, 2016-07-31 12:52:10.833, foo, 2016-07-31 12:52:10.833, foo}
+2016-07-31 12:52:10,834 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{49, 34, 1800, 2007/05/21 12:13:00, BAK, 2016-07-31 12:52:10.834, foo, 2016-07-31 12:52:10.834, foo}
+2016-07-31 12:52:10,835 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{50, 35, 2000, 2006/12/12 23:59:42, CRC, 2016-07-31 12:52:10.835, foo, 2016-07-31 12:52:10.835, foo}
+2016-07-31 12:52:10,836 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{51, 36, 300.1, 2012/05/01 02:13:00, CRC, 2016-07-31 12:52:10.836, foo, 2016-07-31 12:52:10.836, foo}
+2016-07-31 12:52:10,837 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{52, 36, 300.8, 2013/05/01 02:13:00, HAN, 2016-07-31 12:52:10.837, foo, 2016-07-31 12:52:10.837, foo}
+2016-07-31 12:52:10,838 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{53, 36, 300.25, 2014/05/01 02:13:00, HAN, 2016-07-31 12:52:10.838, foo, 2016-07-31 12:52:10.838, foo}
+2016-07-31 12:52:10,839 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{54, 37, 1535, 2006/12/12 23:59:43, HAN, 2016-07-31 12:52:10.839, foo, 2016-07-31 12:52:10.839, foo}
+2016-07-31 12:52:10,841 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{55, 38, 1700, 2007/05/01 02:03:00, HAN, 2016-07-31 12:52:10.841, foo, 2016-07-31 12:52:10.841, foo}
+2016-07-31 12:52:10,841 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{56, 40, 128, 2007/05/01 12:13:00, BAK, 2016-07-31 12:52:10.841, foo, 2016-07-31 12:52:10.841, foo}
+2016-07-31 12:52:10,842 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{57, 40, 256, 2013/05/01 12:13:00, BAK, 2016-07-31 12:52:10.842, foo, 2016-07-31 12:52:10.842, foo}
+2016-07-31 12:52:10,843 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{58, 40, 512, 2009/05/01 12:13:00, CRC, 2016-07-31 12:52:10.843, foo, 2016-07-31 12:52:10.843, foo}
+2016-07-31 12:52:10,844 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{59, 41, 1700, 2007/11/01 02:13:00, HAN, 2016-07-31 12:52:10.844, foo, 2016-07-31 12:52:10.844, foo}
+2016-07-31 12:52:10,845 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{60, 42, 30000000, 2014/03/22 21:59:40, HAN, 2016-07-31 12:52:10.845, foo, 2016-07-31 12:52:10.845, foo}
+2016-07-31 12:52:10,846 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{61, 43, 1800, 2006/12/28 12:13:10, BAK, 2016-07-31 12:52:10.846, foo, 2016-07-31 12:52:10.846, foo}
+2016-07-31 12:52:10,847 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{62, 44, 1700, 2006/12/22 23:59:41, BAK, 2016-07-31 12:52:10.847, foo, 2016-07-31 12:52:10.847, foo}
+2016-07-31 12:52:10,847 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{63, 45, 1800, 2007/05/21 12:13:00, CRC, 2016-07-31 12:52:10.847, foo, 2016-07-31 12:52:10.847, foo}
+2016-07-31 12:52:10,848 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{64, 46, 2000, 2010/12/12 23:59:42, BAK, 2016-07-31 12:52:10.848, foo, 2016-07-31 12:52:10.848, foo}
+2016-07-31 12:52:10,849 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{65, 48, 90000, 2006/12/12 23:59:43, HAN, 2016-07-31 12:52:10.849, foo, 2016-07-31 12:52:10.849, foo}
+2016-07-31 12:52:10,850 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{66, 48, 10000, 2006/12/12 23:59:43, BAK, 2016-07-31 12:52:10.85, foo, 2016-07-31 12:52:10.85, foo}
+2016-07-31 12:52:10,851 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{67, 49, 1700.66, 2007/05/01 02:03:00, HAN, 2016-07-31 12:52:10.851, foo, 2016-07-31 12:52:10.851, foo}
+2016-07-31 12:52:10,852 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{68, 51, 1700, 2007/11/21 02:13:00, BAK, 2016-07-31 12:52:10.852, foo, 2016-07-31 12:52:10.852, foo}
+2016-07-31 12:52:10,852 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{69, 52, 100, 2006/12/23 23:59:40, BAK, 2016-07-31 12:52:10.852, foo, 2016-07-31 12:52:10.852, foo}
+2016-07-31 12:52:10,853 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{70, 52, 40, 2007/12/23 23:59:40, HAN, 2016-07-31 12:52:10.853, foo, 2016-07-31 12:52:10.853, foo}
+2016-07-31 12:52:10,854 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{71, 52, 40, 2008/12/23 23:59:40, HAN, 2016-07-31 12:52:10.854, foo, 2016-07-31 12:52:10.854, foo}
+2016-07-31 12:52:10,857 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{72, 52, 40, 2009/12/23 23:59:40, HAN, 2016-07-31 12:52:10.857, foo, 2016-07-31 12:52:10.857, foo}
+2016-07-31 12:52:10,860 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{73, 52, 40, 2010/12/23 23:59:40, BAK, 2016-07-31 12:52:10.86, foo, 2016-07-31 12:52:10.86, foo}
+2016-07-31 12:52:10,862 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{74, 52, 40, 2011/12/23 23:59:40, CRC, 2016-07-31 12:52:10.862, foo, 2016-07-31 12:52:10.862, foo}
+2016-07-31 12:52:10,864 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{75, 52, 40, 2012/12/23 23:59:40, BAK, 2016-07-31 12:52:10.864, foo, 2016-07-31 12:52:10.864, foo}
+2016-07-31 12:52:10,865 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{76, 52, 40, 2013/12/23 23:59:40, HAN, 2016-07-31 12:52:10.865, foo, 2016-07-31 12:52:10.865, foo}
+2016-07-31 12:52:10,866 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{77, 52, 40, 2014/12/23 23:59:40, HAN, 2016-07-31 12:52:10.865, foo, 2016-07-31 12:52:10.865, foo}
+2016-07-31 12:52:10,866 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{78, 52, 40, 2015/12/23 23:59:40, HAN, 2016-07-31 12:52:10.866, foo, 2016-07-31 12:52:10.866, foo}
+2016-07-31 12:52:10,867 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{79, 53, 600000, 2007/12/28 12:13:10, BAK, 2016-07-31 12:52:10.867, foo, 2016-07-31 12:52:10.867, foo}
+2016-07-31 12:52:10,868 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{80, 54, 1700.42, 2008/02/22 23:59:41, CRC, 2016-07-31 12:52:10.868, foo, 2016-07-31 12:52:10.868, foo}
+2016-07-31 12:52:10,869 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{81, 55, 1600, 2012/07/21 12:13:00, HAN, 2016-07-31 12:52:10.868, foo, 2016-07-31 12:52:10.869, foo}
+2016-07-31 12:52:10,869 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{82, 55, 200, 2008/07/21 12:13:00, CRC, 2016-07-31 12:52:10.869, foo, 2016-07-31 12:52:10.869, foo}
+2016-07-31 12:52:10,870 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{83, 56, 2000, 2009/12/22 23:59:42, HAN, 2016-07-31 12:52:10.87, foo, 2016-07-31 12:52:10.87, foo}
+2016-07-31 12:52:10,871 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{84, 56, 2000, 2009/12/22 23:59:42, HAN, 2016-07-31 12:52:10.871, foo, 2016-07-31 12:52:10.871, foo}
+2016-07-31 12:52:10,872 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{85, 56, 2000, 2009/12/22 23:59:42, HAN, 2016-07-31 12:52:10.872, foo, 2016-07-31 12:52:10.872, foo}
+2016-07-31 12:52:10,874 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{86, 56, 2000, 2009/12/22 23:59:42, HAN, 2016-07-31 12:52:10.873, foo, 2016-07-31 12:52:10.874, foo}
+2016-07-31 12:52:10,876 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{87, 57, 999, 2014/02/01 02:13:00, HAN, 2016-07-31 12:52:10.876, foo, 2016-07-31 12:52:10.876, foo}
+2016-07-31 12:52:10,877 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{88, 58, 4000000, 2006/12/12 23:59:43, HAN, 2016-07-31 12:52:10.877, foo, 2016-07-31 12:52:10.877, foo}
+2016-07-31 12:52:10,878 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{89, 59, 380.77, 2013/05/01 02:03:00, CRC, 2016-07-31 12:52:10.878, foo, 2016-07-31 12:52:10.878, foo}
+2016-07-31 12:52:10,879 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{90, 60, 675.88, 2006/12/12 23:59:44, BAK, 2016-07-31 12:52:10.879, foo, 2016-07-31 12:52:10.879, foo}
+2016-07-31 12:52:10,880 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{91, 61, 12000000, 2008/03/03 06:34:56, HAN, 2016-07-31 12:52:10.88, foo, 2016-07-31 12:52:10.88, foo}
+2016-07-31 12:52:10,881 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{92, 62, 20000, 2009/06/04 06:34:56, HAN, 2016-07-31 12:52:10.881, foo, 2016-07-31 12:52:10.881, foo}
+2016-07-31 12:52:10,881 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{93, 63, 2000, 2010/09/26 06:34:56, HAN, 2016-07-31 12:52:10.881, foo, 2016-07-31 12:52:10.881, foo}
+2016-07-31 12:52:10,882 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{94, 64, 50, 2011/03/03 09:45:29, BAK, 2016-07-31 12:52:10.882, foo, 2016-07-31 12:52:10.882, foo}
+2016-07-31 12:52:10,883 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{95, 65, 1000000, 2012/06/04 09:45:29, BAK, 2016-07-31 12:52:10.883, foo, 2016-07-31 12:52:10.883, foo}
+2016-07-31 12:52:10,884 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{96, 66, 900000, 2013/09/26 09:45:29, BAK, 2016-07-31 12:52:10.884, foo, 2016-07-31 12:52:10.884, foo}
+2016-07-31 12:52:10,885 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{97, 67, 3000, 2014/03/03 21:02:12, CRC, 2016-07-31 12:52:10.885, foo, 2016-07-31 12:52:10.885, foo}
+2016-07-31 12:52:10,886 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{98, 68, 3000, 2015/06/04 21:02:12, CRC, 2016-07-31 12:52:10.886, foo, 2016-07-31 12:52:10.886, foo}
+2016-07-31 12:52:10,886 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{99, 69, 1000, 2016/09/26 21:02:12, CRC, 2016-07-31 12:52:10.886, foo, 2016-07-31 12:52:10.886, foo}
+2016-07-31 12:52:10,887 [main] INFO  (DfAbsractDataWriter#handleLoggingInsert():1081) - PURCHASE_PAYMENT:{100, 70, 1200, 2017/03/03 01:11:00, HAN, 2016-07-31 12:52:10.887, foo, 2016-07-31 12:52:10.887, foo}
+2016-07-31 12:52:10,960 [main] INFO  (DfAbsractDataWriter#noticeLoadedRowSize():1097) -  -> 100 rows are loaded to PURCHASE_PAYMENT
+2016-07-31 12:52:10,962 [main] INFO  (DfLoadDataProcess#lazyCheckLoadedClassifiaction():378) - ...Checking implicit set of classification
+2016-07-31 12:52:10,980 [main] INFO  (DfDatabaseProperties#createMainSchemaConnection():981) - ...Creating connection to main schema: {maihamadb.$$NoNameSchema$$ as main}
+2016-07-31 12:52:10,988 [main] INFO  (DfClassificationProperties#setupTableClassification():673) - ...Selecting for MemberStatus classification
+select MEMBER_STATUS_CODE as cls_code, MEMBER_STATUS_NAME as cls_name
+     , MEMBER_STATUS_NAME as cls_alias, DESCRIPTION as cls_comment, DISPLAY_ORDER as cls_displayOrder
+  from MEMBER_STATUS order by DISPLAY_ORDER
+2016-07-31 12:52:11,006 [main] INFO  (DfClassificationProperties#setupTableClassification():673) - ...Selecting for ServiceRank classification
+select SERVICE_RANK_CODE as cls_code, SERVICE_RANK_NAME as cls_name
+     , SERVICE_RANK_NAME as cls_alias, DESCRIPTION as cls_comment
+  from SERVICE_RANK order by DISPLAY_ORDER
+2016-07-31 12:52:11,010 [main] INFO  (DfClassificationProperties#setupTableClassification():673) - ...Selecting for Region classification
+select REGION_ID as cls_code, REGION_NAME as cls_name
+     , REGION_NAME as cls_alias, null as cls_comment
+  from REGION order by REGION_ID
+2016-07-31 12:52:11,013 [main] INFO  (DfClassificationProperties#setupTableClassification():673) - ...Selecting for WithdrawalReason classification
+select WITHDRAWAL_REASON_CODE as cls_code, WITHDRAWAL_REASON_CODE as cls_name
+     , WITHDRAWAL_REASON_CODE as cls_alias, WITHDRAWAL_REASON_TEXT as cls_comment
+  from WITHDRAWAL_REASON order by DISPLAY_ORDER
+2016-07-31 12:52:11,016 [main] INFO  (DfClassificationProperties#setupTableClassification():673) - ...Selecting for ProductCategory classification
+select loc.PRODUCT_CATEGORY_CODE as cls_code, loc.PRODUCT_CATEGORY_NAME as cls_name
+     , loc.PRODUCT_CATEGORY_NAME as cls_alias, 'of ' || rel.PRODUCT_CATEGORY_NAME as cls_comment
+  from PRODUCT_CATEGORY loc left outer join PRODUCT_CATEGORY rel on loc.PARENT_CATEGORY_CODE = rel.PRODUCT_CATEGORY_CODE
+ order by loc.PARENT_CATEGORY_CODE is not null, loc.PARENT_CATEGORY_CODE
+2016-07-31 12:52:11,030 [main] INFO  (DfClassificationProperties#setupTableClassification():673) - ...Selecting for ProductStatus classification
+select PRODUCT_STATUS_CODE as cls_code, PRODUCT_STATUS_NAME as cls_name
+     , PRODUCT_STATUS_NAME as cls_alias, null as cls_comment
+  from PRODUCT_STATUS
+2016-07-31 12:52:11,045 [main] INFO  (DfImplicitClassificationChecker#check():69) - select distinct NEW_ACCEPTABLE_FLG from SERVICE_RANK where NEW_ACCEPTABLE_FLG not in (1, 0)
+2016-07-31 12:52:11,071 [main] INFO  (DfImplicitClassificationChecker#check():69) - select distinct NEW_ACCEPTABLE_FLG from SERVICE_RANK where NEW_ACCEPTABLE_FLG not in (1, 0)
+2016-07-31 12:52:11,072 [main] INFO  (DfImplicitClassificationChecker#check():69) - select distinct MOBILE_LOGIN_FLG from MEMBER_LOGIN where MOBILE_LOGIN_FLG not in (1, 0)
+2016-07-31 12:52:11,073 [main] INFO  (DfImplicitClassificationChecker#check():69) - select distinct PAYMENT_COMPLETE_FLG from PURCHASE where PAYMENT_COMPLETE_FLG not in (1, 0)
+2016-07-31 12:52:11,075 [main] INFO  (DfImplicitClassificationChecker#check():69) - select distinct PAYMENT_METHOD_CODE from PURCHASE_PAYMENT where PAYMENT_METHOD_CODE not in ('HAN', 'BAK', 'CRC')
+2016-07-31 12:52:11,081 [main] INFO  (DfTakeFinallyProcess#takeFinally():219) - 
+2016-07-31 12:52:11,082 [main] INFO  (DfTakeFinallyProcess#takeFinally():220) - * * * * * * * **
+2016-07-31 12:52:11,082 [main] INFO  (DfTakeFinallyProcess#takeFinally():221) - *              *
+2016-07-31 12:52:11,082 [main] INFO  (DfTakeFinallyProcess#takeFinally():222) - * Take Finally *
+2016-07-31 12:52:11,082 [main] INFO  (DfTakeFinallyProcess#takeFinally():223) - *              *
+2016-07-31 12:52:11,083 [main] INFO  (DfTakeFinallyProcess#takeFinally():224) - * * * * * * * **
+2016-07-31 12:52:11,089 [main] INFO  (DfSqlFileFireMan#fire():64) - ...Firing: take-finally.sql
+2016-07-31 12:52:11,091 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+-- #df:assertListZero#
+-- /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-- Member addresses should be only one at any time.
+-- - - - - - - - - - -/
+select adr.MEMBER_ADDRESS_ID, adr.MEMBER_ID
+     , adr.VALID_BEGIN_DATE, adr.VALID_END_DATE
+     , adr.ADDRESS
+  from MEMBER_ADDRESS adr
+ where exists (select subadr.MEMBER_ADDRESS_ID
+                 from MEMBER_ADDRESS subadr
+                where subadr.MEMBER_ID = adr.MEMBER_ID
+                  and subadr.VALID_BEGIN_DATE > adr.VALID_BEGIN_DATE
+                  -- 有効期間が一日だけ重複しているパターンも検出
+                  and subadr.VALID_BEGIN_DATE <= adr.VALID_END_DATE
+       )
+2016-07-31 12:52:11,117 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+-- #df:assertListZero#
+-- /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-- 正式会員日時を持ってる仮会員がいないこと
+-- - - - - - - - - - -/
+select *
+  from MEMBER mem
+ where mem.MEMBER_STATUS_CODE = 'PRV'
+   and mem.FORMALIZED_DATETIME is not NULL
+2016-07-31 12:52:11,119 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+-- #df:assertListZero#
+-- /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-- まだ生まれていない会員がいないこと
+-- - - - - - - - - - -/
+select *
+  from MEMBER mem
+ where mem.BIRTHDATE > now()
+2016-07-31 12:52:11,121 [main] INFO  (DfSqlFileRunnerBase#traceSql():168) - 
+-- #df:assertListZero#
+-- /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-- 退会会員が退会情報を持っていることをアサート
+-- - - - - - - - - - -/
+select *
+  from MEMBER mem
+ where mem.MEMBER_STATUS_CODE = 'WDL'
+   and not exists (select wdl.MEMBER_ID
+                     from MEMBER_WITHDRAWAL wdl
+                    where wdl.MEMBER_ID = mem.MEMBER_ID
+       )
+2016-07-31 12:52:11,127 [main] INFO  (DfSqlFileRunnerBase#traceResult():172) -  -> success=4 failure=0
+2016-07-31 12:52:11,127 [main] INFO  (DfSqlFileFireMan#fire():89) - {Take Finally}: success=4 failure=0 (in 1 files)
+2016-07-31 12:52:11,130 [main] INFO  (DfDataSourceHandler#destroy():120) - ...closeReally()
+2016-07-31 12:52:11,138 [main] INFO  (DfDBFluteTaskUtil#logFinalMessage():139) - 
+_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+[Final Message]: 00m06s156ms
+
+  DBFLUTE_CLIENT: {maihamadb}
+    database  = mysql (MySQL 5.7.13)
+    language  = java
+    container = lasta_di
+    package   = org.docksidestage.handson.dbflute
+
+  DBFLUTE_ENVIRONMENT_TYPE: {}
+    driver = com.mysql.jdbc.Driver
+    url    = jdbc:mysql://localhost:3306/maihamadb
+    schema = {maihamadb.$$NoNameSchema$$ as main}
+    user   = root
+    props  = {user=root, password=}
+    additionalSchema = 
+    repsEnvType      = ut
+    refreshProject   = $$AutoDetect$$
+
+ {Create Schema}: success=49 failure=0 (in 3 files)
+  o replace-schema-00-system.sql
+  o replace-schema-10-basic.sql
+  o replace-schema-50-procedure.sql
+
+ {Load Data}: loaded-files=3
+  (common)
+  o 10-master.xls
+  (ut)
+  o 20-member.xls
+  o 30-product.xls
+
+ {Take Finally}: success=4 failure=0 (in 1 files)
+  o take-finally.sql
+_/_/_/_/_/_/_/_/_/_/ {ReplaceSchema}
