@@ -13,6 +13,10 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick" % "2.0.0",
   "com.typesafe.play" %% "play-slick-evolutions" % "2.0.0",
   "com.typesafe.slick" %% "slick-codegen" % "3.1.0-M2",
+  "jp.t2v" %% "play2-auth"        % "0.14.2",
+  "jp.t2v" %% "play2-auth-social" % "0.14.2",
+  "jp.t2v" %% "play2-auth-test"   % "0.14.2" % "test", 
+  play.sbt.Play.autoImport.cache,
   "mysql" % "mysql-connector-java" % "5.1.34"
 )
 

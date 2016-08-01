@@ -20,7 +20,7 @@ object UserController {
   // フォームの値を格納するケースクラス
   case class MemberForm(memberId: Option[Int], memberName: String)
 
-  // formから送信されたデータ ⇔ ケースクラスの変換を行う
+  // formから送信されたデータ ⇔ ケースクラスの変換
   val memberForm = Form(
     mapping(
       "memberId" -> optional(number),
