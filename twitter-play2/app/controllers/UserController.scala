@@ -39,7 +39,6 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider,
   def list = Action.async { implicit rs =>
     // IDの昇順にすべてのユーザ情報を取得
     db.run(Member.sortBy { x => x.memberId }.result).map { users =>
-      // 一覧画面を表示
       Ok(views.html.user.list(users))
     }
   }
@@ -51,7 +50,6 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider,
   import UserController._
 
   def edit(memberId: Option[Int]) = Action.async { implicit rs =>
-    // リクエストパラメータにIDが存在する場合
     val form: Future[Form[MemberForm]] = if (memberId.isDefined) {
       // IDからユーザ情報を1件取得
       db.run(Member.filter(t => t.memberId === memberId.get.bind).result.head).map { user =>
@@ -74,13 +72,10 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider,
     * 登録実行
     */
   def create = Action.async { implicit rs =>
-    // リクエストの内容をバインド
     memberForm.bindFromRequest.fold(
-      // エラーの場合
       error => {
         Future(BadRequest(views.html.user.edit(error)))
       },
-      // OKの場合
       form => {
         // ユーザを登録
         val member = MemberRow(0, form.memberName, "hoge", "FML", None, None, new java.sql.Timestamp(new Date().getTime), "hoge", new java.sql.Timestamp(new Date().getTime), "hoge", 1)
@@ -98,11 +93,10 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider,
   def update = Action.async { implicit rs =>
     // リクエストの内容をバインド
     memberForm.bindFromRequest.fold(
-      // エラーの場合は登録画面に戻す
       error => {
         Future(BadRequest(views.html.user.edit(error)))
       },
-      // OKの場合は登録を行い一覧画面にリダイレクトする
+
       member => {
         // ユーザ情報を更新
         db.run(Member.filter(t => t.memberId === member.memberId.bind).result.head).map { m =>
