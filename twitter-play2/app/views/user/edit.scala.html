@@ -1,0 +1,24 @@
+@(memberForm: Form[controllers.UserController.MemberForm])(implicit messages: Messages)
+
+@* テンプレートで利用可能なヘルパーをインポート *@
+@import helper._
+
+@main("ユーザ作成") {
+
+  @* IDがある場合は更新処理、ない場合は登録処理を呼ぶ *@
+  @form(memberForm("memberId").value.map(x => routes.UserController.update).getOrElse(routes.UserController.create), 'class -> "container", 'role -> "form") {
+    <fieldset>
+      <div class="form-group">
+      @inputText(memberForm("memberName"), '_label -> "名前")
+      </div>
+      @* IDがある場合（更新の場合）のみhiddenを出力する *@
+      @memberForm("memberId").value.map { value =>
+        <input type="hidden" name="memberId" value="@value" />
+      }
+      <div>
+        <input type="submit" value="保存" class="btn btn-success">
+      </div>
+    </fieldset>
+  }
+
+}
