@@ -20,6 +20,8 @@ libraryDependencies ++= Seq(
   "org.mindrot" % "jbcrypt" % "0.3m",
   "org.scalikejdbc" %% "scalikejdbc" % "2.4.0",
   "org.scalikejdbc" %% "scalikejdbc-syntax-support-macro" % "2.4.2",
+  "org.scalikejdbc" %% "scalikejdbc-config"           % "2.4.0",
+  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.1",
   "mysql" % "mysql-connector-java" % "5.1.34"
 )
 

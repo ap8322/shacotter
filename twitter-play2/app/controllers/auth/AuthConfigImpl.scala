@@ -15,30 +15,11 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait AuthConfigImpl extends AuthConfig {
 
-
   type Id = Int
   type User = Account
-
-  /**
-    * A type that is defined by every action for authorization.
-    * This sample uses the following trait:
-    *
-    * sealed trait Role
-    * case object Administrator extends Role
-    * case object NormalUser extends Role
-    */
   type Authority = Role
-
-  /**
-    * A `ClassTag` is used to retrieve an id from the Cache API.
-    * Use something like this:
-    */
-  val idTag: ClassTag[Id] = classTag[Id]
-
-  /**
-    * The session timeout in seconds
-    */
-  val sessionTimeoutInSeconds: Int = 3600
+  val  idTag: ClassTag[Id] = classTag[Id]
+  val  sessionTimeoutInSeconds: Int = 3600
 
   /**
     * A function that returns a `User` object from an `Id`.

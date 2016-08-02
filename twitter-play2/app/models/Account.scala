@@ -5,30 +5,31 @@ package models
   */
 import org.mindrot.jbcrypt._
 import scalikejdbc._
+import scalikejdbc.config._
 
 case class Account(id: Int, email: String, password: String, name: String, role: Role)
 
-object Account {
+object Account extends SQLSyntaxSupport[Account] {
 
-  //private val a = syntax("a")
+  private val a = syntax("a")
 
-  //def apply(a: SyntaxProvider[Account])(rs: WrappedResultSet): Account = autoConstruct(rs, a)
+  def apply(a: SyntaxProvider[Account])(rs: WrappedResultSet): Account = autoConstruct(rs, a)
 
-  //private val auto = AutoSession
+  private val auto = AutoSession
 
   def authenticate(email: String, password: String): Option[Account] = {
-  //db.run(Member.filter(m => m.memberName === password).result)
     Option(new Account(1, "", "", "",Role.Administrator));
-  //findByEmail(email).filter { account => BCrypt.checkpw(password, account.password) }
+    //findByEmail(password)
   }
 
-  def findById(id: Int): Option[Account] = None
+  def findByEmail(email: String)(implicit s: DBSession = auto): Option[Account] = withSQL {
+    select.from(Account as a).where.eq(a.name, email)
+  }.map(Account(a)).single.apply()
 
-//
-//  def findById(id: Int)(implicit s: DBSession = auto): Option[Account] = withSQL {
-//    select.from(Account as a).where.eq(a.id, id)
-//  }.map(Account(a)).single.apply()
-//
+  def findById(id: Int)(implicit s: DBSession = auto): Option[Account] = withSQL {
+    select.from(Account as a).where.eq(a.id, id)
+  }.map(Account(a)).single.apply()
+
 //  def findAll()(implicit s: DBSession = auto): Seq[Account] = withSQL {
 //    select.from(Account as a)
 //  }.map(Account(a)).list.apply()
