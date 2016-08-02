@@ -19,8 +19,7 @@ libraryDependencies ++= Seq(
   play.sbt.Play.autoImport.cache,
   "org.mindrot" % "jbcrypt" % "0.3m",
   "org.scalikejdbc" %% "scalikejdbc" % "2.4.0",
-  "org.scalikejdbc" %% "scalikejdbc-config"           % "2.4.0",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.1",
+  "org.scalikejdbc" %% "scalikejdbc-syntax-support-macro" % "2.4.2",
   "mysql" % "mysql-connector-java" % "5.1.34"
 )
 
