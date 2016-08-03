@@ -9,6 +9,9 @@ GET  /logout                     controllers.LoginoutController.logout
 GET  /signup                     controllers.LoginoutController.signup
 POST /create                     controllers.LoginoutController.create
 
+GET  /tweet                      controllers.TweetController.index
+POST /tweet                      controllers.TweetController.tweet
+
 ## An example controller showing how to write asynchronous code
 #GET     /message                    controllers.AsyncController.message
 #
