@@ -3,59 +3,84 @@ package controllers
 /**
   * Created by yuki.haneda on 2016/08/02.
   */
-  import javax.inject.Inject
 
-  import controllers.auth.AuthConfigImpl
-  import jp.t2v.lab.play2.auth.LoginLogout
-  import models.Account
-  import play.api.data.Form
-  import play.api.data.Forms._
-  import play.api.libs.concurrent.Execution.Implicits.defaultContext
-  import play.api.mvc.{Action, Controller}
+import javax.inject.Inject
 
-  import scala.concurrent.Future
+import controllers.auth.{AuthConfigImpl, LoginForm, Member, MemberDAOLike}
+import jp.t2v.lab.play2.auth.LoginLogout
+import models.Tables.MemberRow
+import play.api.data.Form
+import play.api.data.Forms._
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.mvc.{Action, Controller}
 
-  /**
-    * Created by yuki.haneda on 2016/08/01.
-    */
-  class LoginoutController @Inject() extends Controller with LoginLogout with AuthConfigImpl {
+import scala.concurrent.Future
 
-    val loginForm = Form {
-      mapping("email" -> email, "password" -> text)(Account.authenticate)(_.map(u => (u.email, "")))
-        .verifying("emailまたはpasswordが正しくありません｡", result => result.isDefined)
-    }
+object LoginoutController {
 
-    /** Alter the login page action to suit your application. */
-    def login = Action { implicit request =>
-      Ok(views.html.user.login(loginForm))
-    }
+  val loginForm = Form(
+    mapping(
+      "email" -> nonEmptyText(maxLength = 20),
+      "password" -> nonEmptyText(maxLength = 20)
+    )(LoginForm.apply)(LoginForm.unapply)
+  )
 
-    /**
-      * Return the `gotoLogoutSucceeded` method's result in the logout action.
-      *
-      * Since the `gotoLogoutSucceeded` returns `Future[Result]`,
-      * you can add a procedure like the following.
-      *
-      *   gotoLogoutSucceeded.map(_.flashing(
-      *     "success" -> "You've been logged out"
-      *   ))
-      */
-    def logout = Action.async { implicit request =>
-      // do something...
-      gotoLogoutSucceeded
-    }
+  case class SignupForm(name: String,email: String,password: String)
 
-    /**
-      * Return the `gotoLoginSucceeded` method's result in the login action.
-      *
-      * Since the `gotoLoginSucceeded` returns `Future[Result]`,
-      * you can add a procedure like the `gotoLogoutSucceeded`.
-      */
-    def authenticate = Action.async { implicit request =>
-      loginForm.bindFromRequest.fold(
-        formWithErrors => Future.successful(BadRequest(views.html.user.login(formWithErrors))),
-        user => gotoLoginSucceeded(user.get.id)
-      )
-    }
+  val signupForm = Form(
+    mapping(
+      "name" -> nonEmptyText(maxLength = 20),
+      "email" -> nonEmptyText(maxLength = 20),
+      "password" -> nonEmptyText(maxLength = 20)
+    )(SignupForm.apply)(SignupForm.unapply)
+  )
+}
+
+class LoginoutController @Inject()(val memberDAO: MemberDAOLike) extends Controller with LoginLogout with AuthConfigImpl {
+
+  import LoginoutController._
+
+  def index() = Action { implicit request =>
+    Ok(views.html.user.signin(loginForm))
   }
 
+  def login() = Action.async { implicit request =>
+      loginForm.bindFromRequest.fold(
+        formWithErrors => {
+          Future.successful(BadRequest(views.html.user.signin(formWithErrors)))
+        },
+        form => {
+          memberDAO.authenticate(form).flatMap {
+            case Some(user) =>
+              gotoLoginSucceeded(user.id)
+            case _ =>
+              Future.successful(Unauthorized(views.html.user.signin(loginForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
+          }
+        }
+      )
+    }
+
+  def logout() = Action.async { implicit request =>
+      gotoLogoutSucceeded
+  }
+
+  def signup() = Action { implicit request =>
+    Ok(views.html.user.signup(signupForm))
+  }
+
+  def create() = Action.async { implicit request =>
+    signupForm.bindFromRequest.fold(
+      formWithErrors => {
+        Future.successful(BadRequest(views.html.user.signup(formWithErrors)))
+      },
+      form => {
+        val member = MemberRow(0,form.email,form.password,"solt",form.name)
+        memberDAO.create(member).flatMap{
+          case Some(user) => gotoLoginSucceeded(user.id)
+          case _ => Future.successful(Unauthorized(views.html.user.signup(signupForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
+        }
+      }
+    )
+  }
+
+}

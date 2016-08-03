@@ -33,10 +33,10 @@ resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 //
 //lazy val slick = TaskKey[Seq[File]]("gen-tables")
 //lazy val slickCodeGenTask = (sourceManaged, dependencyClasspath in Compile, runner in Compile, streams) map { (dir, cp, r, s) =>
-//  val outputDir = "app" 
+//  val outputDir = "app"
 //  val username = "root"
-//  val password = ""
-//  val url = "jdbc:mysql://localhost/maihamadb"
+//  val password = "Hy19920423"
+//  val url = "jdbc:mysql://localhost/test"
 //  val jdbcDriver = "com.mysql.jdbc.Driver"
 //  val slickDriver = "slick.driver.MySQLDriver"
 //  val pkg = "models"
@@ -44,4 +44,4 @@ resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 //  val fname = outputDir + "/models/Tables.scala"
 //  Seq(file(fname))
 //}
-//
+
