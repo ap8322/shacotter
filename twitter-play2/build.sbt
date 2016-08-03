@@ -44,4 +44,3 @@ resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 //  val fname = outputDir + "/models/Tables.scala"
 //  Seq(file(fname))
 //}
-

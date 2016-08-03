@@ -14,7 +14,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = Account.schema ++ Member.schema
+  lazy val schema: profile.SchemaDescription = Account.schema ++ Member.schema ++ Tweet.schema
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -79,4 +79,27 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table Member */
   lazy val Member = new TableQuery(tag => new Member(tag))
+
+  /** Entity class storing rows of table Tweet
+   *  @param name Database column name SqlType(TEXT)
+   *  @param tweet Database column tweet SqlType(VARCHAR), Length(140,true), Default(None) */
+  case class TweetRow(name: String, tweet: Option[String] = None)
+  /** GetResult implicit for fetching TweetRow objects using plain SQL queries */
+  implicit def GetResultTweetRow(implicit e0: GR[String], e1: GR[Option[String]]): GR[TweetRow] = GR{
+    prs => import prs._
+    TweetRow.tupled((<<[String], <<?[String]))
+  }
+  /** Table description of table tweet. Objects of this class serve as prototypes for rows in queries. */
+  class Tweet(_tableTag: Tag) extends Table[TweetRow](_tableTag, "tweet") {
+    def * = (name, tweet) <> (TweetRow.tupled, TweetRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(name), tweet).shaped.<>({r=>import r._; _1.map(_=> TweetRow.tupled((_1.get, _2)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column name SqlType(TEXT) */
+    val name: Rep[String] = column[String]("name")
+    /** Database column tweet SqlType(VARCHAR), Length(140,true), Default(None) */
+    val tweet: Rep[Option[String]] = column[Option[String]]("tweet", O.Length(140,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table Tweet */
+  lazy val Tweet = new TableQuery(tag => new Tweet(tag))
 }
