@@ -225,14 +225,14 @@ class names:
 89 items
 /Users/yuki/Documents/playtest/play2-hands-on/app/Filters.scala -> Filters
 /Users/yuki/Documents/playtest/play2-hands-on/app/Module.scala -> Module
-/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/AsyncController.scala -> controllers.AsyncController
-/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/AsyncController.scala -> controllers.AsyncController$$anonfun$controllers$AsyncController$$getFutureMessage$1
-/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/AsyncController.scala -> controllers.AsyncController$$anonfun$message$1
-/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/AsyncController.scala -> controllers.AsyncController$$anonfun$message$1$$anonfun$apply$1
-/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/CountController.scala -> controllers.CountController
-/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/CountController.scala -> controllers.CountController$$anonfun$count$1
-/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/HomeController.scala -> controllers.HomeController
-/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/HomeController.scala -> controllers.HomeController$$anonfun$index$1
+/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/AsyncController.scala -> sample.AsyncController
+/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/AsyncController.scala -> sample.AsyncController$$anonfun$controllers$AsyncController$$getFutureMessage$1
+/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/AsyncController.scala -> sample.AsyncController$$anonfun$message$1
+/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/AsyncController.scala -> sample.AsyncController$$anonfun$message$1$$anonfun$apply$1
+/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/CountController.scala -> sample.CountController
+/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/CountController.scala -> sample.CountController$$anonfun$count$1
+/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/HomeController.scala -> sample.HomeController
+/Users/yuki/Documents/playtest/play2-hands-on/app/controllers/HomeController.scala -> sample.HomeController$$anonfun$index$1
 /Users/yuki/Documents/playtest/play2-hands-on/app/controllers/UserController.scala -> controllers.UserController
 /Users/yuki/Documents/playtest/play2-hands-on/app/filters/ExampleFilter.scala -> filters.ExampleFilter
 /Users/yuki/Documents/playtest/play2-hands-on/app/filters/ExampleFilter.scala -> filters.ExampleFilter$$anonfun$apply$1

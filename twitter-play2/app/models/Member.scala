@@ -1,4 +1,5 @@
-package controllers.auth
+package models
+
 import models.Tables._
 
 /**

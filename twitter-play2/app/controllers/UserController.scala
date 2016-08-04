@@ -12,8 +12,8 @@ import slick.driver.JdbcProfile
 import models.Tables._
 import javax.inject.Inject
 
-import controllers.auth.{AuthConfigImpl, MemberDAOLike}
 import jp.t2v.lab.play2.auth.AuthElement
+import models.{AuthConfigImpl, MemberDAOLike, Tables}
 
 import scala.concurrent.Future
 import slick.driver.MySQLDriver.api._
@@ -39,9 +39,7 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider,
   /**
     * 一覧表示
     */
-  def list = StackAction(AuthorityKey -> None) { implicit rs =>
-      Ok(views.html.user.list(loggedIn.name))
-    }
+  def list = TODO
 
   /**
     * 編集画面表示
