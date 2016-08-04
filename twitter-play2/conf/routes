@@ -12,15 +12,17 @@ POST /create                     controllers.LoginoutController.create
 GET  /tweet                      controllers.TweetController.index
 POST /tweet                      controllers.TweetController.tweet
 
-## An example controller showing how to write asynchronous code
-#GET     /message                    controllers.AsyncController.message
-#
+GET     /user/list               controllers.FollowController.list
+
 ## Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-# Mapping to /user/list
-GET     /user/list                  controllers.UserController.list
+## An example controller showing how to write asynchronous code
+#GET     /message                    sample.AsyncController.message
+#
+
 ## Mapping to /user/edit or /user/edit?id=<number>
+
 #GET     /user/edit                  controllers.UserController.edit(memberId: Option[Int] ?= None)
 ## Mapping to /user/create
 #POST    /user/create                controllers.UserController.create

@@ -1,28 +1,50 @@
 @* このテンプレートの引数 *@
-@(users: String)
-@* main.scala.htmlを呼び出す *@
-@main("ユーザ一覧") {
-    <div class="jumbotron">
+@(users: Seq[Tables.TweetRow], form: Form[controllers.TweetController.Tweet])
+    @* main.scala.htmlを呼び出す *@
+    @main("ユーザ一覧") {
+        <header class="container-fluid bHead" style="background-color: gray;
+            padding: 20px">
+            <div class="container">
+                <div class="pull-left" style="font-size: 20px">Twitter(仮)</div>
+                <a href="@routes.LoginoutController.logout" class="btn btn-default pull-right" role="button">ログアウト</a>
+            </div>
+        </header>
         <div class="container">
-            <div class="col-xs-6" style="margin: 0 auto;">
-                <table class="table table-hover">
-                    <thead>
+            <div class="row">
+                <div class="col-sm-2" style="padding: 20px">
+                @helper.form(routes.TweetController.tweet) {
+                    @form.globalError.map { error =>
+                        <p class="error">
+                            @error.message
+                        </p>
+                    }
+                    <img src="@routes.Assets.versioned("images/egg.png")">
+                    <p style="font-size: 25px;">@users.last.name</p>
+                    <input name="tweet" placeholder="your tweet" id="tweet" style="margin-top: 10px;" value="">
+                    <button type="submit" id="tweet" style="margin-top: 10px;" >ツイートする</button>
+                    <button type="button" id="list" onclick="location.href = '@routes.FollowController.list'">
+                            メンバー一覧</button>
+                    }
+                </div>
+                <div class="col-sm-8" style="padding: 20px">
+                    <table class="table table-hover">
+                    @users.reverse.map { tweet =>
                         <tr>
-                            <th>名前</th>
-                            <th>&nbsp;</th>
+                            <td>
+                                <div>
+                                    <img src="@routes.Assets.versioned("images/egg.png")" style="width: 18px;
+                                        height: 18px">
+                                    <span style="font-size: 15px"> @tweet.name </span>
+                                </div>
+                                <div style="font-size: 20px">
+                                @tweet.tweet
+                                </div>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@users</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div>
-                    <a href="@routes.TweetController.index" class="btn btn-success" role="button">ツイートする</a><p>
-                    <a href="@routes.LoginoutController.logout" class="btn btn-success" role="button">ログアウト</a>
+                    }
+                    </table>
                 </div>
             </div>
         </div>
-    </div>
-}
+        @*<footer style="background-color: gray">Footer</footer>*@
+    }

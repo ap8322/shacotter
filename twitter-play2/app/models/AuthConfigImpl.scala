@@ -1,6 +1,5 @@
-package controllers.auth
+package models
 
-import com.sun.xml.internal.bind.v2.TODO
 import controllers.routes
 import jp.t2v.lab.play2.auth.{AuthConfig, CookieTokenAccessor}
 import play.api.mvc.RequestHeader
@@ -31,7 +30,7 @@ trait AuthConfigImpl extends AuthConfig {
     * Where to redirect the user after a successful login.
     */
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) =
-  Future.successful(Redirect(routes.UserController.list))
+  Future.successful(Redirect(routes.TweetController.index))
 
   /**
     * Where to redirect the user after logging out

@@ -6,8 +6,8 @@ package controllers
 
 import javax.inject.Inject
 
-import controllers.auth.{AuthConfigImpl, LoginForm, Member, MemberDAOLike}
-import jp.t2v.lab.play2.auth.LoginLogout
+import jp.t2v.lab.play2.auth.{AuthElement, LoginLogout}
+import models.{AuthConfigImpl, LoginForm, MemberDAOLike}
 import models.Tables.MemberRow
 import play.api.data.Form
 import play.api.data.Forms._
@@ -36,25 +36,26 @@ object LoginoutController {
   )
 }
 
-class LoginoutController @Inject()(val memberDAO: MemberDAOLike) extends Controller with LoginLogout with AuthConfigImpl {
+class LoginoutController @Inject()(val memberDAO: MemberDAOLike)
+  extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
   import LoginoutController._
 
   def index() = Action { implicit request =>
-    Ok(views.html.user.signin(loginForm))
+    Ok(views.html.auth.signin(loginForm))
   }
 
   def login() = Action.async { implicit request =>
       loginForm.bindFromRequest.fold(
         formWithErrors => {
-          Future.successful(BadRequest(views.html.user.signin(formWithErrors)))
+          Future.successful(BadRequest(views.html.auth.signin(formWithErrors)))
         },
         form => {
           memberDAO.authenticate(form).flatMap {
             case Some(user) =>
               gotoLoginSucceeded(user.id)
             case _ =>
-              Future.successful(Unauthorized(views.html.user.signin(loginForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
+              Future.successful(Unauthorized(views.html.auth.signin(loginForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
           }
         }
       )
@@ -65,22 +66,21 @@ class LoginoutController @Inject()(val memberDAO: MemberDAOLike) extends Control
   }
 
   def signup() = Action { implicit request =>
-    Ok(views.html.user.signup(signupForm))
+    Ok(views.html.auth.signup(signupForm))
   }
 
   def create() = Action.async { implicit request =>
     signupForm.bindFromRequest.fold(
       formWithErrors => {
-        Future.successful(BadRequest(views.html.user.signup(formWithErrors)))
+        Future.successful(BadRequest(views.html.auth.signup(formWithErrors)))
       },
       form => {
         val member = MemberRow(0,form.email,form.password,"solt",form.name)
         memberDAO.create(member).flatMap{
           case Some(user) => gotoLoginSucceeded(user.id)
-          case _ => Future.successful(Unauthorized(views.html.user.signup(signupForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
+          case _ => Future.successful(Unauthorized(views.html.auth.signup(signupForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
         }
       }
     )
   }
-
 }

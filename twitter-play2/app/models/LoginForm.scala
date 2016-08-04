@@ -1,4 +1,4 @@
-package controllers.auth
+package models
 
 /**
   * Created by yuki.haneda on 2016/08/03.
