@@ -18,27 +18,19 @@ import scala.concurrent.Future
 
 @ImplementedBy(classOf[MemberDAO])
 trait MemberDAOLike extends HasDatabaseConfigProvider[JdbcProfile] {
-  def findByEmail(email: String): Future[Option[Member]]
-
   def authenticate(form: LoginForm): Future[Option[Member]]
 
   def findById(id: Int): Future[Option[Member]]
 
+  def findByEmail(email: String): Future[Option[Member]]
+
   def create(member: Tables.MemberRow): Future[Option[Member]]
 
   def update(member: Tables.MemberRow): Future[Option[Member]]
-
 }
 
 class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   extends HasDatabaseConfigProvider[JdbcProfile] with MemberDAOLike {
-
-
-  def findByEmail(email: String): Future[Option[Member]] = {
-    db.run(Tables.Member.filter(_.email === email.bind).result.headOption).map { user =>
-      Some(new Member(user.get))
-    }
-  }
 
   def authenticate(form: LoginForm): Future[Option[Member]] = {
     db.run(Tables.Member.filter(_.email === form.email.bind).result.headOption).map {
@@ -49,6 +41,12 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   def findById(id: Int): Future[Option[Member]] = {
     db.run(Tables.Member.filter(_.id === id.bind).result.headOption).map { user =>
+      Some(new Member(user.get))
+    }
+  }
+
+  def findByEmail(email: String): Future[Option[Member]] = {
+    db.run(Tables.Member.filter(_.email === email.bind).result.headOption).map { user =>
       Some(new Member(user.get))
     }
   }

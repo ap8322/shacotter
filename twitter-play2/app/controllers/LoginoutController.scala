@@ -20,7 +20,7 @@ object LoginoutController {
 
   val loginForm = Form(
     mapping(
-      "email" -> nonEmptyText(maxLength = 20),
+      "email" -> nonEmptyText(maxLength = 20).verifying(),
       "password" -> nonEmptyText(maxLength = 20)
     )(LoginForm.apply)(LoginForm.unapply)
   )
@@ -62,7 +62,9 @@ class LoginoutController @Inject()(val memberDAO: MemberDAOLike)
     }
 
   def logout() = Action.async { implicit request =>
-      gotoLogoutSucceeded
+      gotoLogoutSucceeded.map(_.flashing(
+        "success" -> "You've been logged out"
+      ))
   }
 
   def signup() = Action { implicit request =>

@@ -14,9 +14,7 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import slick.driver.MySQLDriver.api._
 
 import scala.concurrent.Future
-/**
-  * Created by yuki.haneda on 2016/08/03.
-  */
+
 object TweetController {
   case class Tweet(tweet: String)
 
@@ -35,8 +33,8 @@ class TweetController @Inject()(val dbConfigProvider: DatabaseConfigProvider,
   with HasDatabaseConfigProvider[JdbcProfile] with I18nSupport with AuthElement with AuthConfigImpl {
 
   def index() = AsyncStack(AuthorityKey -> None) { implicit rs =>
-    db.run(Tables.Tweet.filter(_.name === loggedIn.name.bind).result).map{ twt =>
-      Ok(views.html.user.list(twt,tweetForm))
+    db.run(Tables.Tweet.filter(_.name === loggedIn.name.bind).result).map{ tweet =>
+      Ok(views.html.user.list(tweet,tweetForm))
     }
   }
 
