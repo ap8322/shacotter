@@ -2,14 +2,11 @@ package models
 
 import controllers.routes
 import jp.t2v.lab.play2.auth.{AuthConfig, CookieTokenAccessor}
-import play.api.mvc.RequestHeader
+import play.api.mvc.{RequestHeader, Result}
 import play.api.mvc.Results._
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.reflect.{ClassTag, classTag}
-/**
-  * Created by yuki.haneda on 2016/08/01.
-  */
 
 trait AuthConfigImpl extends AuthConfig {
 
@@ -20,33 +17,19 @@ trait AuthConfigImpl extends AuthConfig {
   val  sessionTimeoutInSeconds: Int = 3600
   val memberDAO : MemberDAOLike
 
-  /**
-    * A function that returns a `User` object from an `Id`.
-    * You can alter the procedure to suit your application.
-    */
   def resolveUser(id: Id)(implicit ctx: ExecutionContext): Future[Option[User]] = memberDAO.findById(id)
 
-  /**
-    * Where to redirect the user after a successful login.
-    */
-  def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) =
+  def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] =
   Future.successful(Redirect(routes.TweetController.index))
 
-  /**
-    * Where to redirect the user after logging out
-    */
-  def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) =
+  def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] =
   Future.successful(Redirect(routes.LoginoutController.index))
 
-  /**
-    * If the user is not logged in and tries to access a protected resource then redirect them as follows:
-    */
-  def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) =
-  Future.successful(Redirect(routes.LoginoutController.index))
+  def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] =
+  Future.successful(Redirect(routes.LoginoutController.index)).map(_.flashing(
+    "success" -> "session timeout!"
+  ))
 
-  /**
-    * If authorization failed (usually incorrect password) redirect the user as follows:
-    */
   override def authorizationFailed(request: RequestHeader, user: User, authority: Option[Authority])(implicit context: ExecutionContext) = {
     Future.successful(Forbidden("no permission"))
   }
