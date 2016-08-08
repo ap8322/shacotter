@@ -9,8 +9,15 @@ GET  /logout                     controllers.LoginoutController.logout
 GET  /signup                     controllers.LoginoutController.signup
 POST /create                     controllers.LoginoutController.create
 
+GET  /edit                       controllers.LoginoutController.edit
+POST /edit                       controllers.LoginoutController.update
+
 GET  /tweet                      controllers.TweetController.index
 POST /tweet                      controllers.TweetController.tweet
+GET  /timeline                   controllers.TweetController.timeline
+
+GET  /follow/:memberId           controllers.FollowController.follow(memberId: Int)
+GET  /follower                   controllers.FollowController.followerlist
 
 GET     /user/list               controllers.FollowController.list
 

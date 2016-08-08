@@ -3,7 +3,6 @@ package models
 /**
   * Created by yuki.haneda on 2016/08/01.
   */
-import scalikejdbc.TypeBinder
 
 sealed trait Role
 
@@ -18,6 +17,6 @@ object Role {
     case _ => throw new IllegalArgumentException()
   }
 
-  implicit val typeBinder: TypeBinder[Role] = TypeBinder.string.map(valueOf)
+//  implicit val typeBinder: TypeBinder[Role] = TypeBinder.string.map(valueOf)
 
 }

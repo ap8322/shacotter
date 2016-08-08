@@ -1,30 +1,30 @@
-@(form :Form[controllers.LoginoutController.SignupForm])(implicit flash: Flash)
+@(form: Form[controllers.LoginoutController.SignupForm])(implicit flash: Flash)
 
-@main("Signup") {
+    @main("Signup") {
 
-  @helper.form(routes.LoginoutController.create()){
-    <h1>Shinup</h1>
-    @form.globalError.map { error =>
-      <p class="error">
-        @error.message
-      </p>
+        @helper.form(routes.LoginoutController.create()) {
+            <h1>Shinup</h1>
+            @form.globalError.map { error =>
+                <p class="error">
+                    @error.message
+                </p>
+            }
+            @flash.get("success").map { message =>
+                <p class="success">
+                    @message
+                </p>
+            }
+            <p>
+                <input type="name" name="name" placeholder="Your name" id="name" value="">
+            </p>
+            <p>
+                <input type="email" name="email" placeholder="Your Email" id="email" value="">
+            </p>
+            <p>
+                <input type="password" name="password" id="password" placeholder="Your Password">
+            </p>
+            <p>
+                <button type="submit" id="signupbutton">Signup</button>
+            </p>
+        }
     }
-    @flash.get("success").map { message =>
-      <p class="success">
-        @message
-      </p>
-    }
-    <p>
-      <input type="name" name="name" placeholder="Your name" id="name" value="">
-    </p>
-    <p>
-      <input type="email" name="email" placeholder="Your Email" id="email" value="">
-    </p>
-    <p>
-      <input type="password" name="password" id="password" placeholder="Your Password">
-    </p>
-    <p>
-      <button type="submit" id="signupbutton">Signup</button>
-    </p>
-  }
-}

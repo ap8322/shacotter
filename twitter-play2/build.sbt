@@ -18,15 +18,12 @@ libraryDependencies ++= Seq(
   "jp.t2v" %% "play2-auth-test"   % "0.14.2" % "test",
   play.sbt.Play.autoImport.cache,
   "org.mindrot" % "jbcrypt" % "0.3m",
-  "org.scalikejdbc" %% "scalikejdbc" % "2.4.0",
-  "org.scalikejdbc" %% "scalikejdbc-syntax-support-macro" % "2.4.2",
-  "org.scalikejdbc" %% "scalikejdbc-config"           % "2.4.0",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.1",
   "mysql" % "mysql-connector-java" % "5.1.34"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 
+//
 //slick <<= slickCodeGenTask
 //
 //sourceGenerators in Compile <+= slickCodeGenTask
