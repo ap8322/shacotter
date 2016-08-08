@@ -1,41 +1,46 @@
 @* このテンプレートの引数 *@
-@(me: String,users: Seq[Tables.MemberRow], form: Form[controllers.FollowController.Tweet])
+@(me: String, users: Seq[Tables.MemberRow], form: Form[controllers.FollowController.Tweet])
 @* main.scala.htmlを呼び出す *@
 @main("ユーザ一覧") {
-  <header class="container-fluid bHead" style="background-color: gray;padding: 20px">
+    <header class="container-fluid bHead" style="background-color: gray;
+        padding: 20px">
+        <div class="container">
+            <div class="pull-left" style="font-size: 20px">Twitter(仮)</div>
+            <a href="@routes.LoginoutController.logout" class="btn btn-default pull-right" role="button">ログアウト</a>
+        </div>
+    </header>
     <div class="container">
-      <div class="pull-left" style="font-size: 20px">Twitter(仮)</div>
-      <a href="@routes.LoginoutController.logout" class="btn btn-default pull-right" role="button">ログアウト</a>
+        <div class="row">
+            <div class="col-sm-2" style="padding: 20px">
+            @helper.form(routes.TweetController.tweet) {
+                @form.globalError.map { error =>
+                    <p class="error">
+                        @error.message
+                    </p>
+                }
+                <img src="@routes.Assets.versioned("images/egg.png")">
+                <p style="font-size: 25px;">@me</p>
+                <input name="tweet" placeholder="your tweet" id="tweet" style="margin-top: 10px;" value="">
+                <button type="submit" id="tweet" style="margin-top: 10px;" >ツイートする</button>
+                <button type="button" id="list" onclick="location.href = '@routes.FollowController.list'">メンバー一覧</button>
+                <button type="button" id="follow" onclick="location.href = '@routes.FollowController.followerlist'">
+                    フォローしている人</button>
+                <button type="button" id="timeline" onclick="location.href = '@routes.TweetController.timeline'">
+                    タイムライン</button>
+            }
+            </div>
+            <div class="col-sm-8" style="padding: 20px">
+                <table class="table table-hover">
+                @users.map { user =>
+                    <tr>
+                        <td>
+                            @user.name
+                        </td>
+                    </tr>
+                }
+                </table>
+            </div>
+        </div>
     </div>
-  </header>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-2"style="padding: 20px">
-      @helper.form(routes.TweetController.tweet) {
-        @form.globalError.map { error =>
-          <p class="error">
-            @error.message
-          </p>
-        }
-        <img src="@routes.Assets.versioned("images/egg.png")">
-        <p style="font-size: 25px;">@me</p>
-        <input name="tweet" placeholder="your tweet" id="tweet" style="margin-top: 10px;" value="">
-        <button type="submit" id="tweet" style="margin-top:10px;" >ツイートする</button>
-        <button type="button" id="list" onclick="location.href='@routes.FollowController.list'">メンバー一覧</button>
-      }
-      </div>
-      <div class="col-sm-8" style="padding: 20px">
-        <table class="table table-hover">
-        @users.map{ user =>
-          <tr>
-            <td>
-                @user.name
-            </td>
-          </tr>
-        }
-        </table>
-      </div>
-    </div>
-  </div>
-  @*<footer style="background-color: gray">Footer</footer>*@
+    @*<footer style="background-color: gray">Footer</footer>*@
 }

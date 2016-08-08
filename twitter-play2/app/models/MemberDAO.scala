@@ -8,6 +8,7 @@ import java.util.UUID
 import javax.inject.Inject
 
 import com.google.inject.ImplementedBy
+import models.Tables.MemberRow
 import org.apache.commons.codec.digest.DigestUtils
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
@@ -15,6 +16,10 @@ import slick.driver.MySQLDriver.api._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+
+case class Member(id: Int, email: String, password: String, name: String) {
+  def this(row: MemberRow) = this(row.memberId, row.email, row.password, row.name)
+}
 
 @ImplementedBy(classOf[MemberDAO])
 trait MemberDAOLike extends HasDatabaseConfigProvider[JdbcProfile] {
@@ -40,7 +45,7 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   }
 
   def findById(id: Int): Future[Option[Member]] = {
-    db.run(Tables.Member.filter(_.id === id.bind).result.headOption).map { user =>
+    db.run(Tables.Member.filter(_.memberId === id.bind).result.headOption).map { user =>
       Some(new Member(user.get))
     }
   }
@@ -53,17 +58,18 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   /**
     * インサートした後にそのメンバーを返してくれる｡
+    *
     * @param member
     * @return
     */
-  def create(member: Tables.MemberRow): Future[Option[Member]]  = {
-    db.run(Tables.Member+=member)
+  def create(member: Tables.MemberRow): Future[Option[Member]] = {
+    db.run(Tables.Member += member)
     findByEmail(member.email)
   }
 
   def update(member: Tables.MemberRow): Future[Option[Member]] = {
-    db.run(Tables.Member.filter(_.id === member.id).update(member))
-    findById(member.id)
+    db.run(Tables.Member.filter(_.memberId === member.memberId).update(member))
+    findById(member.memberId)
   }
 }
 
