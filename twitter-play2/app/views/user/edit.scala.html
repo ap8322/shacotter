@@ -1,8 +1,8 @@
-@(form: Form[controllers.LoginoutController.SignupForm])(implicit flash: Flash)
+@(form: Form[controllers.MemberController.StatusForm])(implicit flash: Flash)
 
 @main("edit") {
 
-    @helper.form(routes.LoginoutController.update) {
+    @helper.form(routes.MemberController.update) {
         <h1>edit</h1>
         @form.globalError.map { error =>
             <p class="error">

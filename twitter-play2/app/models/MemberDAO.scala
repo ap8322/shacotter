@@ -21,39 +21,37 @@ case class Member(id: Int, email: String, password: String, name: String) {
   def this(row: MemberRow) = this(row.memberId, row.email, row.password, row.name)
 }
 
-@ImplementedBy(classOf[MemberDAO])
-trait MemberDAOLike extends HasDatabaseConfigProvider[JdbcProfile] {
-  def authenticate(form: LoginForm): Future[Option[Member]]
+@ImplementedBy(classOf[MemberDAOImpl])
+trait MemberDAO extends HasDatabaseConfigProvider[JdbcProfile] {
+  def authenticate(form: LoginForm): Future[Option[MemberRow]]
 
-  def findById(id: Int): Future[Option[Member]]
+  def selectList(): Future[Seq[(MemberRow)]]
 
-  def findByEmail(email: String): Future[Option[Member]]
+  def findById(id: Int): Future[Option[MemberRow]]
 
-  def create(member: Tables.MemberRow): Future[Option[Member]]
+  def findByEmail(email: String): Future[Option[MemberRow]]
 
-  def update(member: Tables.MemberRow): Future[Option[Member]]
+  def create(member: MemberRow): Future[Option[MemberRow]]
+
+  def update(member: MemberRow): Future[Option[MemberRow]]
 }
 
-class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
-  extends HasDatabaseConfigProvider[JdbcProfile] with MemberDAOLike {
+class MemberDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
+  extends HasDatabaseConfigProvider[JdbcProfile] with MemberDAO {
 
-  def authenticate(form: LoginForm): Future[Option[Member]] = {
+  def authenticate(form: LoginForm): Future[Option[MemberRow]] = {
     db.run(Tables.Member.filter(_.email === form.email.bind).result.headOption).map {
-      case Some(user) if form.password == user.password => Some(new Member(user))
+      case Some(user) if form.password == user.password => Some(user)
       case _ => None
     }
   }
 
-  def findById(id: Int): Future[Option[Member]] = {
-    db.run(Tables.Member.filter(_.memberId === id.bind).result.headOption).map { user =>
-      Some(new Member(user.get))
-    }
+  def findById(id: Int): Future[Option[MemberRow]] = {
+    db.run(Tables.Member.filter(_.memberId === id.bind).result.headOption)
   }
 
-  def findByEmail(email: String): Future[Option[Member]] = {
-    db.run(Tables.Member.filter(_.email === email.bind).result.headOption).map { user =>
-      Some(new Member(user.get))
-    }
+  def findByEmail(email: String): Future[Option[MemberRow]] = {
+    db.run(Tables.Member.filter(_.email === email.bind).result.headOption)
   }
 
   /**
@@ -62,14 +60,18 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param member
     * @return
     */
-  def create(member: Tables.MemberRow): Future[Option[Member]] = {
+  def create(member: MemberRow): Future[Option[MemberRow]] = {
     db.run(Tables.Member += member)
     findByEmail(member.email)
   }
 
-  def update(member: Tables.MemberRow): Future[Option[Member]] = {
+  def update(member: MemberRow): Future[Option[MemberRow]] = {
     db.run(Tables.Member.filter(_.memberId === member.memberId).update(member))
     findById(member.memberId)
+  }
+
+  def selectList(): Future[Seq[MemberRow]] = {
+    db.run(Tables.Member.sortBy(m => m.memberId).result)
   }
 }
 

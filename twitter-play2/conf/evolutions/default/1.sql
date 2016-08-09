@@ -8,7 +8,7 @@ CREATE TABLE Member (
   password TEXT NOT NULL COMMENT 'ハッシュ化したものを保存',
   name VARCHAR(255) NOT NULL ,
   PRIMARY KEY (member_id),
-  UNIQUE (email)
+  UNIQUE (email,name)
 );
 
 CREATE TABLE Tweet (

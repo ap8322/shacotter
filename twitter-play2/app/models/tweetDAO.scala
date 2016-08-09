@@ -1,23 +1,20 @@
 package models
 
-import java.sql.Timestamp
 import javax.inject.Inject
 
 import com.google.inject.ImplementedBy
-import com.sun.xml.internal.bind.v2.TODO
+import models.Tables._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
+import slick.driver.MySQLDriver.api._
 
 import scala.concurrent.Future
-import models.Tables._
-import slick.driver.MySQLDriver.api._
 
 /**
   * Created by yuki.haneda on 2016/08/03.
   */
-
 @ImplementedBy(classOf[TweetDAOImpl])
-trait TweetDAO extends HasDatabaseConfigProvider[JdbcProfile]{
+trait TweetDAO extends HasDatabaseConfigProvider[JdbcProfile] {
   def selectMyTweet(id: Int): Future[Seq[TweetRow]]
 
   def selectFollowerTweet(id: Int): Future[Seq[TweetRow]]
@@ -25,24 +22,26 @@ trait TweetDAO extends HasDatabaseConfigProvider[JdbcProfile]{
   def selectFollowerList(id: Int): Future[Seq[MemberRow]]
 
   def follow(follow: FollowRow): Unit
+
+  def add(tweet: TweetRow):Unit
 }
 
 class TweetDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
-  extends HasDatabaseConfigProvider[JdbcProfile] with TweetDAO{
+  extends HasDatabaseConfigProvider[JdbcProfile] with TweetDAO {
 
-  def selectMyTweet(id: Int): Future[Seq[TweetRow]] ={
+  def selectMyTweet(id: Int): Future[Seq[TweetRow]] = {
     db.run(Tables.Tweet.filter(_.memberId === id.bind).result)
   }
 
   def selectFollowerTweet(id: Int): Future[Seq[TweetRow]] = {
-    db.run(Tables.Follow.filter(_.followerId === id.bind).flatMap{ a =>
-      Tables.Tweet.filter(t => t.memberId === a.followedId || t.memberId === id.bind)
+    db.run(Tables.Follow.filter(_.followerId === id.bind).flatMap { f =>
+      Tables.Tweet.filter(t => t.memberId === f.followedId)
     }.result)
   }
 
   def selectFollowerList(id: Int): Future[Seq[MemberRow]] = {
-    db.run(Tables.Follow.filter(_.followerId === id.bind).flatMap{ a =>
-     Tables.Member.filter(m => m.memberId === a.followedId)
+    db.run(Tables.Follow.filter(_.followerId === id.bind).flatMap { f =>
+      Tables.Member.filter(m => m.memberId === f.followedId)
     }.result)
   }
 
@@ -50,4 +49,7 @@ class TweetDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     db.run(Tables.Follow += follow)
   }
 
+  def add(tweet: TweetRow): Unit = {
+    db.run(Tables.Tweet += tweet)
+  }
 }

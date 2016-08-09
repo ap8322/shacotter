@@ -2,15 +2,15 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET  /                           controllers.LoginoutController.index
-POST /login                      controllers.LoginoutController.login
-GET  /logout                     controllers.LoginoutController.logout
+GET  /                           controllers.AuthController.index
+POST /login                      controllers.AuthController.login
+GET  /logout                     controllers.AuthController.logout
 
-GET  /signup                     controllers.LoginoutController.signup
-POST /create                     controllers.LoginoutController.create
+GET  /signup                     controllers.AuthController.signup
+POST /create                     controllers.MemberController.create
 
-GET  /edit                       controllers.LoginoutController.edit
-POST /edit                       controllers.LoginoutController.update
+GET  /edit                       controllers.MemberController.edit
+POST /edit                       controllers.MemberController.update
 
 GET  /tweet                      controllers.TweetController.index
 POST /tweet                      controllers.TweetController.tweet
