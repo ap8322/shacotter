@@ -16,6 +16,7 @@ libraryDependencies ++= Seq(
   "jp.t2v" %% "play2-auth"        % "0.14.2",
   "jp.t2v" %% "play2-auth-social" % "0.14.2",
   "jp.t2v" %% "play2-auth-test"   % "0.14.2" % "test",
+
   play.sbt.Play.autoImport.cache,
   "org.mindrot" % "jbcrypt" % "0.3m",
   "mysql" % "mysql-connector-java" % "5.1.34"

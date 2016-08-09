@@ -1,8 +1,0 @@
-#e.g. 共通カラムのデフォルトテストデータの設定 @defaultValueMap.dataprop
-map:{
-    ; REGISTER_DATETIME = sysdate
-    ; REGISTER_USER     = foo
-    ; UPDATE_DATETIME   = sysdate
-    ; UPDATE_USER       = foo
-    ; VERSION_NO        = 0
-}

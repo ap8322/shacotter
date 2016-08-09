@@ -1,7 +1,7 @@
 @(form: Form[LoginForm])(implicit flash: Flash)
 
     @main("Login") {
-        @helper.form(routes.LoginoutController.login) {
+        @helper.form(routes.AuthController.login) {
                 <h1>Welcome</h1>
                 @form.globalError.map { error =>
                     <p class="error">
@@ -21,7 +21,7 @@
                 </p>
                 <p>
                     <button type="submit" id="loginbutton">Login</button>
-                    <button type="button" id="signupbutton" onclick="location.href = '@routes.LoginoutController.signup'">
+                    <button type="button" id="signupbutton" onclick="location.href = '@routes.AuthController.signup'">
                         Signup</button>
                 </p>
         }
