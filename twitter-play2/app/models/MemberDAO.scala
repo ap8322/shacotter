@@ -4,22 +4,17 @@ package models
   * Created by yuki.haneda on 2016/08/03.
   */
 
-import java.util.UUID
 import javax.inject.Inject
 
 import com.google.inject.ImplementedBy
+import models.Forms._
 import models.Tables.MemberRow
-import org.apache.commons.codec.digest.DigestUtils
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-
-case class Member(id: Int, email: String, password: String, name: String) {
-  def this(row: MemberRow) = this(row.memberId, row.email, row.password, row.name)
-}
 
 @ImplementedBy(classOf[MemberDAOImpl])
 trait MemberDAO extends HasDatabaseConfigProvider[JdbcProfile] {
@@ -56,7 +51,6 @@ class MemberDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   /**
     * インサートした後にそのメンバーを返してくれる｡
-    *
     * @param member
     * @return
     */
@@ -72,22 +66,5 @@ class MemberDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   def selectList(): Future[Seq[MemberRow]] = {
     db.run(Tables.Member.sortBy(m => m.memberId).result)
-  }
-}
-
-object MemberDAO {
-
-  val STRETCH_LOOP_COUNT = 1000
-
-  def hashAndStretch(plain: String, salt: String, loopCnt: Int): String = {
-    var hashed: String = ""
-    (1 to STRETCH_LOOP_COUNT).foreach(i =>
-      hashed = DigestUtils.sha256Hex(hashed + plain + salt)
-    )
-    hashed
-  }
-
-  def createPasswordSalt(): String = {
-    DigestUtils.sha256Hex(UUID.randomUUID().toString())
   }
 }
