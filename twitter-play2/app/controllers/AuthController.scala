@@ -6,57 +6,64 @@ package controllers
 
 import javax.inject.Inject
 
-import controllers.MemberController.statusForm
+import com.google.inject.Singleton
 import jp.t2v.lab.play2.auth.{AuthElement, LoginLogout}
-import models.{AuthConfigImpl, LoginForm, MemberDAO}
-import play.api.Environment
-import play.api.data.Form
-import play.api.data.Forms._
+import models.Forms._
+import models.{AuthConfigImpl, MemberDAO}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.{Action, Controller}
 
 import scala.concurrent.Future
 
-object AuthController {
-  val loginForm = Form(
-    mapping(
-      "email" -> nonEmptyText(maxLength = 20).verifying(),
-      "password" -> nonEmptyText(maxLength = 20)
-    )(LoginForm.apply)(LoginForm.unapply)
-  )
-}
-
-class AuthController @Inject()(val memberDAO: MemberDAO,
-                               val environment: Environment)
+@Singleton
+class AuthController @Inject()(val memberDAO: MemberDAO)
   extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
-  import AuthController._
-
-  def index() = Action { implicit request =>
-    Ok(views.html.auth.signin(loginForm))
+  /**
+    * goto login page
+    *
+    * @return
+    */
+  def login() = Action { implicit rs =>
+    Ok(views.html.auth.login(loginForm))
   }
 
-  def signup() = Action { implicit request =>
+  /**
+    * goto signup page
+    *
+    * @return
+    */
+  def signup() = Action { implicit rs =>
     Ok(views.html.auth.signup(statusForm))
   }
 
-  def login() = Action.async { implicit request =>
+  /**
+    * authentication and create session
+    *
+    * @return
+    */
+  def auth() = Action.async { implicit rs =>
     loginForm.bindFromRequest.fold(
       formWithErrors => {
-        Future.successful(BadRequest(views.html.auth.signin(formWithErrors)))
+        Future.successful(BadRequest(views.html.auth.login(formWithErrors)))
       },
       form => {
         memberDAO.authenticate(form).flatMap {
           case Some(user) =>
             gotoLoginSucceeded(user.memberId)
           case _ =>
-            Future.successful(Unauthorized(views.html.auth.signin(loginForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
+            Future.successful(Unauthorized(views.html.auth.login(loginForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
         }
       }
     )
   }
 
-  def logout() = Action.async { implicit request =>
+  /**
+    * remove session and redirect login page
+    *
+    * @return
+    */
+  def logout() = Action.async { implicit rs =>
     gotoLogoutSucceeded.map(_.flashing(
       "success" -> "You've been logged out"
     ))

@@ -3,7 +3,6 @@ package models
 import controllers.routes
 import jp.t2v.lab.play2.auth.{AuthConfig, CookieTokenAccessor}
 import models.Tables.MemberRow
-import play.api.Logger
 import play.api.mvc.Results._
 import play.api.mvc.{RequestHeader, Result}
 
@@ -22,16 +21,14 @@ trait AuthConfigImpl extends AuthConfig {
   def resolveUser(id: Id)(implicit ctx: ExecutionContext): Future[Option[User]] = memberDAO.findById(id)
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] = {
-    Logger.debug("login successed")
     Future.successful(Redirect(routes.TweetController.index))
   }
 
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] =
-    Future.successful(Redirect(routes.AuthController.index))
+    Future.successful(Redirect(routes.AuthController.login))
 
   def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] = {
-    Logger.debug("authentication error")
-    Future.successful(Redirect(routes.AuthController.index)).map(_.flashing(
+    Future.successful(Redirect(routes.AuthController.login)).map(_.flashing(
       "success" -> "Authentication Faild"
     ))
   }

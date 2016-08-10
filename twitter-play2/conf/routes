@@ -2,13 +2,13 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET  /                           controllers.AuthController.index
-POST /login                      controllers.AuthController.login
+GET  /                           controllers.AuthController.login
+POST /login                      controllers.AuthController.auth
 GET  /logout                     controllers.AuthController.logout
-
 GET  /signup                     controllers.AuthController.signup
-POST /create                     controllers.MemberController.create
 
+POST /create                     controllers.MemberController.create
+GET  /list                       controllers.MemberController.list
 GET  /edit                       controllers.MemberController.edit
 POST /edit                       controllers.MemberController.update
 
@@ -19,16 +19,9 @@ GET  /timeline                   controllers.TweetController.timeline
 GET  /follow/:memberId           controllers.FollowController.follow(memberId: Int)
 GET  /follower                   controllers.FollowController.followerlist
 
-GET     /user/list               controllers.FollowController.list
 
 ## Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-
-## An example controller showing how to write asynchronous code
-#GET     /message                    sample.AsyncController.message
-#
-
-## Mapping to /user/edit or /user/edit?id=<number>
 
 #GET     /user/edit                  controllers.UserController.edit(memberId: Option[Int] ?= None)
 ## Mapping to /user/create

@@ -1,4 +1,4 @@
-name := """play2-hands-on"""
+name := """twitter-play2"""
 
 version := "1.0-SNAPSHOT"
 
@@ -24,7 +24,7 @@ libraryDependencies ++= Seq(
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 
-//
+
 //slick <<= slickCodeGenTask
 //
 //sourceGenerators in Compile <+= slickCodeGenTask

@@ -1,4 +1,8 @@
 package models
+
+import java.sql.Timestamp
+import java.util.Date
+
 // AUTO-GENERATED Slick data model
 /** Stand-alone Slick data model for immediate use */
 object Tables extends {
@@ -126,7 +130,7 @@ trait Tables {
    *  @param memberId Database column member_id SqlType(INT), Default(None)
    *  @param tweet Database column tweet SqlType(VARCHAR), Length(140,true), Default(None)
    *  @param tweetAt Database column tweet_at SqlType(TIMESTAMP) */
-  case class TweetRow(tweetId: Int, memberId: Option[Int] = None, tweet: Option[String] = None, tweetAt: java.sql.Timestamp)
+  case class TweetRow(tweetId: Int, memberId: Option[Int] = None, tweet: Option[String] = None, tweetAt: java.sql.Timestamp = new Timestamp(new Date().getTime))
   /** GetResult implicit for fetching TweetRow objects using plain SQL queries */
   implicit def GetResultTweetRow(implicit e0: GR[Int], e1: GR[Option[Int]], e2: GR[Option[String]], e3: GR[java.sql.Timestamp]): GR[TweetRow] = GR{
     prs => import prs._
