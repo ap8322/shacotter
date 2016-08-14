@@ -16,14 +16,13 @@ libraryDependencies ++= Seq(
   "jp.t2v" %% "play2-auth"        % "0.14.2",
   "jp.t2v" %% "play2-auth-social" % "0.14.2",
   "jp.t2v" %% "play2-auth-test"   % "0.14.2" % "test",
-
+  "org.flywaydb" %% "flyway-play" % "3.0.1",
   play.sbt.Play.autoImport.cache,
   "org.mindrot" % "jbcrypt" % "0.3m",
   "mysql" % "mysql-connector-java" % "5.1.34"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
-
 
 //slick <<= slickCodeGenTask
 //

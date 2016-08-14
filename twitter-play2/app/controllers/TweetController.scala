@@ -40,4 +40,8 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
       Ok(views.html.user.list(loggedIn.name, tweet, tweetForm))
     }
   }
+
+  def ajaxCall = StackAction(AuthorityKey -> None){implicit request =>
+    Ok("Ajax Call!")
+  }
 }
