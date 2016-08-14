@@ -1,4 +1,5 @@
-@(me: String, users: Seq[Tables.MemberRow], form: Form[models.Forms.Tweet])
+@(me: String, users: Seq[Tables.MemberRow], form: Form[models.Forms.Tweet])(implicit req: RequestHeader)
+
 
 @main("ユーザ一覧") {
     <div class="container">
@@ -10,7 +11,7 @@
                         @error.message
                     </p>
                 }
-                <img src="@routes.Assets.versioned("images/egg.png")">
+                <img src="@routes.Assets.at("images/egg.png")">
                 <p style="font-size: 25px;">@me</p>
                 <input name="tweet" placeholder="your tweet" id="tweet" style="margin-top: 10px;" value="">
                 <button type="submit" id="tweet" style="margin-top: 10px;" >ツイートする</button>

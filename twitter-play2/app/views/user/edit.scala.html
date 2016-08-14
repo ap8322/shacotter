@@ -1,4 +1,4 @@
-@(form: Form[models.Forms.StatusForm])(implicit flash: Flash)
+@(form: Form[models.Forms.StatusForm])(implicit req: RequestHeader)
 
 @main("edit") {
 
@@ -7,11 +7,6 @@
         @form.globalError.map { error =>
             <p class="error">
                 @error.message
-            </p>
-        }
-        @flash.get("success").map { message =>
-            <p class="success">
-                @message
             </p>
         }
         <p>
