@@ -10,24 +10,17 @@
 //     });
 // });
 
-$(function() {
-    $('#button').click(ajaxCall());
+$(function () {
+    var func = jsRoutes.controllers.TweetController.ajaxCall().ajax({
+        success: function (data) {
+            alert(data);
+            $('#wrap').html("<button id='button2' class='btn btn-default'>click</button>");
+        }
+    })
+
+    $('#button').on('click', function () {
+        console.log("click");
+        func()
+    })
 });
 
-var ajaxCall = function() {
-    var ajaxCallBack = {
-        success : onSuccess,
-        error : onError
-    }
-
-    jsRoutes.controllers.TweetController.ajaxCall().ajax(ajaxCallBack);
-};
-
-var  onSuccess = function(data) {
-    alert(data);
-    $('#wrap').html("<button id='button2' class='btn btn-default'>click</button>");
-}
-
-var onError = function(error) {
-    alert(error);
-}
