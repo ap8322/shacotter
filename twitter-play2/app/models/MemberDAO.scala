@@ -36,6 +36,7 @@ class MemberDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   def authenticate(form: LoginForm): Future[Option[MemberRow]] = {
     db.run(Tables.Member.filter(_.email === form.email.bind).result.headOption).map {
+      //TODO 暗号化 bindの意味
       case Some(user) if form.password == user.password => Some(user)
       case _ => None
     }
@@ -51,11 +52,13 @@ class MemberDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   /**
     * インサートした後にそのメンバーを返してくれる｡
+    *
     * @param member
     * @return
     */
   def create(member: MemberRow): Future[Option[MemberRow]] = {
     db.run(Tables.Member += member)
+    //todo インサートが終わったら実行するようにする｡
     findByEmail(member.email)
   }
 

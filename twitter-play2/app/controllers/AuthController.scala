@@ -4,10 +4,11 @@ package controllers
   * Created by yuki.haneda on 2016/08/02.
   */
 
-import javax.inject.Inject
+//todo inject
+//import javax.inject.Inject
 
-import com.google.inject.Singleton
-import jp.t2v.lab.play2.auth.{AuthElement, LoginLogout}
+import com.google.inject.{Inject, Singleton}
+import jp.t2v.lab.play2.auth.LoginLogout
 import models.Forms._
 import models.{AuthConfigImpl, MemberDAO}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -17,7 +18,7 @@ import scala.concurrent.Future
 
 @Singleton
 class AuthController @Inject()(val memberDAO: MemberDAO)
-  extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
+  extends Controller with LoginLogout with AuthConfigImpl {
 
   /**
     * goto login page
@@ -64,6 +65,7 @@ class AuthController @Inject()(val memberDAO: MemberDAO)
     * @return
     */
   def logout() = Action.async { implicit rs =>
+    println("")
     gotoLogoutSucceeded.map(_.flashing(
       "success" -> "You've been logged out"
     ))
