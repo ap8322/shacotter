@@ -2,28 +2,31 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET  /                           controllers.AuthController.login
-POST /login                      controllers.AuthController.auth
-GET  /logout                     controllers.AuthController.logout
-GET  /signup                     controllers.AuthController.signup
+# auth
+GET         /                    controllers.AuthController.login
+POST        /login               controllers.AuthController.auth
+GET         /logout              controllers.AuthController.logout
+GET         /signup              controllers.AuthController.signup
 
-POST /create                     controllers.MemberController.create
-GET  /list                       controllers.MemberController.list
-GET  /edit                       controllers.MemberController.edit
-POST /edit                       controllers.MemberController.update
+# member curd
+POST        /create              controllers.MemberController.create
+GET         /list                controllers.MemberController.list
+GET         /edit                controllers.MemberController.edit
+POST        /edit                controllers.MemberController.update
 
-GET  /tweet                      controllers.TweetController.index
-POST /tweet                      controllers.TweetController.tweet
-GET  /timeline                   controllers.TweetController.timeline
+# tweet
+GET         /tweet               controllers.TweetController.index
+POST        /tweet               controllers.TweetController.tweet
+GET         /timeline            controllers.TweetController.timeline
 
-GET  /follow/:memberId           controllers.FollowController.follow(memberId: Int)
-GET  /follower                   controllers.FollowController.followerlist
-
+#follow
+POST        /follow              controllers.FollowController.follow
+POST        /unfollow            controllers.FollowController.unfollow
+GET         /follower            controllers.FollowController.followerlist
 
 ## Map static resources from the /public folder to the /assets URL path
-GET  /assets/*file               controllers.Assets.at(path="/public", file)
+GET         /assets/*file        controllers.Assets.at(path="/public", file)
 
-GET   /ajax-call                 controllers.TweetController.ajaxCall
 #GET     /user/edit                  controllers.UserController.edit(memberId: Option[Int] ?= None)
 ## Mapping to /user/create
 #POST    /user/create                controllers.UserController.create

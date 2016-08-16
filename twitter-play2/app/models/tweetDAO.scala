@@ -8,6 +8,7 @@ import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 /**
@@ -23,7 +24,11 @@ trait TweetDAO extends HasDatabaseConfigProvider[JdbcProfile] {
 
   def follow(follow: FollowRow): Unit
 
-  def add(tweet: TweetRow):Unit
+  def unfollow(follow: FollowRow): Unit
+
+  def isFollow(myId: Int, yourId: Int): Future[Boolean]
+
+  def add(tweet: TweetRow): Unit
 }
 
 class TweetDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
@@ -47,6 +52,19 @@ class TweetDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   def follow(follow: FollowRow) = {
     db.run(Tables.Follow += follow)
+  }
+
+  def unfollow(follow: FollowRow) = {
+    db.run(Tables.Follow.filter(_.followedId === follow.followedId)
+      .filter(_.followerId === follow.followerId).delete)
+  }
+
+  def isFollow(myId: Int, yourId: Int): Future[Boolean] = {
+    db.run(Tables.Follow.filter(_.followerId === myId)
+      .filter(_.followedId === yourId).result.headOption).map {
+      case Some(_) => true
+      case None => false
+    }
   }
 
   def add(tweet: TweetRow): Unit = {

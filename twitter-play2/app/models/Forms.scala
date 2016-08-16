@@ -1,5 +1,6 @@
 package models
 
+import models.Tables.MemberRow
 import play.api.data.Form
 import play.api.data.Forms._
 
@@ -34,4 +35,9 @@ object Forms {
       "password" -> nonEmptyText(maxLength = 20)
     )(StatusForm.apply)(StatusForm.unapply)
   )
+
+  case class MemberWithIsfollow(id: Int, name: String, isfollow: Boolean) {
+    def this(row: MemberRow, bool: Boolean) = this(row.memberId, row.name, bool)
+  }
+
 }
