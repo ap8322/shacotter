@@ -51,7 +51,7 @@ class AuthController @Inject()(val memberDAO: MemberDAO)
         memberDAO.authenticate(form).flatMap {
           case Some(user) =>
             gotoLoginSucceeded(user.memberId)
-          case _ =>
+          case None =>
             Future.successful(Unauthorized(views.html.auth.login(loginForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
         }
       }

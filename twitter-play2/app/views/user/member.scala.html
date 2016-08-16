@@ -1,4 +1,4 @@
-@(me: String, users: Seq[Tables.MemberRow], form: Form[models.Forms.Tweet])(implicit req: RequestHeader)
+@(me: String, users: Seq[models.Forms.MemberWithIsfollow], form: Form[models.Forms.Tweet])(implicit req: RequestHeader)
 
 
 @main("ユーザ一覧") {
@@ -23,6 +23,13 @@
                     <tr>
                         <td>
                             @user.name
+                        <div id="member@user.id" class="pull-right">
+                        @if(user.isfollow) {
+                            <button type="button" onclick="unfollow(@user.id)">フォロー中</button>
+                        } else {
+                            <button type="button" onclick="follow(@user.id)">フォロー</button>
+                        }
+                        </div>
                         </td>
                     </tr>
                 }
