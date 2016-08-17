@@ -30,7 +30,7 @@ class FollowController @Inject()(val memberDAO: MemberDAO,
     }
   }
 
-  def unfollow = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
+  def remove = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
     rs.body.validate[idForm].map { form =>
       val follow = FollowRow(loggedIn.memberId, form.id)
       tweetDAO.unfollow(follow)
@@ -49,9 +49,10 @@ class FollowController @Inject()(val memberDAO: MemberDAO,
     */
   def followerlist = AsyncStack(AuthorityKey -> None) { implicit rs =>
     tweetDAO.selectFollowerList(loggedIn.memberId).map { mem =>
-      val m = mem.map(row =>
+      val m = mem.map { row =>
         MemberWithIsfollow(row.memberId, row.name, true)
-      )
+      }
+
       Ok(views.html.user.member(loggedIn.name, m, tweetForm))
     }
   }

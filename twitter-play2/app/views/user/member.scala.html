@@ -22,14 +22,14 @@
                 @users.map { user =>
                     <tr>
                         <td>
-                            @user.name
-                        <div id="member@user.id" class="pull-right">
-                        @if(user.isfollow) {
-                            <button type="button" onclick="unfollow(@user.id)">フォロー中</button>
-                        } else {
-                            <button type="button" onclick="follow(@user.id)">フォロー</button>
-                        }
-                        </div>
+                            <a href="@routes.TweetController.profile(user.id)"> @user.name </a>
+                            <div id="member@user.id" class="pull-right">
+                            @if(user.isfollow) {
+                                <button type="button" onclick="remove(@user.id)">フォロー中</button>
+                            } else {
+                                <button type="button" onclick="follow(@user.id)">フォロー</button>
+                            }
+                            </div>
                         </td>
                     </tr>
                 }
