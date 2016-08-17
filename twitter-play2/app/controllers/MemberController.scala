@@ -7,8 +7,9 @@ import jp.t2v.lab.play2.auth.{AuthElement, LoginLogout}
 import models.Forms._
 import models.Tables._
 import models.{AuthConfigImpl, MemberDAO, TweetDAO}
+import org.mindrot.jbcrypt.BCrypt
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.mvc.Controller
+import play.api.mvc.{Action, Controller}
 
 import scala.concurrent.Future
 
@@ -36,15 +37,18 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
     *
     * @return
     */
-  def create() = AsyncStack(AuthorityKey -> None) { implicit rs =>
+  def create() = Action.async { implicit rs =>
     statusForm.bindFromRequest.fold(
       formWithErrors => {
         Future.successful(BadRequest(views.html.auth.signup(formWithErrors)))
       },
       form => {
-        val member = MemberRow(0, form.email, form.password, form.name)
+        val hashpw: String = BCrypt.hashpw(form.password, BCrypt.gensalt())
+        val member = MemberRow(1, form.email, hashpw, form.name)
         memberDAO.create(member).flatMap {
-          case Some(user) => gotoLoginSucceeded(user.memberId)
+          case Some(user) => {
+            gotoLoginSucceeded(user.memberId)
+          }
           case _ => Future.successful(Unauthorized(views.html.auth.signup(statusForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
         }
       }

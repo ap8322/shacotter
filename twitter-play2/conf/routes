@@ -19,9 +19,11 @@ GET         /tweet               controllers.TweetController.index
 POST        /tweet               controllers.TweetController.tweet
 GET         /timeline            controllers.TweetController.timeline
 
+GET         /profile/:id         controllers.TweetController.profile(id: Int)
+
 #follow
 POST        /follow              controllers.FollowController.follow
-POST        /unfollow            controllers.FollowController.unfollow
+POST        /remove          controllers.FollowController.remove
 GET         /follower            controllers.FollowController.followerlist
 
 ## Map static resources from the /public folder to the /assets URL path

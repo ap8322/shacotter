@@ -26,6 +26,20 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
   }
 
   /**
+    * goto profile page
+    *
+    * @param id
+    * @return
+    */
+  def profile(id: Int) = AsyncStack(AuthorityKey -> None) { implicit rs =>
+    tweetDAO.selectMyTweet(id).flatMap { tweet =>
+      memberDAO.findById(id).map { member =>
+        Ok(views.html.user.list(member.get.name, tweet, tweetForm))
+      }
+    }
+  }
+
+  /**
     * tweet
     *
     * @return

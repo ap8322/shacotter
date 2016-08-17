@@ -9,6 +9,7 @@ import javax.inject.Inject
 import com.google.inject.ImplementedBy
 import models.Forms._
 import models.Tables.MemberRow
+import org.mindrot.jbcrypt.BCrypt
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
@@ -36,8 +37,7 @@ class MemberDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   def authenticate(form: LoginForm): Future[Option[MemberRow]] = {
     db.run(Tables.Member.filter(_.email === form.email.bind).result.headOption).map {
-      //TODO 暗号化 bindの意味
-      case Some(user) if form.password == user.password => Some(user)
+      case Some(user) if BCrypt.checkpw(form.password, user.password) => Some(user)
       case _ => None
     }
   }
@@ -50,15 +50,8 @@ class MemberDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     db.run(Tables.Member.filter(_.email === email.bind).result.headOption)
   }
 
-  /**
-    * インサートした後にそのメンバーを返してくれる｡
-    *
-    * @param member
-    * @return
-    */
   def create(member: MemberRow): Future[Option[MemberRow]] = {
     db.run(Tables.Member += member)
-    //todo インサートが終わったら実行するようにする｡
     findByEmail(member.email)
   }
 

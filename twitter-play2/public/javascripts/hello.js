@@ -1,42 +1,3 @@
-// $(function() {
-//     $('#button').on('click', function () {
-//         alert("クリックされました");
-//         $('#button').html("<button id='button2' class='btn btn-default'>click</button>");
-//     });
-//
-//     $('#button2').click(function () {
-//         alert("クリックされました");
-//         $('#button2').html("<button id='button' class='btn btn-primary'>クリック</button>");
-//     });
-// });
-
-// var func = jsRoutes.controllers.TweetController.ajaxCall().ajax({
-//     success: function (data) {
-//         alert(data);
-//         $('#wrap').html("<button id='button2' class='btn btn-default'>click</button>");
-//     }
-// })
-
-// $(function () {
-//     $('#test').on('click', function () {
-//         $.ajax({
-//             url: '/ajax-call',
-//         }).done(function (data) {
-//             console.log(data);
-//             $('#wrap').html("<button id='button2' class='btn btn-default'>click</button>");
-//         })
-//     })
-//
-//     $('#button2').on('click', function () {
-//         $.ajax({
-//             url: '/ajax-cal',
-//         }).done(function (data) {
-//             console.log(data)
-//             $('#wrap').html("<button id='test' class='btn btn-primary'>click</button>");
-//         })
-//     })
-// });
-
 function follow(id) {
     $.ajax({
         url: '/follow',
@@ -46,19 +7,20 @@ function follow(id) {
         dataType: 'json',
     }).done(function (data) {
         console.log(data);
-        $('#member' + id).html("<button onclick='unfollow(" + id + ")'>フォロー中</button>");
+        $('#member' + id).html("<button onclick='remove(" + id + ")'>フォロー中</button>");
     })
 }
 
-function unfollow(id) {
+function remove(id) {
     $.ajax({
-        url: '/unfollow',
+        url: '/remove',
         type: 'POST',
         data: '{"id": ' + id + '}',
         contentType: 'application/json',
         dataType: 'json',
     }).done(function (data) {
         console.log(data);
+        confirm("フォローを解除しますか?")
         $('#member' + id).html("<button onclick='follow(" + id + ")'>フォロー</button>");
     })
 }
