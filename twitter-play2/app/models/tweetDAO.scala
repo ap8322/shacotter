@@ -34,8 +34,34 @@ trait TweetDAO extends HasDatabaseConfigProvider[JdbcProfile] {
 class TweetDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   extends HasDatabaseConfigProvider[JdbcProfile] with TweetDAO {
 
-  def selectMyTweet(id: Int): Future[Seq[TweetRow]] = {
+  def selectMyTweet(id: Int) = {
+    //tweetに欲しい情報
+    //名前､tweet､時間､いいね数､どうでもいいね数
+    //   for {
+    //     (t,m) <- Tweet joinLeft
+    //   }
+    val a = sql"""SELECT
+                  |  m.name,
+                  |  t.tweet_id,
+                  |  t.tweet,
+                  |  count(e.eval_status = 1 OR NULL) AS good,
+                  |  count(e.eval_status = 0 OR NULL) AS bad
+                  |FROM member m
+                  |  LEFT JOIN tweet t ON m.member_id = t.member_id
+                  |  LEFT JOIN eval e ON t.tweet_id = e.tweet_id
+                  |WHERE m.member_id = 1
+                  |GROUP BY t.tweet_id;""".as[(String, Int, String, Int, Int)]
+
+    //    ((Member join Tweet on (_.memberId === _.memberId)) join Eval on (_._2.tweetId === _.tweetId)).filter(_._1._1.memberId === id)
+    //      .groupBy(_._1._2.tweetId).map {
+    //      case (rep, query) => (rep, query.map(_._2))
+    //    }
+    val run: Future[(String, Int, String, Int, Int)] = db.run(a.head)
+    println(run)
+
     db.run(Tables.Tweet.filter(_.memberId === id.bind).result)
+
+    //    run
   }
 
   def selectFollowerTweet(id: Int): Future[Seq[TweetRow]] = {
