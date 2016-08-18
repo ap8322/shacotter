@@ -8,11 +8,16 @@ import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
 
+import scala.concurrent.Future
+
 /**
   * Created by yuki.haneda on 2016/08/18.
   */
 @ImplementedBy(classOf[EvalDAOImpl])
 trait EvalDAO extends HasDatabaseConfigProvider[JdbcProfile] {
+
+  def countGood(): Future[Int]
+
   def insertStatus(eval: EvalRow): Unit
 
   def deleteStatus(tweetId: Int, memberId: Int): Unit
@@ -33,5 +38,9 @@ class EvalDAOImpl @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   def updateStatus(eval: EvalRow): Unit = {
     db.run(Eval.filter(e => e.tweetId === eval.tweetId && e.memberId === eval.memberId).update(eval))
+  }
+
+  def countGood(): Future[Int] = {
+    db.run(Eval.filter(_.evalStatus === 1).length.result)
   }
 }

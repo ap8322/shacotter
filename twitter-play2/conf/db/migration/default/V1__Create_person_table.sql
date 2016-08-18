@@ -36,3 +36,5 @@ CREATE TABLE Eval (
   FOREIGN KEY (tweet_id) REFERENCES Tweet (tweet_id),
   FOREIGN KEY (member_id) REFERENCES Member (member_id)
 );
+
+

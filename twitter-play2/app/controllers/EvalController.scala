@@ -19,6 +19,7 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
                                val tweetDAO: TweetDAO,
                                val evalDAO: EvalDAO)
   extends Controller with AuthElement with AuthConfigImpl {
+
   /**
     * iine!
     *
