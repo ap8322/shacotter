@@ -24,11 +24,8 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def list = AsyncStack(AuthorityKey -> None) { implicit rs =>
-    memberDAO.selectList().map { mem =>
-      val m = mem.map { row =>
-        MemberWithIsfollow(row.memberId, row.name, false)
-      }
-      Ok(views.html.user.member(loggedIn.name, m, tweetForm))
+    tweetDAO.selectFollowerList(loggedIn.memberId).map { mem =>
+      Ok(views.html.user.member(loggedIn.name, mem, tweetForm))
     }
   }
 
@@ -75,7 +72,7 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
   def update() = AsyncStack(AuthorityKey -> None) { implicit rs =>
     statusForm.bindFromRequest.fold(
       formWithErrors => {
-        Future.successful(BadRequest(views.html.auth.signup(formWithErrors.withGlobalError("不正な値です｡"))))
+        Future.successful(BadRequest(views.html.user.edit(formWithErrors.withGlobalError("不正な値です｡"))))
       },
       form => {
         val member = MemberRow(0, form.email, form.password, form.name)

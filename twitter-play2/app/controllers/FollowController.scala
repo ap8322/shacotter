@@ -49,11 +49,7 @@ class FollowController @Inject()(val memberDAO: MemberDAO,
     */
   def followerlist = AsyncStack(AuthorityKey -> None) { implicit rs =>
     tweetDAO.selectFollowerList(loggedIn.memberId).map { mem =>
-      val m = mem.map { row =>
-        MemberWithIsfollow(row.memberId, row.name, true)
-      }
-
-      Ok(views.html.user.member(loggedIn.name, m, tweetForm))
+      Ok(views.html.user.member(loggedIn.name, mem, tweetForm))
     }
   }
 }

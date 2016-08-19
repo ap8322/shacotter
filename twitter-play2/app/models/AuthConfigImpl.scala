@@ -21,7 +21,7 @@ trait AuthConfigImpl extends AuthConfig {
   def resolveUser(id: Id)(implicit ctx: ExecutionContext): Future[Option[User]] = memberDAO.findById(id)
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] = {
-    Future.successful(Redirect(routes.TweetController.index))
+    Future.successful(Redirect(routes.TweetController.timeline))
   }
 
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] =
@@ -29,7 +29,7 @@ trait AuthConfigImpl extends AuthConfig {
 
   def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] = {
     Future.successful(Redirect(routes.AuthController.login)).map(_.flashing(
-      "success" -> "Authentication Faild"
+      "success" -> "ログインし直してください｡"
     ))
   }
 

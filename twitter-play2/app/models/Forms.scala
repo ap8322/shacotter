@@ -12,8 +12,8 @@ object Forms {
 
   val loginForm = Form(
     mapping(
-      "email" -> nonEmptyText(maxLength = 20),
-      "password" -> nonEmptyText(maxLength = 20)
+      "email" -> nonEmptyText(maxLength = 200),
+      "password" -> nonEmptyText(maxLength = 200)
     )(LoginForm.apply)(LoginForm.unapply)
   )
 
@@ -30,11 +30,13 @@ object Forms {
   val statusForm = Form(
     mapping(
       "name" -> nonEmptyText(maxLength = 20),
-      "email" -> nonEmptyText(maxLength = 20),
-      "password" -> nonEmptyText(maxLength = 20)
+      "email" -> nonEmptyText(maxLength = 200),
+      "password" -> nonEmptyText(maxLength = 10000)
     )(StatusForm.apply)(StatusForm.unapply)
   )
 
   case class MemberWithIsfollow(id: Int, name: String, isfollow: Boolean)
+
+  case class TweetInfo(name: String, tweet_id: Int, tweet: String, good: Int, bad: Int)
 
 }
