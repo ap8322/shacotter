@@ -1,33 +1,20 @@
-@(me: String, users: Seq[models.Forms.MemberWithIsfollow], form: Form[models.Forms.Tweet])(implicit req: RequestHeader)
+@(me: String, users: Seq[(Int, String, Option[Int])], form: Form[models.Forms.Tweet])(implicit req: RequestHeader)
 
 
 @main("ユーザ一覧") {
     <div class="container">
         <div class="row">
-            <div class="col-sm-2" style="padding: 20px">
-            @helper.form(routes.TweetController.tweet) {
-                @form.globalError.map { error =>
-                    <p class="error">
-                        @error.message
-                    </p>
-                }
-                <img src="@routes.Assets.at("images/egg.png")">
-                <p style="font-size: 25px;">@me</p>
-                <input name="tweet" placeholder="your tweet" id="tweet" style="margin-top: 10px;" value="">
-                <button type="submit" id="tweet" style="margin-top: 10px;" >ツイートする</button>
-            }
-            </div>
             <div class="col-sm-8" style="padding: 20px">
                 <table class="table table-hover">
                 @users.map { user =>
                     <tr>
                         <td>
-                            <a href="@routes.TweetController.profile(user.id)"> @user.name </a>
-                            <div id="member@user.id" class="pull-right">
-                            @if(user.isfollow) {
-                                <button type="button" onclick="remove(@user.id)">フォロー中</button>
+                            <a href="@routes.TweetController.profile(user._1)"> @user._2 </a>
+                            <div id="member@user._1" class="pull-right">
+                            @if(user._3.getOrElse("test") != "test") {
+                                <button type="button" class="btn btn-primary" onclick="remove(@user._1)">フォロー中</button>
                             } else {
-                                <button type="button" onclick="follow(@user.id)">フォロー</button>
+                                <button type="button" class="btn" onclick="follow(@user._1)">フォロー</button>
                             }
                             </div>
                         </td>

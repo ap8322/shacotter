@@ -65,7 +65,6 @@ class AuthController @Inject()(val memberDAO: MemberDAO)
     * @return
     */
   def logout() = Action.async { implicit rs =>
-    println("")
     gotoLogoutSucceeded.map(_.flashing(
       "success" -> "You've been logged out"
     ))

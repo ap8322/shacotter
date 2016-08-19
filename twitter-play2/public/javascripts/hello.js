@@ -7,7 +7,7 @@ function follow(id) {
         dataType: 'json'
     }).done(function (data) {
         console.log(data);
-        $('#member' + id).html("<button onclick='remove(" + id + ")'>フォロー中</button>");
+        $('#member' + id).html("<button class='btn btn-primary' onclick='remove(" + id + ")'>フォロー中</button>");
     })
 }
 
@@ -21,11 +21,28 @@ function remove(id) {
     }).done(function (data) {
         console.log(data);
         confirm("フォローを解除しますか?")
-        $('#member' + id).html("<button onclick='follow(" + id + ")'>フォロー</button>");
+        $('#member' + id).html("<button class='btn'onclick='follow(" + id + ")'>フォロー</button>");
     })
 }
 
 $(function () {
+
+    $('form').validate({
+        rules: {
+            tweet: {
+                required: true,
+                maxlength: 140
+            }
+        },
+        messages: {
+            tweet: {
+                required: "空ツイートはやめてね",
+                maxlength: "140文字以上はツイートできません｡"
+            }
+        },
+        errorElement: 'p'
+    });
+
     $('.good').click(function () {
         var button = $(this);
         var count = $(this).next();
@@ -42,7 +59,7 @@ $(function () {
                     contentType: 'application/json',
                     dataType: 'json'
                 }).done(function () {
-                    button.text("いいねしました");
+                    button.toggleClass('btn-primary');
                     button.val('1');
                     count.text(parseInt(count.text()) + 1);
                 });
@@ -56,10 +73,10 @@ $(function () {
                     contentType: 'application/json',
                     dataType: 'json'
                 }).done(function () {
-                    button.text("いいねしました");
+                    button.toggleClass('btn-primary');
                     button.val('1');
                     count.text(parseInt(count.text()) + 1);
-                    next.text("どうでもいいね");
+                    next.toggleClass('btn-primary');
                     next.val(0);
                     next.next().text(parseInt(next.next().text()) - 1)
                 })
@@ -74,7 +91,7 @@ $(function () {
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
-                button.text("いいね");
+                button.toggleClass('btn-primary');
                 button.val(0);
                 count.text(parseInt(count.text()) - 1);
             })
@@ -97,7 +114,7 @@ $(function () {
                     contentType: 'application/json',
                     dataType: 'json'
                 }).done(function () {
-                    button.text("どうでもいいねしました");
+                    button.toggleClass('btn-primary');
                     button.val(1);
                     count.text(parseInt(count.text()) + 1);
                 });
@@ -111,10 +128,10 @@ $(function () {
                     contentType: 'application/json',
                     dataType: 'json'
                 }).done(function () {
-                    button.text("どうでもいいねしました");
+                    button.toggleClass('btn-primary');
                     button.val(1);
                     count.text(parseInt(count.text()) + 1);
-                    prev.text("いいね");
+                    prev.toggleClass('btn-primary');
                     prev.val(0);
                     prev.next().text(parseInt(prev.next().text()) - 1)
                 });
@@ -128,7 +145,7 @@ $(function () {
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
-                button.text("どうでもいいね");
+                button.toggleClass('btn-primary');
                 button.val(0);
                 count.text(parseInt(count.text()) - 1);
             })

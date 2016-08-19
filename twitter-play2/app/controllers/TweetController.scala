@@ -1,5 +1,7 @@
 package controllers
 
+import java.sql.Timestamp
+import java.util.Date
 import javax.inject.Inject
 
 import jp.t2v.lab.play2.auth.AuthElement
@@ -32,7 +34,7 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def profile(id: Int) = AsyncStack(AuthorityKey -> None) { implicit rs =>
-    tweetDAO.selectMyTweet(id).flatMap { tweet =>
+    tweetDAO.selectFriendTweet(loggedIn.memberId, id).flatMap { tweet =>
       memberDAO.findById(id).map { member =>
         Ok(views.html.user.list(member.get.name, tweet, tweetForm))
       }
@@ -50,7 +52,7 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
         Future.successful(Redirect(routes.TweetController.index))
       },
       form => {
-        val tweet = Tables.TweetRow(0, Some(loggedIn.memberId), Some(form.tweet))
+        val tweet = Tables.TweetRow(0, Some(loggedIn.memberId), Some(form.tweet), new Timestamp(new Date().getTime))
         tweetDAO.add(tweet)
         Future.successful(Redirect(routes.TweetController.index))
       }
