@@ -13,6 +13,9 @@ import models.Forms._
 import models.{AuthConfigImpl, MemberDAO}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.{Action, Controller}
+import play.api.data.Form
+import play.api.data.Forms._
+
 
 import scala.concurrent.Future
 
@@ -27,15 +30,6 @@ class AuthController @Inject()(val memberDAO: MemberDAO)
     */
   def login() = Action { implicit rs =>
     Ok(views.html.auth.login(loginForm))
-  }
-
-  /**
-    * goto signup page
-    *
-    * @return
-    */
-  def signup() = Action { implicit rs =>
-    Ok(views.html.auth.signup(statusForm))
   }
 
   /**
@@ -57,6 +51,15 @@ class AuthController @Inject()(val memberDAO: MemberDAO)
         }
       }
     )
+  }
+
+  /**
+    * goto signup page
+    *
+    * @return
+    */
+  def signup() = Action { implicit rs =>
+    Ok(views.html.auth.signup(statusForm))
   }
 
   /**

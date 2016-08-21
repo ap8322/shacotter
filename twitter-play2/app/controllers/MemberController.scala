@@ -9,7 +9,7 @@ import models.Tables._
 import models.{AuthConfigImpl, MemberDAO, TweetDAO}
 import org.mindrot.jbcrypt.BCrypt
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{Action, AnyContent, Controller}
 
 import scala.concurrent.Future
 
@@ -39,16 +39,17 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
       formWithErrors => {
         Future.successful(BadRequest(views.html.auth.signup(formWithErrors)))
       },
-      form => {
-        val hashpw: String = BCrypt.hashpw(form.password, BCrypt.gensalt())
-        val member = MemberRow(1, form.email, hashpw, form.name)
-        memberDAO.create(member).flatMap {
-          case Some(user) => {
-            gotoLoginSucceeded(user.memberId)
+        form => {
+          val hashpw =  BCrypt.hashpw(form.password, BCrypt.gensalt())
+          val member = MemberRow(1, form.email, hashpw, form.name)
+          memberDAO.create(member).flatMap {
+            case Some(user) => {
+              gotoLoginSucceeded(user.memberId)
+            }
+            case _ => Future.successful(Unauthorized(views.html.auth.signup(statusForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
           }
-          case _ => Future.successful(Unauthorized(views.html.auth.signup(statusForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
         }
-      }
+
     )
   }
 

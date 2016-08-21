@@ -1,6 +1,6 @@
-@(me: String, users: Seq[(String, Int, String, Int, Int, Option[Int])], form: Form[models.Forms.Tweet])(implicit req: RequestHeader)
+@(me: String, tweetInfo: Seq[(String, Int, String, Int, Int, Option[Int])], form: Form[models.Forms.Tweet])
 
-@main("ユーザ一覧") {
+@main("ツイート") {
     <div class="container">
         <div class="row">
             <div class="col-sm-4" style="padding: 20px">
@@ -10,26 +10,22 @@
                         @error.message
                     </p>
                 }
-                <img src="@routes.Assets.at("images/egg.png")">
-                <p style="font-size: 25px;">@me</p>
-                <textarea rows="10" cols="50" name="tweet" placeholder="your tweet" id="tweet" style="margin-top: 10px;
-                    resize: none;" value="" ></textarea>
-                <button type="submit" id="tweet" style="margin-top: 10px;" >ツイートする</button>
-
+                <div style="padding: 12px">
+                    <img class="circle" src="@routes.Assets.at("images/egg.png")">
+                    <p style="font-size: 25px;margin: 10px">@me</p>
+                </div>
+                <div class="col-sm-10 form-group">
+                    <textarea class="form-control" name="tweet" rows="3" placeholder="Let's tweet!" id="tweet" style="resize: none;" value="" ></textarea>
+                </div>
+                <div style="padding: 12px">
+                    <button type="submit" class="btn btn-raised active" id="tweet" style="margin-top: 15px;" >ツイートする</button>
+                </div>
             }
             </div>
-            <div class="col-sm-6" style="padding: 20px">
-                @*if(@users.head._3 == null)*@
-                @*{*@
-                @*<div style="text-align: center">*@
-                @*<p style="font-size: 30px">ようこそ！<br>左のボックスからなにかツイートしてみよう｡</p>*@
-                @*</div>*@
-                @*} else*@
-                @*{*@
-                <table class="table">
-                @users.reverse.map { tweet =>
-                    <tr>
-                        <td>
+
+            <div class="col-sm-8" style="padding: 20px">
+                @tweetInfo.reverse.map { tweet =>
+                    <div class="panel panel-default well">
                             @*----------------------------ツイートボックス-----------------------------*@
                             <div>
                                 <img src="@routes.Assets.at("images/egg.png")" style="width: 38px;
@@ -43,26 +39,25 @@
                             </div>
                             <div> 
                                 @if(tweet._6.getOrElse(-1) == 1) {
-                                    <button class="good btn btn-primary" value="1" type="button">いいね</button>
+                                    <button class="good btn btn-success" value="1" type="button">いいね</button>
                                 } else {
-                                    <button class="good btn" value="0" type="button">いいね</button>
+                                    <button class="good btn " value="0" type="button">いいね</button>
                                 }
                                  <span class="good-count" style="font-size: 15px;
                                     padding: 5px">@tweet._4</span> 
                                 @if(tweet._6.getOrElse(-1) == 0) {
-                                    <button class="bad btn btn-primary" value="1" type="button">どうでもいいね</button> 
+                                    <button class="bad btn btn-danger" value="1" type="button">
+                                        どうでもいいね</button> 
                                 } else {
-                                    <button class="bad btn" value="0" type="button">どうでもいいね</button> 
+                                    <button class="bad btn " value="0" type="button">どうでもいいね</button> 
                                 }
                                 <span class="bad-count" style="font-size: 15px;
                                     padding: 5px">@tweet._5</span>
                                  <span class="tweetId" hidden>@tweet._2</span> 
                             </div>
                             @*----------------------------ツイートボックス-----------------------------*@
-                        </td>
-                    </tr>
+                    </div>
                 }
-                </table>
             </div>
         </div>
     </div>

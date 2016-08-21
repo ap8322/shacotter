@@ -35,8 +35,7 @@ object Forms {
     )(StatusForm.apply)(StatusForm.unapply)
   )
 
-  case class MemberWithIsfollow(id: Int, name: String, isfollow: Boolean)
-
+  // OUT ツイートした人の名前、ツイートのユニークID、ツイートの内容、いいねの数、悪いねの数
   case class TweetInfo(name: String, tweet_id: Int, tweet: String, good: Int, bad: Int)
 
 }
