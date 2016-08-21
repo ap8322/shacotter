@@ -5,33 +5,53 @@
 <html>
     <head>
         <title>Login</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-3.1.0.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/jquery.validate.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/jQueryRotate.js")"></script>
         <script src="@routes.Assets.at("javascripts/login.js")"></script>
-        <link rel="stylesheet" media="screen" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap-material-design.css")">
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ripples.css")">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
+        <script src="@routes.Assets.at("javascripts/material.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/ripples.js")"></script>
+        <script>$.material.init();</script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-    @helper.form(routes.MemberController.create()) {
-        <h1>Shinup</h1>
-        @form.globalError.map { error =>
-            <p class="error">
-                @error.message
-            </p>
-        }
-        @flash.get("success").map { message =>
-            <p class="success">
-                @message
-            </p>
-        }
-        <p><input type="name" class="required" name="name" placeholder="Your name" id="name" value=""></p>
-        <p><input type="email" class="required" name="email" placeholder="Your Email" id="email" value=""></p>
-        <p><input type="password" class="required" name="password" id="password" placeholder="Your Password"></p>
-        <p>
-            <button type="submit" id="signupbutton">Signup</button>
-        </p>
-    }
+        <div class="container">
+            <div class="page-header">
+                <div class="well text-center center-block">
+                @helper.form(routes.MemberController.create()) {
+                    <h1>Please Enter Your Profile</h1>
+                    @form.globalError.map { error =>
+                        <p class="error">
+                            @error.message
+                        </p>
+                    }
+                    @flash.get("success").map { message =>
+                        <p class="success">
+                            @message
+                        </p>
+                    }
+                    <div class="form-group">
+                        <input type="name" class="required form-control col-md-5" name="name" placeholder="Input Your Name" id="name" value="">
+                    </div>
+                    <div class="form-group">
+                        <p><input type="email" class="required form-control" name="email" placeholder="Input Your Email" id="email" value=""></p>
+                    </div>
+                    <div class="form-group">
+                        <p><input type="password" class="required form-control" name="password" id="password" placeholder="Input Your Password"></p>
+                    </div>
+                    <p>
+                        <button class="btn btn-raised btn-primary" type="submit" id="signupbutton">Signup</button>
+                    </p>
+                }
+                </div>
+            </div>
+        </div>
     </body>
 </html>
