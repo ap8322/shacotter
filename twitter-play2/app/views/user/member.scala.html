@@ -1,28 +1,37 @@
-@(me: String, users: Seq[(Int, String, Option[Int])], form: Form[models.Forms.Tweet])(implicit req: RequestHeader)
+@(me: String, users: Seq[(Int, String, Option[Int])], form: Form[models.Forms.Tweet])
 
-
-@main("ユーザ一覧") {
+@main("メンバー一覧") {
     <div class="container">
         <div class="row">
-            <div class="col-sm-8" style="padding: 20px">
-                <table class="table table-hover">
-                @users.map { user =>
-                    <tr>
-                        <td>
-                            <a href="@routes.TweetController.profile(user._1)"> @user._2 </a>
-                            <div id="member@user._1" class="pull-right">
-                            @if(user._3.getOrElse("test") != "test") {
-                                <button type="button" class="btn btn-primary" onclick="remove(@user._1)">フォロー中</button>
-                            } else {
-                                <button type="button" class="btn" onclick="follow(@user._1)">フォロー</button>
-                            }
+        @users.map { user =>
+            <div class="col-sm-4">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row-picture">
+                            <img src="@routes.Assets.at("images/egg.png")" alt="icon">
+                        </div>
+
+                        <div class="row-content">
+                            <div class="list-group-item-text">
+                                <h3><a href="@routes.TweetController.profile(user._1)"> @user._2 </a></h3>
+
+                                <div id="member@user._1">
+                                @if(user._3.getOrElse("test") != "test") {
+                                    <button type="button" class="btn btn-primary btn-raised" onclick="remove(@user._1)">
+                                        フォロー中</button>
+                                } else {
+                                    <button type="button" class="btn btn-raised" onclick="follow(@user._1)">フォロー</button>
+                                }
+                                </div>
                             </div>
-                        </td>
-                    </tr>
-                }
-                </table>
+
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+
+                </div>
             </div>
+        }
         </div>
     </div>
-    @*<footer style="background-color: gray">Footer</footer>*@
 }

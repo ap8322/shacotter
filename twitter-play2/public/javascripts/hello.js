@@ -6,8 +6,7 @@ function follow(id) {
         contentType: 'application/json',
         dataType: 'json'
     }).done(function (data) {
-        console.log(data);
-        $('#member' + id).html("<button class='btn btn-primary' onclick='remove(" + id + ")'>フォロー中</button>");
+        $('#member' + id).html("<button class='btn btn-raised btn-primary' onclick='remove(" + id + ")'>フォロー中</button>");
     })
 }
 
@@ -17,11 +16,10 @@ function remove(id) {
         type: 'POST',
         data: '{"id": ' + id + '}',
         contentType: 'application/json',
-        dataType: 'json',
+        dataType: 'json'
     }).done(function (data) {
-        console.log(data);
-        confirm("フォローを解除しますか?")
-        $('#member' + id).html("<button class='btn'onclick='follow(" + id + ")'>フォロー</button>");
+        confirm("フォローを解除しますか?");
+        $('#member' + id).html("<button class='btn btn-raised' onclick='follow(" + id + ")'>フォロー</button>");
     })
 }
 
@@ -59,7 +57,7 @@ $(function () {
                     contentType: 'application/json',
                     dataType: 'json'
                 }).done(function () {
-                    button.toggleClass('btn-primary');
+                    button.toggleClass('btn-success');
                     button.val('1');
                     count.text(parseInt(count.text()) + 1);
                 });
@@ -73,10 +71,10 @@ $(function () {
                     contentType: 'application/json',
                     dataType: 'json'
                 }).done(function () {
-                    button.toggleClass('btn-primary');
+                    button.toggleClass('btn-success');
                     button.val('1');
                     count.text(parseInt(count.text()) + 1);
-                    next.toggleClass('btn-primary');
+                    next.toggleClass('btn-danger');
                     next.val(0);
                     next.next().text(parseInt(next.next().text()) - 1)
                 })
@@ -91,7 +89,7 @@ $(function () {
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
-                button.toggleClass('btn-primary');
+                button.toggleClass('btn-success');
                 button.val(0);
                 count.text(parseInt(count.text()) - 1);
             })
@@ -114,7 +112,7 @@ $(function () {
                     contentType: 'application/json',
                     dataType: 'json'
                 }).done(function () {
-                    button.toggleClass('btn-primary');
+                    button.toggleClass('btn-danger');
                     button.val(1);
                     count.text(parseInt(count.text()) + 1);
                 });
@@ -128,10 +126,10 @@ $(function () {
                     contentType: 'application/json',
                     dataType: 'json'
                 }).done(function () {
-                    button.toggleClass('btn-primary');
+                    button.toggleClass('btn-danger');
                     button.val(1);
                     count.text(parseInt(count.text()) + 1);
-                    prev.toggleClass('btn-primary');
+                    prev.toggleClass('btn-success');
                     prev.val(0);
                     prev.next().text(parseInt(prev.next().text()) - 1)
                 });
@@ -145,7 +143,7 @@ $(function () {
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
-                button.toggleClass('btn-primary');
+                button.toggleClass('btn-danger');
                 button.val(0);
                 count.text(parseInt(count.text()) - 1);
             })
