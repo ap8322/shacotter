@@ -3,22 +3,22 @@
 
 <html>
     <head>
-        <title>Login</title>
+        <title>Login(Shacottar)</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-material-design.css")">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/ripples.css")">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="@routes.Assets.at("javascripts/jquery-3.1.0.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/jquery.validate.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/jQueryRotate.js")"></script>
         <script src="@routes.Assets.at("javascripts/login.js")"></script>
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap.css")">
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap-material-design.css")">
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ripples.css")">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
         <script src="@routes.Assets.at("javascripts/material.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/ripples.js")"></script>
         <script>$.material.init();</script>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <div class="container">
@@ -45,6 +45,9 @@
                                 <p class="success">
                                     @message
                                 </p>
+                            }
+                            @for(error <- form("email").errors) {
+                                <p class="text-danger" style="margin: 0">@error.message</p>
                             }
                             <div class="form-group">
                                 <p><input class="required form-control" type="email" name="email" placeholder="Email" id="email" value=""></p>

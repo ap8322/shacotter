@@ -10,24 +10,25 @@
 @*<html xmlns="http://www.w3.org/1999/html">*@
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>@title</title>
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <link rel="shortcut icon" type="image/ico" href="@routes.Assets.at("images/favicon.ico")">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-material-design.css")">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/ripples.css")">
         <script src="@routes.Assets.at("javascripts/jquery-3.1.0.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/jquery.validate.min.js")"></script>
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap.css")">
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap-material-design.css")">
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ripples.css")">
         <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
         <script src="@routes.Assets.at("javascripts/material.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/ripples.js")"></script>
         <script src="@routes.Assets.at("javascripts/hello.js")"></script>
+        <script src="@routes.Assets.at("javascripts/jquery.simplePagination.js")"></script>
         <script>$.material.init();</script>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>body { padding-top: 70px; }</style>
+        <style>body { padding-top: 80px;  }</style>
     </head>
     <body>
-        <div class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
+        <header class="navbar navbar-default navbar-fixed-top">
+            <nav class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-menu-2">
                         <span class="icon-bar"></span>
@@ -46,8 +47,8 @@
                         <li><a href="@routes.AuthController.logout">ログアウト</a></li>
                     </ul>
                 </div>
-            </div>
-        </div>
+            </nav>
+        </header>
         @content
     </body>
 </html>

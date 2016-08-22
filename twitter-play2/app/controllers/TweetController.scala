@@ -2,15 +2,17 @@ package controllers
 
 import java.sql.Timestamp
 import java.util.Date
-import javax.inject.Inject
 
+import com.google.inject.Inject
 import jp.t2v.lab.play2.auth.AuthElement
 import models.Forms._
-import models.{AuthConfigImpl, MemberDAO, Tables, TweetDAO}
+import models.Tables._
+import models._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Controller
 
 import scala.concurrent.Future
+import scala.reflect.ClassTag
 
 class TweetController @Inject()(val memberDAO: MemberDAO,
                                 val tweetDAO: TweetDAO)
@@ -52,7 +54,7 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
         Future.successful(Redirect(routes.TweetController.index))
       },
       form => {
-        val tweet = Tables.TweetRow(0, Some(loggedIn.memberId), Some(form.tweet), new Timestamp(new Date().getTime))
+        val tweet = TweetRow(0, Some(loggedIn.memberId), Some(form.tweet), new Timestamp(new Date().getTime))
         tweetDAO.add(tweet)
         Future.successful(Redirect(routes.TweetController.index))
       }

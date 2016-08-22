@@ -35,7 +35,7 @@ $(function () {
         messages: {
             tweet: {
                 required: "空ツイートはやめてね",
-                maxlength: "140文字以上はツイートできません｡"
+                maxlength: "140文字以上はツイートはできません｡"
             }
         },
         errorElement: 'p'
