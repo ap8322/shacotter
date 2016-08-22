@@ -8,6 +8,8 @@ import play.api.data.Forms._
   */
 object Forms {
 
+  // todo バリデーションを固める｡
+
   case class LoginForm(email: String, password: String)
 
   val loginForm = Form(
@@ -30,12 +32,11 @@ object Forms {
   val statusForm = Form(
     mapping(
       "name" -> nonEmptyText(maxLength = 20),
-      "email" -> nonEmptyText(maxLength = 200),
+      "email" -> nonEmptyText(maxLength = 200).verifying(Validater.email),
       "password" -> nonEmptyText(maxLength = 10000)
     )(StatusForm.apply)(StatusForm.unapply)
   )
 
-  // OUT ツイートした人の名前、ツイートのユニークID、ツイートの内容、いいねの数、悪いねの数
+  // ツイートした人の名前、ツイートのユニークID、ツイートの内容、いいねの数、悪いねの数
   case class TweetInfo(name: String, tweet_id: Int, tweet: String, good: Int, bad: Int)
-
 }

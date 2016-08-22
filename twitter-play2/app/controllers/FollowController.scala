@@ -5,7 +5,7 @@ import javax.inject.Inject
 import jp.t2v.lab.play2.auth.{AuthElement, LoginLogout}
 import models.Forms._
 import models.Tables._
-import models.{AuthConfigImpl, MemberDAO, TweetDAO}
+import models.{AuthConfigImpl, MemberDAO, MemcachedIdContainer, TweetDAO}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
 import play.api.mvc._

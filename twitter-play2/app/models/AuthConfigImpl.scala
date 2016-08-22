@@ -1,7 +1,7 @@
 package models
 
 import controllers.routes
-import jp.t2v.lab.play2.auth.{AuthConfig, CookieTokenAccessor}
+import jp.t2v.lab.play2.auth.{AsyncIdContainer, AuthConfig, CookieIdContainer, CookieTokenAccessor}
 import models.Tables.MemberRow
 import play.api.mvc.Results._
 import play.api.mvc.{RequestHeader, Result}
@@ -14,9 +14,11 @@ trait AuthConfigImpl extends AuthConfig {
   type Id = Int
   type User = MemberRow
   type Authority = None.type
+
   val idTag: ClassTag[Id] = classTag[Id]
   val sessionTimeoutInSeconds: Int = 3600
   val memberDAO: MemberDAO
+
 
   def resolveUser(id: Id)(implicit ctx: ExecutionContext): Future[Option[User]] = memberDAO.findById(id)
 
