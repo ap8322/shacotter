@@ -11,6 +11,7 @@ import com.google.inject.{Inject, Singleton}
 import jp.t2v.lab.play2.auth.LoginLogout
 import models.Forms._
 import models.{AuthConfigImpl, MemberDAO, MemcachedIdContainer}
+import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.{Action, Controller}
 import play.api.data.Form
@@ -20,7 +21,7 @@ import scala.concurrent.Future
 
 object AuthController
 
-class AuthController @Inject()(val memberDAO: MemberDAO)
+class AuthController @Inject()(val memberDAO: MemberDAO,val cacheApi: CacheApi)
   extends Controller with LoginLogout with AuthConfigImpl {
 
   import AuthController._

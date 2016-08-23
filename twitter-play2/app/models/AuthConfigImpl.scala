@@ -1,13 +1,14 @@
 package models
 
 import controllers.routes
-import jp.t2v.lab.play2.auth.{AsyncIdContainer, AuthConfig, CookieIdContainer, CookieTokenAccessor}
+import jp.t2v.lab.play2.auth.{AsyncIdContainer, AuthConfig, CacheIdContainer, CookieTokenAccessor}
 import models.Tables.MemberRow
 import play.api.mvc.Results._
 import play.api.mvc.{RequestHeader, Result}
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.reflect.{ClassTag, classTag}
+import play.api.cache.CacheApi
 
 trait AuthConfigImpl extends AuthConfig {
 
@@ -18,7 +19,7 @@ trait AuthConfigImpl extends AuthConfig {
   val idTag: ClassTag[Id] = classTag[Id]
   val sessionTimeoutInSeconds: Int = 3600
   val memberDAO: MemberDAO
-
+  val cacheApi: CacheApi
 
   def resolveUser(id: Id)(implicit ctx: ExecutionContext): Future[Option[User]] = memberDAO.findById(id)
 
@@ -39,29 +40,11 @@ trait AuthConfigImpl extends AuthConfig {
     Future.successful(Forbidden("no permission"))
   }
 
-  /**
-    * A function that determines what `Authority` a user has.
-    * You should alter this procedure to suit your application.
-    */
-  //  def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = Future.successful {
-  //    (user.role, authority) match {
-  //      case (Administrator, _)       => true
-  //      case (NormalUser, NormalUser) => true
-  //      case _                        => false
-  //    }
-  //  }
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = Future.successful(true)
 
-  /**
-    * (Optional)
-    * You can custom SessionID Token handler.
-    * Default implementation use Cookie.
-    */
+  override lazy val idContainer: AsyncIdContainer[Id] = AsyncIdContainer(new MemcachedIdContainer[Id](cacheApi))
+
   override lazy val tokenAccessor = new CookieTokenAccessor(
-    /*
-     * Whether use the secure option or not use it in the cookie.
-     * Following code is default.
-     */
     cookieSecureOption = false,
     cookieMaxAge = Some(sessionTimeoutInSeconds)
   )

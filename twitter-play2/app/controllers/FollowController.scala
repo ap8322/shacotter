@@ -6,6 +6,7 @@ import jp.t2v.lab.play2.auth.{AuthElement, LoginLogout}
 import models.Forms._
 import models.Tables._
 import models.{AuthConfigImpl, MemberDAO, MemcachedIdContainer, TweetDAO}
+import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
 import play.api.mvc._
@@ -13,7 +14,8 @@ import play.api.mvc._
 import scala.concurrent.Future
 
 class FollowController @Inject()(val memberDAO: MemberDAO,
-                                 val tweetDAO: TweetDAO)
+                                 val tweetDAO: TweetDAO,
+                                 val cacheApi: CacheApi)
   extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
   import FollowController._

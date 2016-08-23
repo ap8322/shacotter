@@ -6,6 +6,7 @@ import controllers.EvalController.tweetIdForm
 import jp.t2v.lab.play2.auth.AuthElement
 import models.Tables._
 import models._
+import play.api.cache.CacheApi
 import play.api.libs.json._
 import play.api.mvc.Controller
 
@@ -17,7 +18,8 @@ import scala.concurrent.Future
   */
 class EvalController @Inject()(val memberDAO: MemberDAO,
                                val tweetDAO: TweetDAO,
-                               val evalDAO: EvalDAO)
+                               val evalDAO: EvalDAO,
+                               val cacheApi: CacheApi)
   extends Controller with AuthElement with AuthConfigImpl {
 
   /**
