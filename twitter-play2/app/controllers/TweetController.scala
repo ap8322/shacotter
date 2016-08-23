@@ -8,6 +8,7 @@ import jp.t2v.lab.play2.auth.AuthElement
 import models.Forms._
 import models.Tables._
 import models._
+import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Controller
 
@@ -15,7 +16,8 @@ import scala.concurrent.Future
 import scala.reflect.ClassTag
 
 class TweetController @Inject()(val memberDAO: MemberDAO,
-                                val tweetDAO: TweetDAO)
+                                val tweetDAO: TweetDAO,
+                                val cacheApi: CacheApi)
   extends Controller with AuthElement with AuthConfigImpl {
 
   /**

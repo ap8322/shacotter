@@ -8,6 +8,7 @@ import models.Forms._
 import models.Tables._
 import models.{AuthConfigImpl, MemberDAO, MemcachedIdContainer, TweetDAO}
 import org.mindrot.jbcrypt.BCrypt
+import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.{Action, AnyContent, Controller}
 
@@ -16,7 +17,8 @@ import scala.reflect.ClassTag
 
 @Singleton
 class MemberController @Inject()(val memberDAO: MemberDAO,
-                                 val tweetDAO: TweetDAO)
+                                 val tweetDAO: TweetDAO,
+                                 val cacheApi: CacheApi)
   extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
   /**

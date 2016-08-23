@@ -3,37 +3,23 @@ package models
 /**
   * Created by yuki.haneda on 2016/08/22.
   */
-import play.api.cache._
-import play.api.Play._
+import java.security.SecureRandom
+
+import jp.t2v.lab.play2.auth.{AuthenticityToken, IdContainer}
+import play.api.cache.CacheApi
 
 import scala.annotation.tailrec
-import scala.util.Random
-import java.security.SecureRandom
-import javax.inject.Inject
-
-import com.google.inject.ImplementedBy
-import jp.t2v.lab.play2.auth.{AsyncIdContainer, AuthenticityToken, IdContainer}
-
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 import scala.reflect.ClassTag
+import scala.util.Random
 
-@ImplementedBy(classOf[MemcachedIdContainerImpl[Int]])
-trait MemcachedIdContainer [Id] extends IdContainer[Id]{
+class MemcachedIdContainer[Id: ClassTag](cacheApi: CacheApi) extends IdContainer[Id] {
 
-  def startNewSession(userId: Id, timeoutInSeconds: Int): AuthenticityToken
+  private  val tokenSuffix = ":token"
+  private  val userIdSuffix = ":userId"
+  private  val random = new Random(new SecureRandom())
 
-  def remove(token: AuthenticityToken)
-
-  def get(token: AuthenticityToken): Option[Id]
-
-  def prolongTimeout(token: AuthenticityToken, timeoutInSeconds: Int)
-}
-
-class MemcachedIdContainerImpl [Id: ClassTag] @Inject() (cache: CacheApi) extends IdContainer[Id] with MemcachedIdContainer[Id] {
-
-  val tokenSuffix = ":token"
-  val userIdSuffix = ":userId"
-  val random = new Random(new SecureRandom())
+  private def intToDuration(seconds: Int): Duration = if (seconds == 0) Duration.Inf else seconds.seconds
 
   def startNewSession(userId: Id, timeoutInSeconds: Int): AuthenticityToken = {
     removeByUserId(userId)
@@ -43,14 +29,14 @@ class MemcachedIdContainerImpl [Id: ClassTag] @Inject() (cache: CacheApi) extend
   }
 
   @tailrec
-  final def generate: AuthenticityToken = {
+  private  final def generate: AuthenticityToken = {
     val table = "abcdefghijklmnopqrstuvwxyz1234567890_.~*'()"
     val token = Iterator.continually(random.nextInt(table.size)).map(table).take(64).mkString
     if (get(token).isDefined) generate else token
   }
 
-  private def removeByUserId(userId: Id) {
-    cache.get[String](userId.toString + userIdSuffix) foreach unsetToken
+  private  def removeByUserId(userId: Id) {
+    cacheApi.get[String](userId.toString + userIdSuffix) foreach unsetToken
     unsetUserId(userId)
   }
 
@@ -60,22 +46,20 @@ class MemcachedIdContainerImpl [Id: ClassTag] @Inject() (cache: CacheApi) extend
   }
 
   private def unsetToken(token: AuthenticityToken) {
-    cache.remove(token + tokenSuffix)
+    cacheApi.remove(token + tokenSuffix)
+  }
+  private  def unsetUserId(userId: Id) {
+    cacheApi.remove(userId.toString + userIdSuffix)
   }
 
-  private def unsetUserId(userId: Id) {
-    cache.remove(userId.toString + userIdSuffix)
-  }
+  def get(token: AuthenticityToken) = cacheApi.get[Any](token + tokenSuffix).map(_.asInstanceOf[Id])
 
-  def get(token: AuthenticityToken) = cache.get(token + tokenSuffix).map(_.asInstanceOf[Id])
-
-  private def store(token: AuthenticityToken, userId: Id, timeoutInSeconds: Int) {
-    cache.set(token + tokenSuffix, userId, Duration.fromNanos(timeoutInSeconds))
-    cache.set(userId.toString + userIdSuffix, token, Duration.fromNanos(timeoutInSeconds))
+  private  def store(token: AuthenticityToken, userId: Id, timeoutInSeconds: Int) {
+    cacheApi.set(token + tokenSuffix, userId, intToDuration(timeoutInSeconds))
+    cacheApi.set(userId.toString + userIdSuffix, token, intToDuration(timeoutInSeconds))
   }
 
   def prolongTimeout(token: AuthenticityToken, timeoutInSeconds: Int) {
     get(token).foreach(store(token, _, timeoutInSeconds))
   }
-
 }
