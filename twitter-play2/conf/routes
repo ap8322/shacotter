@@ -27,13 +27,9 @@ POST          /remove              controllers.FollowController.remove
 GET           /follower            controllers.FollowController.followerlist
 
 #eval
-POST          /good                controllers.EvalController.good
+POST          /addEval             controllers.EvalController.addEval
 DELETE        /deleteEval          controllers.EvalController.deleteEval
-POST          /bad                 controllers.EvalController.bad
-PUT           /updateStatus        controllers.EvalController.updateStatus
-
-GET /set                           controllers.Application.set
-GET /get                           controllers.Application.get
+PUT           /updateEval          controllers.EvalController.updateEval
 
 ## Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file        controllers.Assets.at(path="/public", file)

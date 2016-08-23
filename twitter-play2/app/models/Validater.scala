@@ -8,7 +8,7 @@ object Validater extends Validater
 
 
 trait Validater {
-  private val emaiRegex = """/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/""".r
+  private val emaiRegex = """/^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9_\.\-]+$/""".r
   private val passwordRegex = """"""
 
   def email:Constraint[String] = Constraint[String]("constraint.custom.email") { e =>
