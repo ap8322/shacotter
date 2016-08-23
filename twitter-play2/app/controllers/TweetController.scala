@@ -5,15 +5,16 @@ import java.util.Date
 
 import com.google.inject.Inject
 import jp.t2v.lab.play2.auth.AuthElement
+import models.DAO.{MemberDAO, TweetDAO}
 import models.Forms._
 import models.Tables._
 import models._
+import models.auth.AuthConfigImpl
 import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Controller
 
 import scala.concurrent.Future
-import scala.reflect.ClassTag
 
 class TweetController @Inject()(val memberDAO: MemberDAO,
                                 val tweetDAO: TweetDAO,
@@ -21,7 +22,7 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
   extends Controller with AuthElement with AuthConfigImpl {
 
   /**
-    * goto mytweet page
+    * goto my page
     *
     * @return
     */
@@ -32,7 +33,7 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
   }
 
   /**
-    * goto profile page
+    * goto other member profile page
     *
     * @param id
     * @return
@@ -46,24 +47,6 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
   }
 
   /**
-    * tweet
-    *
-    * @return
-    */
-  def tweet() = AsyncStack(AuthorityKey -> None) { implicit rs =>
-    tweetForm.bindFromRequest.fold(
-      formWithErrors => {
-        Future.successful(Redirect(routes.TweetController.index))
-      },
-      form => {
-        val tweet = TweetRow(0, Some(loggedIn.memberId), Some(form.tweet), new Timestamp(new Date().getTime))
-        tweetDAO.add(tweet)
-        Future.successful(Redirect(routes.TweetController.index))
-      }
-    )
-  }
-
-  /**
     * goto timeline page
     *
     * @return
@@ -72,5 +55,23 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
     tweetDAO.selectFollowerTweet(loggedIn.memberId).map { tweet =>
       Ok(views.html.user.list(loggedIn.name, tweet, tweetForm))
     }
+  }
+
+  /**
+    * tweet and redirect timeline page
+    *
+    * @return
+    */
+  def tweet() = AsyncStack(AuthorityKey -> None) { implicit rs =>
+    tweetForm.bindFromRequest.fold(
+      formWithErrors => {
+        Future.successful(Redirect(routes.TweetController.timeline))
+      },
+      form => {
+        val tweet = TweetRow(0, Some(loggedIn.memberId), Some(form.tweet), new Timestamp(new Date().getTime))
+        tweetDAO.add(tweet)
+        Future.successful(Redirect(routes.TweetController.timeline))
+      }
+    )
   }
 }

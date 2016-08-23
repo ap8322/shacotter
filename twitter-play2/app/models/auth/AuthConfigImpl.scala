@@ -1,23 +1,26 @@
-package models
+package models.auth
 
 import controllers.routes
-import jp.t2v.lab.play2.auth.{AsyncIdContainer, AuthConfig, CacheIdContainer, CookieTokenAccessor}
+import jp.t2v.lab.play2.auth.{AsyncIdContainer, AuthConfig, CookieTokenAccessor}
+import models.DAO.MemberDAO
 import models.Tables.MemberRow
+import play.api.cache.CacheApi
 import play.api.mvc.Results._
 import play.api.mvc.{RequestHeader, Result}
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.reflect.{ClassTag, classTag}
-import play.api.cache.CacheApi
 
 trait AuthConfigImpl extends AuthConfig {
 
+  // Property
   type Id = Int
   type User = MemberRow
   type Authority = None.type
-
   val idTag: ClassTag[Id] = classTag[Id]
   val sessionTimeoutInSeconds: Int = 3600
+
+  //  DI
   val memberDAO: MemberDAO
   val cacheApi: CacheApi
 
@@ -42,8 +45,10 @@ trait AuthConfigImpl extends AuthConfig {
 
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext): Future[Boolean] = Future.successful(true)
 
+  // セッションを保存先をmemcachedに変更
   override lazy val idContainer: AsyncIdContainer[Id] = AsyncIdContainer(new MemcachedIdContainer[Id](cacheApi))
 
+  // sesstion
   override lazy val tokenAccessor = new CookieTokenAccessor(
     cookieSecureOption = false,
     cookieMaxAge = Some(sessionTimeoutInSeconds)

@@ -4,20 +4,20 @@ import javax.inject.Inject
 
 import com.google.inject.Singleton
 import jp.t2v.lab.play2.auth.{AuthElement, LoginLogout}
+import models.DAO.{MemberDAO, TweetDAO, FollowDAO}
 import models.Forms._
 import models.Tables._
-import models.{AuthConfigImpl, MemberDAO, MemcachedIdContainer, TweetDAO}
+import models.auth.{AuthConfigImpl, MemcachedIdContainer}
 import org.mindrot.jbcrypt.BCrypt
 import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.{Action, AnyContent, Controller}
 
 import scala.concurrent.Future
-import scala.reflect.ClassTag
 
 @Singleton
 class MemberController @Inject()(val memberDAO: MemberDAO,
-                                 val tweetDAO: TweetDAO,
+                                 val followDAO: FollowDAO,
                                  val cacheApi: CacheApi)
   extends Controller with LoginLogout with AuthElement with AuthConfigImpl {
 
@@ -27,7 +27,7 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def list = AsyncStack(AuthorityKey -> None) { implicit rs =>
-    tweetDAO.selectFollowerList(loggedIn.memberId).map { mem =>
+    followDAO.selectFollowerList(loggedIn.memberId).map { mem =>
       Ok(views.html.user.member(loggedIn.name, mem, tweetForm))
     }
   }
@@ -42,20 +42,20 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
       formWithErrors => {
         Future.successful(BadRequest(views.html.auth.signup(formWithErrors)))
       },
-        form => {
-          val hashpw =  BCrypt.hashpw(form.password, BCrypt.gensalt())
-          val member = MemberRow(1, form.email, hashpw, form.name)
+      form => {
+        val hashpw = BCrypt.hashpw(form.password, BCrypt.gensalt())
+        val member = MemberRow(1, form.email, hashpw, form.name)
 
-          memberDAO.findByEmail(form.email).flatMap {
-            case Some(user) => Future.successful(BadRequest(views.html.auth.signup(statusForm.fill(form).withGlobalError("申し訳ございませんが､既に使用されているメールアドレスです｡"))))
-            case _ => memberDAO.create(member).flatMap {
-                case Some(user) => {
-                  gotoLoginSucceeded(user.memberId)
-                }
-                case _ => Future.successful(Unauthorized(views.html.auth.signup(statusForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
-              }
+        memberDAO.findByEmail(form.email).flatMap {
+          case Some(user) => Future.successful(BadRequest(views.html.auth.signup(statusForm.fill(form).withGlobalError("申し訳ございませんが､既に使用されているメールアドレスです｡"))))
+          case _ => memberDAO.create(member).flatMap {
+            case Some(user) => {
+              gotoLoginSucceeded(user.memberId)
+            }
+            case _ => Future.successful(Unauthorized(views.html.auth.signup(statusForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
           }
         }
+      }
 
     )
   }

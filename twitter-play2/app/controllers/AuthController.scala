@@ -3,28 +3,20 @@ package controllers
 /**
   * Created by yuki.haneda on 2016/08/02.
   */
-
-//todo inject
-//import javax.inject.Inject
-
-import com.google.inject.{Inject, Singleton}
+import com.google.inject.Inject
 import jp.t2v.lab.play2.auth.LoginLogout
 import models.Forms._
-import models.{AuthConfigImpl, MemberDAO, MemcachedIdContainer}
+import models.DAO.MemberDAO
+import models.auth.AuthConfigImpl
 import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.{Action, Controller}
-import play.api.data.Form
-import play.api.data.Forms._
 
 import scala.concurrent.Future
 
-object AuthController
-
-class AuthController @Inject()(val memberDAO: MemberDAO,val cacheApi: CacheApi)
+class AuthController @Inject()(val memberDAO: MemberDAO,
+                               val cacheApi: CacheApi)
   extends Controller with LoginLogout with AuthConfigImpl {
-
-  import AuthController._
 
   /**
     * goto login page
@@ -33,6 +25,17 @@ class AuthController @Inject()(val memberDAO: MemberDAO,val cacheApi: CacheApi)
     */
   def login() = Action { implicit rs =>
     Ok(views.html.auth.login(loginForm))
+  }
+
+  /**
+    * remove session and redirect login page
+    *
+    * @return
+    */
+  def logout() = Action.async { implicit rs =>
+    gotoLogoutSucceeded.map(_.flashing(
+      "success" -> "You've been logged out"
+    ))
   }
 
   /**
@@ -63,16 +66,5 @@ class AuthController @Inject()(val memberDAO: MemberDAO,val cacheApi: CacheApi)
     */
   def signup() = Action { implicit rs =>
     Ok(views.html.auth.signup(statusForm))
-  }
-
-  /**
-    * remove session and redirect login page
-    *
-    * @return
-    */
-  def logout() = Action.async { implicit rs =>
-    gotoLogoutSucceeded.map(_.flashing(
-      "success" -> "You've been logged out"
-    ))
   }
 }

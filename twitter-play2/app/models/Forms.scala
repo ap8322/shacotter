@@ -32,7 +32,7 @@ object Forms {
   val statusForm = Form(
     mapping(
       "name" -> nonEmptyText(maxLength = 20),
-      "email" -> nonEmptyText(maxLength = 200).verifying(Validater.email),
+      "email" -> nonEmptyText(maxLength = 200),
       "password" -> nonEmptyText(maxLength = 10000)
     )(StatusForm.apply)(StatusForm.unapply)
   )

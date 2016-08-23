@@ -51,7 +51,7 @@ $(function () {
         if (button.val() == 0) {
             if (next.val() == 0) {
                 $.ajax({
-                    url: '/good',
+                    url: '/addEval',
                     type: 'POST',
                     data: '{"tweet_id":' + tweet_id + ', "eval_status":1}',
                     contentType: 'application/json',
@@ -65,7 +65,7 @@ $(function () {
                 //bad -> good
             } else {
                 $.ajax({
-                    url: '/updateStatus',
+                    url: '/updateEval',
                     type: 'PUT',
                     data: '{"tweet_id":' + tweet_id + ', "eval_status":1}',
                     contentType: 'application/json',
@@ -106,7 +106,7 @@ $(function () {
         if (button.val() == 0) {
             if (prev.val() == 0) {
                 $.ajax({
-                    url: '/bad',
+                    url: '/addEval',
                     type: 'POST',
                     data: '{"tweet_id":' + tweet_id + ', "eval_status":0}',
                     contentType: 'application/json',
@@ -120,7 +120,7 @@ $(function () {
                 //good -> bad
             } else {
                 $.ajax({
-                    url: '/updateStatus',
+                    url: '/updateEval',
                     type: 'PUT',
                     data: '{"tweet_id":' + tweet_id + ', "eval_status":0}',
                     contentType: 'application/json',
