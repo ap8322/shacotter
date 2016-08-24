@@ -34,7 +34,7 @@ CREATE TABLE Follow (
 CREATE TABLE Eval (
   tweet_id    INT(10) NOT NULL
   COMMENT '評価されるコメントのID',
-  eval_status INT(10) NOT NULL
+  eval_status INT(1) NOT NULL
   COMMENT '1ならいいねの状態､0ならどうでもいいねの状態',
   member_id   INT(10) NOT NULL
   COMMENT '評価する人のID',

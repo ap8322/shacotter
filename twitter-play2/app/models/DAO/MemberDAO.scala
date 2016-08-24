@@ -3,10 +3,10 @@ package models.DAO
 /**
   * Created by yuki.haneda on 2016/08/03.
   */
+
 import com.google.inject.Inject
 import models.Forms._
-import models.Tables.Member
-import models.Tables.MemberRow
+import models.Tables.{Member, MemberRow}
 import org.mindrot.jbcrypt.BCrypt
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile

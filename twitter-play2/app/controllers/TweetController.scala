@@ -8,7 +8,6 @@ import jp.t2v.lab.play2.auth.AuthElement
 import models.DAO.{MemberDAO, TweetDAO}
 import models.Forms._
 import models.Tables._
-import models._
 import models.auth.AuthConfigImpl
 import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext

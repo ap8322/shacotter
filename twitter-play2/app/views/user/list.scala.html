@@ -1,57 +1,60 @@
 @(me: String, tweetInfo: Seq[(String, Int, String, Int, Int, Option[Int])], form: Form[models.Forms.Tweet])
-    @main("ツイート") {
-        <div class="container">
-            <section class="row">
-                @*-----------------------------------------------------------------------------------------*@
-                <section class="col-sm-4">
-                @helper.form(routes.TweetController.tweet) {
-                    @form.globalError.map { error =>
-                        <p class="error">
-                            @error.message
-                        </p>
-                    }
-                    <div class="profile-box">
-                        <img src="@routes.Assets.at("images/egg.png")">
-                        <p class="username">@me</p>
-                    </div>
-                    <div class="form-group label-floating">
-                        <label class="control-label" for="tweet">Let's tweet!</label>
-                        <textarea class="form-control tweet-area" name="tweet" rows="3" id="tweet"></textarea>
-                        <button type="submit" class="btn btn-raised btn-primary tweet-button" id="tweet">
-                            ツイートする</button>
-                    </div>
+@main("ツイート") {
+    <div class="container">
+        <section class="row">
+            @*-----------------------------------------------------------------------------------------*@
+            <aside class="col-sm-4">
+            @helper.form(routes.TweetController.tweet) {
+                @form.globalError.map { error =>
+                    <p class="error">
+                        @error.message
+                    </p>
                 }
-                </section>
+                <figure class="profile-box">
+                    <img src="@routes.Assets.at("images/egg.png")">
+                    <figcaption class="username">@me</figcaption>
+                </figure>
+                <main class="form-group label-floating">
+                    <textarea id="tweet" class="form-control tweet-area" name="tweet" rows="3" placeholder="let's tweet!"></textarea>
+                    <button id="tweet" type="submit" class="btn btn-raised btn-primary tweet-button">ツイートする</button>
+                </main>
+            }
+            </aside>
 
-                <section class="col-sm-8">
+            <main class="col-sm-8">
+                @*----------------------------ツイートボックス-----------------------------*@
+                <ul class="tweet-list">
                 @tweetInfo.reverse.map { tweet =>
-                    @*----------------------------ツイートボックス-----------------------------*@
-                    <article class="panel panel-default well">
-                        <div>
-                            <img class="member-image" src="@routes.Assets.at("images/egg.png")">
-                            <span class="tweet-user-name">@tweet._1 </span>
-                        </div>
-                        <section class="tweet-contents"> @tweet._3</section>
-                        <section> 
-                            @if(tweet._6.getOrElse(-1) == 1) {
-                                <button class="good btn btn-success" value="1" type="button">いいね</button>
-                            } else {
-                                <button class="good btn " value="0" type="button">いいね</button>
-                            }
-                             <span class="good-count count">@tweet._4</span> 
-                            @if(tweet._6.getOrElse(-1) == 0) {
-                                <button class="bad btn btn-danger" value="1" type="button">
-                                    どうでもいいね</button> 
-                            } else {
-                                <button class="bad btn " value="0" type="button">どうでもいいね</button> 
-                            }
-                            <span class="bad-count count">@tweet._5</span>
-                             <span class="tweetId" hidden>@tweet._2</span> 
-                        </section>
-                    </article>
-                    @*----------------------------ツイートボックス-----------------------------*@
+                    <li>
+                        <article id="@tweet._2" class="tweet panel panel-default well">
+                            <figure>
+                                <img class="member-image" src="@routes.Assets.at("images/egg.png")">
+                                <figcaption class="tweet-user-name">@tweet._1 </figcaption>
+                            </figure>
+                            <main class="tweet-contents">
+                                <i>@tweet._3</i>
+                            </main>
+                            <footer> 
+                                @if(tweet._6.getOrElse(-1) == 1) {
+                                    <button class="good btn btn-success" value="1" type="button">いいね</button>
+                                } else {
+                                    <button class="good btn " value="0" type="button">いいね</button>
+                                }
+                                 <span class="good-count count">@tweet._4</span> 
+                                @if(tweet._6.getOrElse(-1) == 0) {
+                                    <button class="bad btn btn-danger" value="1" type="button">どうでもいいね</button> 
+                                } else {
+                                    <button class="bad btn " value="0" type="button">どうでもいいね</button> 
+                                }
+                                <span class="bad-count count">@tweet._5</span>
+                                 <span class="tweetId" hidden>@tweet._2</span> 
+                            </footer>
+                        </article>
+                    </li>
                 }
-                </section>
-            </section>
-        </div>
-    }
+                </ul>
+                @*----------------------------ツイートボックス-----------------------------*@
+            </main>
+        </section>
+    </div>
+}
