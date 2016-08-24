@@ -1,28 +1,6 @@
 @(form: Form[models.Forms.StatusForm])(implicit flash: Flash)
 
-<!DOCTYPE html>
-
-<html>
-    <head>
-        <title>Login</title>
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap.css")">
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap-material-design.css")">
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ripples.css")">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="@routes.Assets.at("javascripts/jquery-3.1.0.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/jquery.validate.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/jQueryRotate.js")"></script>
-        <script src="@routes.Assets.at("javascripts/login.js")"></script>
-        <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
-        <script src="@routes.Assets.at("javascripts/material.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/ripples.js")"></script>
-        <script>$.material.init();</script>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <div class="container">
+@auth_template("signin - Shacotter"){<div class="container">
             <header class="page-header">
                 <div class="well text-center center-block">
                 @helper.form(routes.MemberController.create()) {
@@ -38,23 +16,22 @@
                         </p>
                     }
                     @for(error <- form("email").errors) {
-                        <p class="text-danger" style="margin: 0">@error.message</p>
+                        <p class="text-danger">@error.message</p>
                     }
                     <div class="form-group">
-                        <input type="name" class="required form-control col-md-5" name="name" placeholder="Input Your Name" id="name" value="">
+                        <input id="name" class="required form-control col-md-5" type="name" name="name" placeholder="Input Your Name" >
                     </div>
                     <div class="form-group">
-                        <p><input type="email" class="required form-control" name="email" placeholder="Input Your Email" id="email" value=""></p>
+                        <input id="email" class="required form-control" type="email" name="email" placeholder="Input Your Email" >
                     </div>
                     <div class="form-group">
-                        <p><input type="password" class="required form-control" name="password" id="password" placeholder="Input Your Password"></p>
+                        <input id="password" class="required form-control" type="password" name="password" placeholder="Input Your Password">
                     </div>
                     <p>
-                        <button class="btn btn-raised btn-primary" type="submit" id="signupbutton">Signup</button>
+                        <button id="signup" class="btn btn-raised btn-primary" type="submit" >Signup</button>
                     </p>
                 }
                 </div>
             </header>
         </div>
-    </body>
-</html>
+}

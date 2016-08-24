@@ -41,6 +41,7 @@ $(function () {
         errorElement: 'p'
     });
 
+    // 評価ボタン
     $('.good').click(function () {
         var button = $(this);
         var count = $(this).next();
