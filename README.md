@@ -1,4 +1,9 @@
 ## Twitter clone ##
+```
+$ export DB_DEFAULT_USER="username"
+$ export DB_DEFAULT_PASSWORD="password"
+```
+
 ### 基本機能
 > - 会員登録できること
 > - ログイン/ログアウトできること
