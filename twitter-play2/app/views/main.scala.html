@@ -1,30 +1,24 @@
-@*
-* This template is called from the `index` template. This template
-* handles the rendering of the page header and body tags. It takes
-* two arguments, a `String` for the title of the page and an `Html`
-* object to insert into the body of the page.
-*@
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
-@*<html xmlns="http://www.w3.org/1999/html">*@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>@title</title>
         <link rel="shortcut icon" type="image/ico" href="@routes.Assets.at("images/favicon.ico")">
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.css")">
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap-material-design.css")">
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/ripples.css")">
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
         <script src="@routes.Assets.at("javascripts/jquery-3.1.0.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/jquery.validate.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
+        <script src="@routes.Assets.at("javascripts/main.js")"></script>
+        @* Library *@
+        <script src="@routes.Assets.at("javascripts/jquery.validate.min.js")"></script>
+        @* Material Design for Bootstrap *@
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap-material-design.css")">
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ripples.css")">
         <script src="@routes.Assets.at("javascripts/material.min.js")"></script>
         <script src="@routes.Assets.at("javascripts/ripples.js")"></script>
-        <script src="@routes.Assets.at("javascripts/hello.js")"></script>
-        <script src="@routes.Assets.at("javascripts/jquery.simplePagination.js")"></script>
         <script>$.material.init();</script>
-        <style>body { padding-top: 80px;  }</style>
     </head>
     <body>
         <header class="navbar navbar-default navbar-fixed-top">

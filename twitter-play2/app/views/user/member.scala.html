@@ -1,6 +1,6 @@
 @(me: String, users: Seq[(Int, String, Option[Int])], form: Form[models.Forms.Tweet])
 
-@main("メンバー一覧") {
+@main("メンバー一覧 - Shacotter") {
     <div class="container">
         <div class="row">
         @users.map { user =>
@@ -13,7 +13,7 @@
 
                         <div class="row-content">
                             <div class="list-group-item-text">
-                                <h3><a href="@routes.TweetController.profile(user._1)"> @user._2 </a></h3>
+                                <h2><a href="@routes.TweetController.profile(user._1)"> @user._2 </a></h2>
 
                                 <div id="member@user._1">
                                 @if(user._3.getOrElse("test") != "test") {
