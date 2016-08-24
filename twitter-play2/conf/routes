@@ -33,11 +33,3 @@ PUT           /updateEval          controllers.EvalController.updateEval
 
 ## Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file        controllers.Assets.at(path="/public", file)
-
-#GET     /user/edit                  controllers.UserController.edit(memberId: Option[Int] ?= None)
-## Mapping to /user/create
-#POST    /user/create                controllers.UserController.create
-## Mapping to /user/update
-#POST    /user/update                controllers.UserController.update
-## Mapping to /user/remove/<number>
-#POST    /user/remove/:memberId            controllers.UserController.remove(memberId: Int)
