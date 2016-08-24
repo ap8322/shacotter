@@ -3,10 +3,11 @@ package controllers
 /**
   * Created by yuki.haneda on 2016/08/02.
   */
+
 import com.google.inject.Inject
 import jp.t2v.lab.play2.auth.LoginLogout
-import models.Forms._
 import models.DAO.MemberDAO
+import models.Forms._
 import models.auth.AuthConfigImpl
 import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext

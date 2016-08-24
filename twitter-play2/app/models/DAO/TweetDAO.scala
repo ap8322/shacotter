@@ -1,13 +1,11 @@
 package models.DAO
 
-
 import com.google.inject.Inject
-import models.Tables
 import models.Tables._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
-import scala.concurrent.ExecutionContext.Implicits.global
+
 import scala.concurrent.Future
 
 /**
@@ -21,6 +19,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   /**
     * ツイートを追加
+    *
     * @param tweet
     */
   def add(tweet: TweetRow): Unit = {
@@ -29,6 +28,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   /**
     * 自分のツイートを取得
+    *
     * @param Login_Member_Id
     * @return
     */
@@ -53,6 +53,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   /**
     * 他の人のツイートを取得
+    *
     * @param Login_Member_Id
     * @param Other_Member_Id
     * @return
@@ -82,6 +83,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   /**
     * フォロワーのツイートを取得(タイムライン)
+    *
     * @param Login_Member_Id
     * @return
     */

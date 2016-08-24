@@ -24,7 +24,6 @@ function remove(id) {
 }
 
 $(function () {
-
     $('form').validate({
         rules: {
             tweet: {
