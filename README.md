@@ -3,6 +3,8 @@
 $ export DB_DEFAULT_USER="username"
 $ export DB_DEFAULT_PASSWORD="password"
 ```
+## 不具合報告シート
+https://docs.google.com/spreadsheets/d/14BDo0rGwcA5llYORajCYlr9N69QCwnkwg3iyS_vKIuM/edit#gid=0
 
 ### 基本機能
 > - 会員登録できること
