@@ -4,11 +4,10 @@ import javax.inject.Inject
 
 import com.google.inject.Singleton
 import jp.t2v.lab.play2.auth.{AuthElement, LoginLogout}
-import models.DAO.{FollowDAO, MemberDAO}
 import models.Forms._
 import models.Tables._
 import models.auth.AuthConfigImpl
-import org.mindrot.jbcrypt.BCrypt
+import models.dao.{FollowDAO, MemberDAO}
 import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.{Action, Controller}
@@ -43,20 +42,17 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
         Future.successful(BadRequest(views.html.auth.signup(formWithErrors)))
       },
       form => {
-        val hashpw = BCrypt.hashpw(form.password, BCrypt.gensalt())
-        val member = MemberRow(1, form.email, hashpw, form.name)
-
         memberDAO.findByEmail(form.email).flatMap {
           case Some(user) => Future.successful(BadRequest(views.html.auth.signup(statusForm.fill(form).withError("mail", "申し訳ございませんが､既に使用されているメールアドレスです｡"))))
-          case _ => memberDAO.create(member).flatMap {
-            case Some(user) => {
-              gotoLoginSucceeded(user.memberId)
-            }
-            case _ => Future.successful(Unauthorized(views.html.auth.signup(statusForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
+          case _ => {
+            for {
+              _ <- memberDAO.create(form.email, form.password, form.name)
+              newMember <- memberDAO.findByEmail(form.email)
+              result <- gotoLoginSucceeded(newMember.get.memberId)
+            } yield result
           }
         }
       }
-
     )
   }
 
@@ -86,14 +82,11 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
         val member = MemberRow(0, form.email, form.password, form.name)
         memberDAO.findByEmail(form.email).flatMap {
           case Some(user) => Future.successful(Ok(views.html.user.edit(statusForm.fill(StatusForm("", "", "")).withGlobalError("申し訳ございませんが､既に使用されているメールアドレスです｡"))))
-          case _ => {
-            memberDAO.update(member)
-            Future.successful(Redirect(routes.TweetController.index))
-          }
+          case _ => memberDAO.update(member).map(_ => Redirect(routes.TweetController.index))
         }
       }
     )
   }
 
-  def delete() = ???
+  def delete() = TODO
 }

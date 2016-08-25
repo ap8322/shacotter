@@ -1,11 +1,16 @@
-package models.DAO
+package models.dao
 
-import com.google.inject.Inject
+import java.sql.Timestamp
+import java.util.Date
+import javax.inject.Inject
+
+import models.Forms.TweetInfo
 import models.Tables._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 /**
@@ -22,7 +27,8 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     *
     * @param tweet
     */
-  def add(tweet: TweetRow): Unit = {
+  def add(myId: Int, myTweet: String): Future[Int] = {
+    val tweet = TweetRow(0, Some(myId), Some(myTweet), new Timestamp(new Date().getTime))
     db.run(Tweet += tweet)
   }
 
@@ -32,7 +38,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param Login_Member_Id
     * @return
     */
-  def selectMyTweet(id: Int): Future[Vector[(String, Int, String, Int, Int, Option[Int])]] = {
+  def selectMyTweet(id: Int): Future[Vector[TweetInfo]] = {
     val a = sql"""SELECT m.name,
                     t.tweet_id,
                     t.tweet,
@@ -48,7 +54,11 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
     val result = Tweet.filter(_.memberId === 1).result
 
-    db.run(a)
+    db.run(a).map { tweetInfoList =>
+      tweetInfoList.map {
+        case (name, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(name, tweetId, tweet, goodCount, badCount, currentState.getOrElse(-1))
+      }
+    }
   }
 
   /**
@@ -58,7 +68,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param Other_Member_Id
     * @return
     */
-  def selectFriendTweet(myId: Int, friendId: Int): Future[Vector[(String, Int, String, Int, Int, Option[Int])]] = {
+  def selectFriendTweet(myId: Int, friendId: Int): Future[Vector[TweetInfo]] = {
     val a = sql"""SELECT m.name,
                     t.tweet_id,
                     t.tweet,
@@ -78,7 +88,11 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
           bad <- Eval if bad.evalStatus === 0 && bad.tweetId === t.tweetId
     } yield (m.name, t.tweetId, t.tweet, good, bad)).result
 
-    db.run(a)
+    db.run(a).map { tweetInfoList =>
+      tweetInfoList.map {
+        case (name, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(name, tweetId, tweet, goodCount, badCount, currentState.getOrElse(-1))
+      }
+    }
   }
 
   /**
@@ -87,7 +101,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param Login_Member_Id
     * @return
     */
-  def selectFollowerTweet(id: Int): Future[Vector[(String, Int, String, Int, Int, Option[Int])]] = {
+  def selectFollowerTweet(id: Int): Future[Vector[TweetInfo]] = {
 
     val a = sql"""SELECT m.name,
                     t.tweet_id,
@@ -101,6 +115,10 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
                   WHERE m.member_id in (SELECT f.followed_id FROM Follow f WHERE f.follower_id = $id) OR m.member_id = $id
                   GROUP BY t.tweet_id,m.member_id;""".as[(String, Int, String, Int, Int, Option[Int])]
 
-    db.run(a)
+    db.run(a).map { tweetInfoList =>
+      tweetInfoList.map {
+        case (name, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(name, tweetId, tweet, goodCount, badCount, currentState.getOrElse(-1))
+      }
+    }
   }
 }

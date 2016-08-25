@@ -1,18 +1,16 @@
 package controllers
 
-import java.sql.Timestamp
-import java.util.Date
 
-import com.google.inject.Inject
+import javax.inject.Inject
+
 import jp.t2v.lab.play2.auth.AuthElement
-import models.DAO.{MemberDAO, TweetDAO}
 import models.Forms._
-import models.Tables._
 import models.auth.AuthConfigImpl
+import models.dao.{MemberDAO, TweetDAO}
 import play.api.cache.CacheApi
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.Controller
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class TweetController @Inject()(val memberDAO: MemberDAO,
@@ -21,7 +19,7 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
   extends Controller with AuthElement with AuthConfigImpl {
 
   /**
-    * goto my page
+    * goto my tweet page
     *
     * @return
     */
@@ -32,17 +30,16 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
   }
 
   /**
-    * goto other member profile page
+    * goto other member profile tweet page
     *
-    * @param id
+    * @param other_member_id
     * @return
     */
   def profile(id: Int) = AsyncStack(AuthorityKey -> None) { implicit rs =>
-    tweetDAO.selectFriendTweet(loggedIn.memberId, id).flatMap { tweet =>
-      memberDAO.findById(id).map { member =>
-        Ok(views.html.user.list(member.get.name, tweet, tweetForm))
-      }
-    }
+    for {
+      tweet <- tweetDAO.selectFriendTweet(loggedIn.memberId, id)
+      member <- memberDAO.findById(id)
+    } yield Ok(views.html.user.list(member.get.name, tweet, tweetForm))
   }
 
   /**
@@ -67,9 +64,7 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
         Future.successful(Redirect(routes.TweetController.timeline))
       },
       form => {
-        val tweet = TweetRow(0, Some(loggedIn.memberId), Some(form.tweet), new Timestamp(new Date().getTime))
-        tweetDAO.add(tweet)
-        Future.successful(Redirect(routes.TweetController.timeline))
+        tweetDAO.add(loggedIn.memberId, form.tweet).map(_ => Redirect(routes.TweetController.timeline))
       }
     )
   }

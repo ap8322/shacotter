@@ -1,11 +1,11 @@
-package models.DAO
+package models.dao
 
 /**
   * Created by yuki.haneda on 2016/08/03.
   */
 
-import com.google.inject.Inject
-import models.Forms._
+import javax.inject.Inject
+
 import models.Tables.{Member, MemberRow}
 import org.mindrot.jbcrypt.BCrypt
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
@@ -18,11 +18,12 @@ import scala.concurrent.Future
 class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   extends HasDatabaseConfigProvider[JdbcProfile] {
 
-  def authenticate(form: LoginForm): Future[Option[MemberRow]] = {
-    db.run(Member.filter(_.email === form.email.bind).result.headOption).map {
-      case Some(user) if BCrypt.checkpw(form.password, user.password) => Some(user)
-      case _ => None
+  def authenticate(email: String, password: String): Future[Either[String, MemberRow]] = {
+    db.run(Member.filter(_.email === email.bind).result.headOption).map {
+      case Some(user) if BCrypt.checkpw(password, user.password) => Right(user)
+      case _ => Left("メールまたはパスワードが違います｡")
     }
+    println()
   }
 
   def findById(id: Int): Future[Option[MemberRow]] = {
@@ -33,14 +34,14 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     db.run(Member.filter(_.email === email.bind).result.headOption)
   }
 
-  def create(member: MemberRow): Future[Option[MemberRow]] = {
+  def create(email: String, password: String, name: String): Future[Int] = {
+    val hashpw = BCrypt.hashpw(password, BCrypt.gensalt())
+    val member = MemberRow(1, email, hashpw, name)
     db.run(Member += member)
-    findByEmail(member.email)
   }
 
-  def update(member: MemberRow): Future[Option[MemberRow]] = {
+  def update(member: MemberRow): Future[Int] = {
     db.run(Member.filter(_.memberId === member.memberId).update(member))
-    findById(member.memberId)
   }
 
   def selectList(): Future[Seq[MemberRow]] = {

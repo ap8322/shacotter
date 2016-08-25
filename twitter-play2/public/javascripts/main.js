@@ -1,152 +1,150 @@
-function follow(id) {
-    $.ajax({
-        url: '/follow',
-        type: 'POST',
-        data: '{"id": ' + id + '}',
-        contentType: 'application/json',
-        dataType: 'json'
-    }).done(function (data) {
-        $('#member' + id).html("<button class='btn btn-raised btn-primary' onclick='remove(" + id + ")'>フォロー中</button>");
-    })
-}
+$('form').validate({
+    rules: {
+        tweet: {
+            required: true,
+            maxlength: 140
+        }
+    },
+    messages: {
+        tweet: {
+            required: "空ツイートはやめてね",
+            maxlength: "140文字以上はツイートはできません｡"
+        }
+    },
+    errorElement: 'p'
+});
 
-function remove(id) {
-    $.ajax({
-        url: '/remove',
-        type: 'POST',
-        data: '{"id": ' + id + '}',
-        contentType: 'application/json',
-        dataType: 'json'
-    }).done(function (data) {
-        confirm("フォローを解除しますか?");
-        $('#member' + id).html("<button class='btn btn-raised' onclick='follow(" + id + ")'>フォロー</button>");
-    })
-}
+$('.follow-button').click(function () {
+    var $follow_button = $(this);
+    var $parent = $(this).parent();
+    var $member_id = $parent.attr('id');
 
-$(function () {
-    $('form').validate({
-        rules: {
-            tweet: {
-                required: true,
-                maxlength: 140
-            }
-        },
-        messages: {
-            tweet: {
-                required: "空ツイートはやめてね",
-                maxlength: "140文字以上はツイートはできません｡"
-            }
-        },
-        errorElement: 'p'
-    });
+    if (!$follow_button.hasClass('btn-primary')) {
+        $.ajax({
+            url: '/follow',
+            type: 'POST',
+            data: '{"id": ' + $member_id + '}',
+            contentType: 'application/json',
+            dataType: 'json'
+        }).done(function (data) {
+            $follow_button.addClass('btn-primary');
+            $follow_button.text('フォロー中');
+        });
+    } else {
+        $.ajax({
+            url: '/remove',
+            type: 'POST',
+            data: '{"id": ' + $member_id + '}',
+            contentType: 'application/json',
+            dataType: 'json'
+        }).done(function (data) {
+            confirm("フォローを解除しますか?");
+            $follow_button.removeClass('btn-primary');
+            $follow_button.text('フォロー');
+        });
+    }
+});
 
-    // 評価ボタン
-    $('.good').click(function () {
-        var button = $(this);
-        var count = $(this).next();
-        var tweet_id = count.next().next().next().text();
-        var next = button.next().next();
+// 評価ボタン
+$('.jsc-good').click(function () {
+    var $good = $(this);
+    var $parent = $(this).parent();
+    var $count = $parent.children('.good-count');
+    var $tweet_id = $parent.parent().attr('id');
+    var $bad = $parent.children('.jsc-bad');
 
-        //Non -> good
-        if (button.val() == 0) {
-            if (next.val() == 0) {
-                $.ajax({
-                    url: '/addEval',
-                    type: 'POST',
-                    data: '{"tweet_id":' + tweet_id + ', "eval_status":1}',
-                    contentType: 'application/json',
-                    dataType: 'json'
-                }).done(function () {
-                    button.toggleClass('btn-success');
-                    button.val('1');
-                    count.text(parseInt(count.text()) + 1);
-                });
-
-                //bad -> good
-            } else {
-                $.ajax({
-                    url: '/updateEval',
-                    type: 'PUT',
-                    data: '{"tweet_id":' + tweet_id + ', "eval_status":1}',
-                    contentType: 'application/json',
-                    dataType: 'json'
-                }).done(function () {
-                    button.toggleClass('btn-success');
-                    button.val('1');
-                    count.text(parseInt(count.text()) + 1);
-                    next.toggleClass('btn-danger');
-                    next.val(0);
-                    next.next().text(parseInt(next.next().text()) - 1)
-                })
-            }
-
-            //good -> Non
-        } else {
+    //Non -> good
+    if (!$good.hasClass('btn-success')) {
+        if (!$bad.hasClass('btn-danger')) {
             $.ajax({
-                url: '/deleteEval',
-                type: 'DELETE',
-                data: '{"tweet_id":' + tweet_id + ', "eval_status":10}',
+                url: '/addEval',
+                type: 'POST',
+                data: '{"tweet_id":' + $tweet_id + ', "eval_status":1}',
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
-                button.toggleClass('btn-success');
-                button.val(0);
-                count.text(parseInt(count.text()) - 1);
-            })
-        }
-    });
+                $good.addClass('btn-success');
+                $count.text(parseInt($count.text()) + 1);
+            });
 
-    $('.bad').click(function () {
-        var button = $(this);
-        var count = $(this).next();
-        var prev = $(this).prev().prev();
-        var tweet_id = count.next().text();
-
-        //non -> bad
-        if (button.val() == 0) {
-            if (prev.val() == 0) {
-                $.ajax({
-                    url: '/addEval',
-                    type: 'POST',
-                    data: '{"tweet_id":' + tweet_id + ', "eval_status":0}',
-                    contentType: 'application/json',
-                    dataType: 'json'
-                }).done(function () {
-                    button.toggleClass('btn-danger');
-                    button.val(1);
-                    count.text(parseInt(count.text()) + 1);
-                });
-
-                //good -> bad
-            } else {
-                $.ajax({
-                    url: '/updateEval',
-                    type: 'PUT',
-                    data: '{"tweet_id":' + tweet_id + ', "eval_status":0}',
-                    contentType: 'application/json',
-                    dataType: 'json'
-                }).done(function () {
-                    button.toggleClass('btn-danger');
-                    button.val(1);
-                    count.text(parseInt(count.text()) + 1);
-                    prev.toggleClass('btn-success');
-                    prev.val(0);
-                    prev.next().text(parseInt(prev.next().text()) - 1)
-                });
-            }
-            //bad -> none
+            //bad -> good
         } else {
             $.ajax({
-                url: '/deleteEval',
-                type: 'DELETE',
-                data: '{"tweet_id":' + tweet_id + ', "eval_status":10}',
+                url: '/updateEval',
+                type: 'PUT',
+                data: '{"tweet_id":' + $tweet_id + ', "eval_status":1}',
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
-                button.toggleClass('btn-danger');
-                button.val(0);
-                count.text(parseInt(count.text()) - 1);
+                $good.addClass('btn-success');
+                $count.text(parseInt($count.text()) + 1);
+                $bad.removeClass('btn-danger');
+                $bad.next().text(parseInt($bad.next().text()) - 1)
             })
         }
-    })
+
+        //good -> Non
+    } else {
+        $.ajax({
+            url: '/deleteEval',
+            type: 'DELETE',
+            data: '{"tweet_id":' + $tweet_id + ', "eval_status":10}',
+            contentType: 'application/json',
+            dataType: 'json'
+        }).done(function () {
+            $good.removeClass('btn-success');
+            $count.text(parseInt($count.text()) - 1);
+        })
+    }
+});
+
+$('.jsc-bad').click(function () {
+    var $bad = $(this);
+    var $parent = $bad.parent();
+    var $count = $parent.children('.bad-count');
+    var $good = $parent.children('.jsc-good');
+    var $tweet_id = $parent.parent().attr('id');
+
+    //non -> bad
+    if (!$bad.hasClass('btn-danger')) {
+        if (!$good.hasClass('btn-success')) {
+            $.ajax({
+                url: '/addEval',
+                type: 'POST',
+                data: '{"tweet_id":' + $tweet_id + ', "eval_status":0}',
+                contentType: 'application/json',
+                dataType: 'json'
+            }).done(function () {
+                $bad.addClass('btn-danger');
+                $count.text(parseInt($count.text()) + 1);
+            });
+
+            //good -> bad
+        } else {
+            $.ajax({
+                url: '/updateEval',
+                type: 'PUT',
+                data: '{"tweet_id":' + $tweet_id + ', "eval_status":0}',
+                contentType: 'application/json',
+                dataType: 'json'
+            }).done(function () {
+                $bad.addClass('btn-danger');
+                $count.text(parseInt($count.text()) + 1);
+                $good.removeClass('btn-success');
+                $good.next().text(parseInt($good.next().text()) - 1)
+            });
+        }
+        //bad -> none
+    } else {
+        $.ajax({
+            url: '/deleteEval',
+            type: 'DELETE',
+            data: '{"tweet_id":' + $tweet_id + ', "eval_status":10}',
+            contentType: 'application/json',
+            dataType: 'json'
+        }).done(function () {
+            $bad.toggleClass('btn-danger');
+            $count.text(parseInt($count.text()) - 1);
+        })
+    }
 });

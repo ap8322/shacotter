@@ -5,34 +5,26 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>@title</title>
-        <link rel="shortcut icon" type="image/ico" href="@routes.Assets.at("images/favicon.ico")">
+        <link rel="shortcut icon" type="image/ico" href="favicon.ico">
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap.css")">
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
-        <script src="@routes.Assets.at("javascripts/jquery-3.1.0.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
-        <script src="@routes.Assets.at("javascripts/main.js")"></script>
-        @* Library *@
-        <script src="@routes.Assets.at("javascripts/jquery.validate.min.js")"></script>
-        @* Material Design for Bootstrap *@
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap-material-design.css")">
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/ripples.css")">
-        <script src="@routes.Assets.at("javascripts/material.min.js")"></script>
-        <script src="@routes.Assets.at("javascripts/ripples.js")"></script>
-        <script>$.material.init();</script>
+
     </head>
     <body>
         <header class="navbar navbar-default navbar-fixed-top">
             <nav class="container-fluid">
-                <div class="navbar-header">
+                <header class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-menu-2">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="@routes.TweetController.timeline">Shacotter</a>
-                </div>
+                </header>
 
-                <div class="navbar-collapse collapse navbar-responsive-collapse" id="nav-menu-2">
+                <main class="navbar-collapse collapse navbar-responsive-collapse" id="nav-menu-2">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="@routes.TweetController.index">マイページ</a></li>
                         <li><a href="@routes.MemberController.edit">プロフィール編集</a></li>
@@ -40,9 +32,16 @@
                         <li><a href="@routes.MemberController.list">メンバー一覧</a></li>
                         <li><a href="@routes.AuthController.logout">ログアウト</a></li>
                     </ul>
-                </div>
+                </main>
             </nav>
         </header>
         @content
+        <script src="@routes.Assets.at("javascripts/jquery-3.1.0.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
+        <script src="@routes.Assets.at("javascripts/jquery.validate.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/material.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/ripples.js")"></script>
+        <script src="@routes.Assets.at("javascripts/main.js")"></script>
+        <script>$.material.init();</script>
     </body>
 </html>

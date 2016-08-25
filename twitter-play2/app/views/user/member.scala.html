@@ -1,36 +1,34 @@
-@(me: String, users: Seq[(Int, String, Option[Int])], form: Form[models.Forms.Tweet])
+@(me: String, users: Seq[(models.Forms.Follower)], form: Form[models.Forms.Tweet])
 
 @main("メンバー一覧 - Shacotter") {
     <div class="container">
-        <div class="row">
+        <main class="row">
         @users.map { user =>
             <div class="col-sm-4">
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <div class="row-picture">
+                <article class="list-group">
+                    <section class="list-group-item">
+                        <figure class="row-picture">
                             <img src="@routes.Assets.at("images/egg.png")" alt="icon">
-                        </div>
+                        </figure>
 
-                        <div class="row-content">
+                        <main class="row-content">
                             <div class="list-group-item-text">
-                                <h2><a href="@routes.TweetController.profile(user._1)"> @user._2 </a></h2>
+                                <h2><a href="@routes.TweetController.profile(user.memberId)"> @user.memberName </a></h2>
 
-                                <div id="member@user._1">
-                                @if(user._3.getOrElse("test") != "test") {
-                                    <button type="button" class="btn btn-primary btn-raised" onclick="remove(@user._1)">
-                                        フォロー中</button>
+                                <div id="@user.memberId">
+                                @if(user.isFollowed) {
+                                    <button type="button" class="follow-button btn btn-primary btn-raised">フォロー中</button>
                                 } else {
-                                    <button type="button" class="btn btn-raised" onclick="follow(@user._1)">フォロー</button>
+                                    <button type="button" class="follow-button btn btn-raised">フォロー</button>
                                 }
                                 </div>
                             </div>
-
-                        </div>
-                    </div>
+                        </main>
+                    </section>
                     <div class="list-group-separator"></div>
-                </div>
+                </article>
             </div>
         }
-        </div>
+        </main>
     </div>
 }
