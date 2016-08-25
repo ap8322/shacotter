@@ -1,11 +1,15 @@
-package models.DAO
+package models.dao
 
-import com.google.inject.Inject
-import models.Tables.{Follow, _}
+import javax.inject.Inject
+
+import models.Forms.Follower
+import models.Tables._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
+import slick.lifted.Rep
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 /**
@@ -14,28 +18,29 @@ import scala.concurrent.Future
 class FollowDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   extends HasDatabaseConfigProvider[JdbcProfile] {
 
-  def follow(follow: FollowRow): Future[Int] = {
-    db.run(Follow += follow)
+  def follow(myId: Int, followId: Int): Future[Int] = {
+    db.run(Follow += FollowRow(myId, followId))
   }
 
-  def remove(follow: FollowRow): Future[Int] = {
-   db.run(Follow.filter(f => f.followerId === follow.followerId && f.followedId === follow.followedId).delete)
+  def remove(myId: Int, followId: Int): Future[Int] = {
+    db.run(Follow.filter(f => f.followerId === myId && f.followedId === followId.bind).delete)
   }
 
-  case class Follower(memberId: Int, memberName: String, isFollowed: Boolean)
-  def selectFollowerList(id: Int): Future[Vector[(Int, String, Option[Int])]] = {
+  def selectFollowerList(id: Int): Future[Seq[Follower]] = {
 
-    //フォローしている人の名前､ID､フォロしているかどうか｡
+    val dbio = (Member joinLeft Follow on (_.memberId === _.followedId) map {
+      case (member: Member, follow: Rep[Option[Follow]]) => {
+        (member.memberId, member.name, follow.map(_.followerId === id))
+      }
+    }).result
 
-    val a = sql"""SELECT
-          m.member_id,
-          m.name,
-          (SELECT m.member_id
-                  FROM Member mem
-                  JOIN Follow f ON mem.member_id = f.follower_id
-                   WHERE f.follower_id = $id AND f.followed_id = m.member_id) AS isFollow
-          FROM Member m""".as[(Int, String, Option[Int])]
-
-    db.run(a).map { followers.map{ f => Follower(f._1, f._2, f._3.isDefined)}}
+    // Rep[Option[Follow]]のままでは扱い辛いのでisFollowedは外側で対処
+    db.run(dbio).map { memberlist =>
+      memberlist.map {
+        case (memberId, name, isFollowed) => {
+          Follower(memberId, name, isFollowed.getOrElse(false))
+        }
+      }
+    }
   }
-}(())
+}

@@ -10,7 +10,13 @@ object Forms {
 
   // todo バリデーションを固める｡
 
+
+  case class Follower(memberId: Int, memberName: String, isFollowed: Boolean)
+
   case class LoginForm(email: String, password: String)
+
+  // ツイートした人の名前、ツイートのユニークID、ツイートの内容、いいねの数、悪いねの数､現在の評価状態
+  case class TweetInfo(name: String, tweet_id: Int, tweet: String, goodCount: Int, badCount: Int, currentState: Int)
 
   val loginForm = Form(
     mapping(
@@ -36,7 +42,4 @@ object Forms {
       "password" -> nonEmptyText(maxLength = 10000)
     )(StatusForm.apply)(StatusForm.unapply)
   )
-
-  // ツイートした人の名前、ツイートのユニークID、ツイートの内容、いいねの数、悪いねの数
-  case class TweetInfo(name: String, tweet_id: Int, tweet: String, good: Int, bad: Int)
 }

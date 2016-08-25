@@ -1,18 +1,17 @@
 package controllers
 
-import com.google.inject.Inject
+import javax.inject.Inject
+
 import jp.t2v.lab.play2.auth.AuthElement
-import models.DAO.{FollowDAO, MemberDAO}
 import models.Forms._
-import models.Tables._
 import models.auth.AuthConfigImpl
+import models.dao.{FollowDAO, MemberDAO}
 import play.api.cache.CacheApi
 import play.api.libs.json._
 import play.api.mvc.Controller
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import scala.util.{Failure, Success}
 
 class FollowController @Inject()(val memberDAO: MemberDAO,
                                  val followDAO: FollowDAO,
@@ -38,25 +37,12 @@ class FollowController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def follow = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
-    rs.body.validate[idForm].map { form =>
-      val follow = FollowRow(loggedIn.memberId, form.id)
-
-      followDAO.follow(follow).onComplete {
-        case Success(s) => ???
-        case Failure(t) => ???
+    rs.body.validate[IdForm].map { form =>
+      followDAO.follow(loggedIn.memberId, form.id).map { _ =>
+        Ok(Json.obj("result" -> "success"))
       }
-
-
-      Future.successful(Ok(Json.obj(
-        "result" -> form.id
-      )))
     }.recoverTotal { e =>
-      Future {
-        BadRequest(Json.obj(
-          "result" -> "failure",
-          "error" -> JsError.toJson(e)
-        ))
-      }
+      Future.successful(BadRequest(Json.obj("result" -> "success", "error" -> JsError.toJson(e))))
     }
   }
 
@@ -66,31 +52,25 @@ class FollowController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def remove = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
-    rs.body.validate[idForm].map { form =>
-      val follow = FollowRow(loggedIn.memberId, form.id)
-      followDAO.remove(follow)
-
-      Future.successful(Ok(Json.obj(
-        "result" -> form.id
-      )))
-    }.recoverTotal { e =>
-      Future {
-        Ok(Json.obj(
-          "result" -> "failure",
-          "error" -> JsError.toJson(e)
-        ))
+    rs.body.validate[IdForm].map { form =>
+      followDAO.remove(loggedIn.memberId, form.id).map { _ =>
+        Ok(Json.obj("result" -> "success"))
       }
+    }.recoverTotal { e =>
+      Future.successful(BadRequest(Json.obj("result" -> "failure", "error" -> JsError.toJson(e))))
     }
   }
 }
 
 object FollowController {
 
-  case class idForm(id: Int)
+  // todo jsonのエラーハンドリング
 
-  implicit val userFormFormat: Reads[idForm] = new Reads[idForm] {
-    def reads(js: JsValue): JsResult[idForm] = {
-      JsSuccess(idForm(id = (js \ "id").as[Int]))
+  case class IdForm(id: Int)
+
+  implicit val userFormFormat: Reads[IdForm] = new Reads[IdForm] {
+    def reads(js: JsValue): JsResult[IdForm] = {
+      JsSuccess(IdForm(id = (js \ "id").as[Int]))
     }
   }
 }

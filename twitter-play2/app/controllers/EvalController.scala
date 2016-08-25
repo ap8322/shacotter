@@ -4,10 +4,12 @@ package controllers
   * Created by yuki.haneda on 2016/08/18.
   */
 
-import com.google.inject.Inject
-import controllers.EvalController.tweetIdForm
+
+import javax.inject.Inject
+
+import controllers.EvalController.TweetIdForm
 import jp.t2v.lab.play2.auth.AuthElement
-import models.DAO.{EvalDAO, MemberDAO}
+import models.dao.{EvalDAO, MemberDAO}
 import models.Tables._
 import models.auth.AuthConfigImpl
 import play.api.cache.CacheApi
@@ -28,19 +30,13 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def addEval() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
-    rs.body.validate[tweetIdForm].map { form =>
-      evalDAO.insertStatus(EvalRow(form.tweetId, form.evalStatus, loggedIn.memberId))
-
-      Future.successful(Ok(Json.obj(
-        "result" -> form.tweetId,
-        "eval_status" -> form.evalStatus
-      )))
+    rs.body.validate[TweetIdForm].map { form =>
+      evalDAO.insert(EvalRow(form.tweetId, form.evalStatus, loggedIn.memberId)).map(_ =>
+        Ok(Json.obj("result" -> form.tweetId, "eval_status" -> form.evalStatus))
+      )
     }.recoverTotal { e =>
       Future {
-        Ok(Json.obj(
-          "result" -> "failure",
-          "error" -> JsError.toJson(e)
-        ))
+        BadRequest(Json.obj("result" -> "failure", "error" -> JsError.toJson(e)))
       }
     }
   }
@@ -51,19 +47,13 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def updateEval() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
-    rs.body.validate[tweetIdForm].map { form =>
-      evalDAO.updateStatus(EvalRow(form.tweetId, form.evalStatus, loggedIn.memberId))
-
-      Future.successful(Ok(Json.obj(
-        "result" -> form.tweetId,
-        "eval_status" -> form.evalStatus
-      )))
+    rs.body.validate[TweetIdForm].map { form =>
+      evalDAO.update(EvalRow(form.tweetId, form.evalStatus, loggedIn.memberId)).map(_ =>
+        Ok(Json.obj("result" -> form.tweetId, "eval_status" -> form.evalStatus))
+      )
     }.recoverTotal { e =>
       Future {
-        Ok(Json.obj(
-          "result" -> "failure",
-          "error" -> JsError.toJson(e)
-        ))
+        BadRequest(Json.obj("result" -> "failure", "error" -> JsError.toJson(e)))
       }
     }
   }
@@ -74,19 +64,13 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def deleteEval() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
-    rs.body.validate[tweetIdForm].map { form =>
-      evalDAO.deleteStatus(form.tweetId, loggedIn.memberId)
-
-      Future.successful(Ok(Json.obj(
-        "result" -> form.tweetId,
-        "eval_status" -> form.evalStatus
-      )))
+    rs.body.validate[TweetIdForm].map { form =>
+      evalDAO.delete(form.tweetId, loggedIn.memberId).map(_ =>
+        Ok(Json.obj("result" -> form.tweetId, "eval_status" -> form.evalStatus))
+      )
     }.recoverTotal { e =>
       Future {
-        Ok(Json.obj(
-          "result" -> "failure",
-          "error" -> JsError.toJson(e)
-        ))
+        Ok(Json.obj("result" -> "failure", "error" -> JsError.toJson(e)))
       }
     }
   }
@@ -94,11 +78,11 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
 
 object EvalController {
 
-  case class tweetIdForm(tweetId: Int, evalStatus: Int)
+  case class TweetIdForm(tweetId: Int, evalStatus: Int)
 
-  implicit val tweetFormFormat: Reads[tweetIdForm] = new Reads[tweetIdForm] {
-    override def reads(json: JsValue): JsResult[tweetIdForm] = {
-      JsSuccess(tweetIdForm(
+  implicit val tweetFormFormat: Reads[TweetIdForm] = new Reads[TweetIdForm] {
+    override def reads(json: JsValue): JsResult[TweetIdForm] = {
+      JsSuccess(TweetIdForm(
         tweetId = (json \ "tweet_id").as[Int],
         evalStatus = (json \ "eval_status").as[Int]
       )

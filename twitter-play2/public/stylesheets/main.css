@@ -2,6 +2,10 @@ body {
     padding-top: 80px;
 }
 
+ul {
+    list-style: none;
+}
+
 .profile-box {
     padding: 12px;
 }
@@ -25,7 +29,7 @@ body {
     height: 38px;
 }
 
-.tweet-user-name {
+.member-name {
     font-size: 25px;
     margin: 10px;
 }

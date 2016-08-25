@@ -11,10 +11,10 @@ CREATE TABLE Member (
   DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE Tweet (
-  tweet_id  INT(10)   NOT NULL AUTO_INCREMENT,
-  member_id INT(10),
-  tweet     VARCHAR(140),
-  tweet_at  TIMESTAMP NOT NULL DEFAULT current_timestamp,
+  tweet_id  INT(10)      NOT NULL AUTO_INCREMENT,
+  member_id INT(10)      NOT NULL,
+  tweet     VARCHAR(140) NOT NULL,
+  tweet_at  TIMESTAMP    NOT NULL,
   PRIMARY KEY (Tweet_id),
   FOREIGN KEY (member_id) REFERENCES Member (member_id)
 )
@@ -34,7 +34,7 @@ CREATE TABLE Follow (
 CREATE TABLE Eval (
   tweet_id    INT(10) NOT NULL
   COMMENT '評価されるコメントのID',
-  eval_status INT(1) NOT NULL
+  eval_status INT(1)  NOT NULL
   COMMENT '1ならいいねの状態､0ならどうでもいいねの状態',
   member_id   INT(10) NOT NULL
   COMMENT '評価する人のID',

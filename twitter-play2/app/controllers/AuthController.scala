@@ -4,11 +4,13 @@ package controllers
   * Created by yuki.haneda on 2016/08/02.
   */
 
-import com.google.inject.Inject
+
+import javax.inject.Inject
+
 import jp.t2v.lab.play2.auth.LoginLogout
-import models.DAO.MemberDAO
 import models.Forms._
 import models.auth.AuthConfigImpl
+import models.dao.MemberDAO
 import play.api.cache.CacheApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc.{Action, Controller}
@@ -50,11 +52,11 @@ class AuthController @Inject()(val memberDAO: MemberDAO,
         Future.successful(BadRequest(views.html.auth.login(formWithErrors)))
       },
       form => {
-        memberDAO.authenticate(form).flatMap {
-          case Some(user) =>
+        memberDAO.authenticate(form.email, form.password).flatMap {
+          case Left(error) =>
+            Future.successful(Unauthorized(views.html.auth.login(loginForm.fill(form).withGlobalError(error))))
+          case Right(user) =>
             gotoLoginSucceeded(user.memberId)
-          case None =>
-            Future.successful(Unauthorized(views.html.auth.login(loginForm.fill(form).withGlobalError("メールまたはパスワードが違います｡"))))
         }
       }
     )

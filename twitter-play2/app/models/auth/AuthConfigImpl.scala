@@ -2,7 +2,7 @@ package models.auth
 
 import controllers.routes
 import jp.t2v.lab.play2.auth.{AsyncIdContainer, AuthConfig, CookieTokenAccessor}
-import models.DAO.MemberDAO
+import models.dao.MemberDAO
 import models.Tables.MemberRow
 import play.api.cache.CacheApi
 import play.api.mvc.Results._

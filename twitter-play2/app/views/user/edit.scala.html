@@ -1,31 +1,32 @@
 @(form: Form[models.Forms.StatusForm])(implicit flash: Flash)
-@main("Edit - Shacotter") {
-    <div class="container">
-        <div class="well text-center">
-        @helper.form(routes.MemberController.update) {
-            <h1>Edit Your Profile</h1>
-            @form.globalError.map { error =>
-                <p class="error">
-                    @error.message
-                </p>
-            }
+    @main("Edit - Shacotter") {
+        <div class="container">
+            <main class="well text-center">
+            @helper.form(routes.MemberController.update) {
+                <h1>Edit Your Profile</h1>
 
-            @form.value.map { data =>
-                <div class="form-group">
-                    <p>
-                        <input type="name" class="required form-control" name="name" placeholder="Your name" id="name" value="@data.name">
+                @form.globalError.map { error =>
+                    <p class="error">
+                        @error.message
                     </p>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <input type="email" class="required form-control" name="email" placeholder="Your Email" id="email" value="@data.email">
-                    </p>
-                </div>
+                }
 
-                <input type="hidden" name="password" id="password" value="@data.password">
-                <button class="btn btn-raised btn-primary" type="submit">Edit</button>
+                @form.value.map { data =>
+                    <div class="form-group">
+                        <p>
+                            <input type="name" class="required form-control" name="name" placeholder="Your name" id="name" value="@data.name">
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <input type="email" class="required form-control" name="email" placeholder="Your Email" id="email" value="@data.email">
+                        </p>
+                    </div>
+
+                    <input type="hidden" name="password" id="password" value="@data.password">
+                    <button class="btn btn-raised btn-primary" type="submit">Edit</button>
+                }
             }
-        }
+            </main>
         </div>
-    </div>
-}
+    }
