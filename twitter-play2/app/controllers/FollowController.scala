@@ -37,12 +37,12 @@ class FollowController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def follow = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
-    rs.body.validate[IdForm].map { form =>
+    rs.body.validate[IdJson].map { form =>
       followDAO.follow(loggedIn.memberId, form.id).map { _ =>
-        Ok(Json.obj("result" -> "success"))
+        Ok(Json.obj("result" -> "success", "message" -> "add member to follow list"))
       }
     }.recoverTotal { e =>
-      Future.successful(BadRequest(Json.obj("result" -> "success", "error" -> JsError.toJson(e))))
+      Future.successful(BadRequest(Json.obj("result" -> "failure", "message" -> JsError.toJson(e))))
     }
   }
 
@@ -52,25 +52,27 @@ class FollowController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def remove = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
-    rs.body.validate[IdForm].map { form =>
+    rs.body.validate[IdJson].map { form =>
       followDAO.remove(loggedIn.memberId, form.id).map { _ =>
-        Ok(Json.obj("result" -> "success"))
+        Ok(Json.obj("result" -> "success", "message" -> "remove member from follow list"))
       }
     }.recoverTotal { e =>
-      Future.successful(BadRequest(Json.obj("result" -> "failure", "error" -> JsError.toJson(e))))
+      Future.successful(BadRequest(Json.obj("result" -> "failure", "message" -> JsError.toJson(e))))
     }
   }
 }
 
 object FollowController {
 
-  // todo jsonのエラーハンドリング
+  // todo jsonのエラーハンドリング､学習
 
-  case class IdForm(id: Int)
+  case class IdJson(id: Int)
 
-  implicit val userFormFormat: Reads[IdForm] = new Reads[IdForm] {
-    def reads(js: JsValue): JsResult[IdForm] = {
-      JsSuccess(IdForm(id = (js \ "id").as[Int]))
+  implicit val followJsonReader: Reads[IdJson] = new Reads[IdJson] {
+    override def reads(json: JsValue): JsResult[IdJson] = {
+      JsSuccess(IdJson(
+        id = (json \ "id").as[Int]
+      ))
     }
   }
 }

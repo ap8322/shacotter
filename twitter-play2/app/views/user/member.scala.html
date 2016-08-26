@@ -6,15 +6,14 @@
         @users.map { user =>
             <div class="col-sm-4">
                 <article class="list-group">
-                    <section class="list-group-item">
+                    <main class="list-group-item">
                         <figure class="row-picture">
                             <img src="@routes.Assets.at("images/egg.png")" alt="icon">
                         </figure>
 
-                        <main class="row-content">
-                            <div class="list-group-item-text">
+                        <div class="row-content">
+                            <section class="list-group-item-text">
                                 <h2><a href="@routes.TweetController.profile(user.memberId)"> @user.memberName </a></h2>
-
                                 <div id="@user.memberId">
                                 @if(user.isFollowed) {
                                     <button type="button" class="follow-button btn btn-primary btn-raised">フォロー中</button>
@@ -22,9 +21,9 @@
                                     <button type="button" class="follow-button btn btn-raised">フォロー</button>
                                 }
                                 </div>
-                            </div>
-                        </main>
-                    </section>
+                            </section>
+                        </div>
+                    </main>
                     <div class="list-group-separator"></div>
                 </article>
             </div>

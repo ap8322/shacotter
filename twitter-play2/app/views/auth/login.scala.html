@@ -15,33 +15,27 @@
                 </section>
 
                 <section class="col-sm-6 well text-center">
-                    @helper.form(routes.AuthController.auth) {
-                        @form.globalError.map { error =>
-                            <p class="error">
-                                @error.message
-                            </p>
-                        }
-                        @flash.get("success").map { message =>
-                            <p class="success">
-                                @message
-                            </p>
-                        }
-                        @for(error <- form("email").errors) {
-                            <p class="text-danger">@error.message</p>
-                        }
-                        <div class="form-group">
-                            <input id="email" class="required form-control" type="email" name="email" placeholder="Email">
-                        </div>
+                @helper.form(routes.AuthController.auth) {
 
-                        <div class="form-group">
-                            <input id="password" class="required form-control" type="password" name="password" placeholder="Password">
-                        </div>
-
-                        <button id="login" class="btn btn-raised btn-primary" type="submit">Login</button>
-                        <p>
-                            if you don't have your account, please <a href="@routes.AuthController.signup()">Sign up!</a>
+                    @form.error("auth").map { message =>
+                        <p class="error">
+                            @message.message
                         </p>
                     }
+
+                    <div class="form-group">
+                        <input id="email" class="required form-control" type="email" name="email" placeholder="Email">
+                    </div>
+
+                    <div class="form-group">
+                        <input id="password" class="required form-control" type="password" name="password" placeholder="Password">
+                    </div>
+
+                    <button id="login" class="btn btn-raised btn-primary" type="submit">Login</button>
+                    <p>
+                        if you don't have your account, please <a href="@routes.AuthController.signup()">Sign up!</a>
+                    </p>
+                }
                 </section>
             </article>
         </div>

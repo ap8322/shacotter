@@ -57,7 +57,7 @@ $('.jsc-good').click(function () {
     if (!$good.hasClass('btn-success')) {
         if (!$bad.hasClass('btn-danger')) {
             $.ajax({
-                url: '/addEval',
+                url: '/evaluete/add ',
                 type: 'POST',
                 data: '{"tweet_id":' + $tweet_id + ', "eval_status":1}',
                 contentType: 'application/json',
@@ -70,7 +70,7 @@ $('.jsc-good').click(function () {
             //bad -> good
         } else {
             $.ajax({
-                url: '/updateEval',
+                url: '/evaluete/update',
                 type: 'PUT',
                 data: '{"tweet_id":' + $tweet_id + ', "eval_status":1}',
                 contentType: 'application/json',
@@ -86,7 +86,7 @@ $('.jsc-good').click(function () {
         //good -> Non
     } else {
         $.ajax({
-            url: '/deleteEval',
+            url: '/evaluete/delete',
             type: 'DELETE',
             data: '{"tweet_id":' + $tweet_id + ', "eval_status":10}',
             contentType: 'application/json',
@@ -109,7 +109,7 @@ $('.jsc-bad').click(function () {
     if (!$bad.hasClass('btn-danger')) {
         if (!$good.hasClass('btn-success')) {
             $.ajax({
-                url: '/addEval',
+                url: '/evaluete/add ',
                 type: 'POST',
                 data: '{"tweet_id":' + $tweet_id + ', "eval_status":0}',
                 contentType: 'application/json',
@@ -122,7 +122,7 @@ $('.jsc-bad').click(function () {
             //good -> bad
         } else {
             $.ajax({
-                url: '/updateEval',
+                url: '/evaluete/update',
                 type: 'PUT',
                 data: '{"tweet_id":' + $tweet_id + ', "eval_status":0}',
                 contentType: 'application/json',
@@ -137,7 +137,7 @@ $('.jsc-bad').click(function () {
         //bad -> none
     } else {
         $.ajax({
-            url: '/deleteEval',
+            url: '/evaluete/delete',
             type: 'DELETE',
             data: '{"tweet_id":' + $tweet_id + ', "eval_status":10}',
             contentType: 'application/json',
