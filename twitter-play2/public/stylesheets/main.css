@@ -1,3 +1,11 @@
+/*todo cssの使い方を学んで修正する*/
+
+* {
+    margin: 0;
+    padding: 0;
+    word-braek: brake-all
+}
+
 body {
     padding-top: 80px;
 }
@@ -10,37 +18,37 @@ ul {
     padding: 12px;
 }
 
-.username {
+aside figcaption {
     font-size: 25px;
-    margin: 10px;
+    margin-top: 10px;
 }
 
 .tweet-area {
     resize: none;
-"
 }
 
 .tweet-button {
     margin-top: 15px;
 }
 
-.member-image {
+article .member-image {
     width: 38px;
     height: 38px;
 }
 
-.member-name {
-    font-size: 25px;
-    margin: 10px;
+article figcaption {
+    display: inline-block;
+    font-size: 24px;
+    line-height: 50px;
+    margin-left: 10px;
 }
 
 .tweet-contents {
     font-size: 25px;
     margin: 10px;
-    word-break: break-all;
 }
 
-.count {
+.count-box {
     font-size: 15px;
     padding: 5px;
 }

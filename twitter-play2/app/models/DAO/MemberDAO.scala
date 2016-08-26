@@ -23,7 +23,6 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
       case Some(user) if BCrypt.checkpw(password, user.password) => Right(user)
       case _ => Left("メールまたはパスワードが違います｡")
     }
-    println()
   }
 
   def findById(id: Int): Future[Option[MemberRow]] = {
@@ -35,16 +34,19 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   }
 
   def create(email: String, password: String, name: String): Future[Int] = {
-    val hashpw = BCrypt.hashpw(password, BCrypt.gensalt())
-    val member = MemberRow(1, email, hashpw, name)
-    db.run(Member += member)
+    db.run(Member += MemberRow(1, email, hashPassword(password), name))
   }
 
-  def update(member: MemberRow): Future[Int] = {
+  def update(id: Int, email: String, password: String, name: String): Future[Int] = {
+    val member = MemberRow(id, email, hashPassword(password), name)
     db.run(Member.filter(_.memberId === member.memberId).update(member))
   }
 
   def selectList(): Future[Seq[MemberRow]] = {
     db.run(Member.sortBy(m => m.memberId).result)
+  }
+
+  private[this] def hashPassword(rawPasword: String): String = {
+    BCrypt.hashpw(rawPasword, BCrypt.gensalt())
   }
 }

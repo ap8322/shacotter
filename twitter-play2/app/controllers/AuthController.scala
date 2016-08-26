@@ -4,7 +4,6 @@ package controllers
   * Created by yuki.haneda on 2016/08/02.
   */
 
-
 import javax.inject.Inject
 
 import jp.t2v.lab.play2.auth.LoginLogout
@@ -54,7 +53,7 @@ class AuthController @Inject()(val memberDAO: MemberDAO,
       form => {
         memberDAO.authenticate(form.email, form.password).flatMap {
           case Left(error) =>
-            Future.successful(Unauthorized(views.html.auth.login(loginForm.fill(form).withGlobalError(error))))
+            Future.successful(Unauthorized(views.html.auth.login(loginForm.fill(form).withError("auth", error))))
           case Right(user) =>
             gotoLoginSucceeded(user.memberId)
         }

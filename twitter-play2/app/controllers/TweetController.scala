@@ -36,6 +36,7 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def profile(id: Int) = AsyncStack(AuthorityKey -> None) { implicit rs =>
+    // todo getしない｡
     for {
       tweet <- tweetDAO.selectFriendTweet(loggedIn.memberId, id)
       member <- memberDAO.findById(id)
