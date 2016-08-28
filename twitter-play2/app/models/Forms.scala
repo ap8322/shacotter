@@ -10,7 +10,6 @@ object Forms {
 
   // todo バリデーションを固める｡
 
-
   case class Follower(memberId: Int, memberName: String, isFollowed: Boolean)
 
   case class LoginForm(email: String, password: String)
@@ -39,7 +38,7 @@ object Forms {
     mapping(
       "name" -> nonEmptyText(maxLength = 20),
       "email" -> nonEmptyText(maxLength = 200),
-      "password" -> nonEmptyText(maxLength = 10000)
+      "password" -> nonEmptyText(maxLength = 200)
     )(StatusForm.apply)(StatusForm.unapply)
   )
 }

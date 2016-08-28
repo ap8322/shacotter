@@ -34,7 +34,7 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   }
 
   def create(email: String, password: String, name: String): Future[Int] = {
-    db.run(Member += MemberRow(1, email, hashPassword(password), name))
+    db.run(Member.map(m => (m.name,m.password,m.name)) += (email, hashPassword(password), name))
   }
 
   def update(id: Int, email: String, password: String, name: String): Future[Int] = {

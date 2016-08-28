@@ -7,8 +7,11 @@
 
                 <section class="col-sm-6 text-center">
                     <h1>Welcome</h1>
-                    <p class="lead">"Shacotter" is Twitter-Clone-Application.<br>
-                        You can evaluate the tweet of friends easily<br>by using "いいね" or "どうでもいいね".</p>
+                    <p class="lead">
+                        "Shacotter" is Twitter-Clone-Application.<br>
+                        You can evaluate the tweet of friends easily<br>
+                        by using "いいね" or "どうでもいいね".
+                    </p>
                     <div class="logo-box">
                         <img id="eval" class="img-responsive center-block" src="@routes.Assets.at("images/eval.png")" alt="icon">
                     </div>
@@ -31,7 +34,7 @@
                         <input id="password" class="required form-control" type="password" name="password" placeholder="Password">
                     </div>
 
-                    <button id="login" class="btn btn-raised btn-primary" type="submit">Login</button>
+                    <input id="login" class="btn btn-raised btn-primary" type="submit" value="Login">
                     <p>
                         if you don't have your account, please <a href="@routes.AuthController.signup()">Sign up!</a>
                     </p>

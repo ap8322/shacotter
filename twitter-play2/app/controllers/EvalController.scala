@@ -30,7 +30,7 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     */
   def addEval() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
     rs.body.validate[TweetIdForm].map { form =>
-      evalDAO.insert(EvalRow(form.tweetId, form.evalStatus, loggedIn.memberId)).map(_ =>
+      evalDAO.insert(form.tweetId, form.evalStatus, loggedIn.memberId).map(_ =>
         Ok(Json.obj("result" -> form.tweetId, "message" -> form.evalStatus))
       )
     }.recoverTotal { e =>
@@ -47,7 +47,7 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     */
   def updateEval() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
     rs.body.validate[TweetIdForm].map { form =>
-      evalDAO.update(EvalRow(form.tweetId, form.evalStatus, loggedIn.memberId)).map(_ =>
+      evalDAO.update(form.tweetId, form.evalStatus, loggedIn.memberId).map(_ =>
         Ok(Json.obj("result" -> form.tweetId, "message" -> form.evalStatus))
       )
     }.recoverTotal { e =>

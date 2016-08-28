@@ -1,9 +1,9 @@
-@(me: String, users: Seq[(models.Forms.Follower)], form: Form[models.Forms.Tweet])
+@(me: String, followers: Seq[(models.Forms.Follower)], form: Form[models.Forms.Tweet])
 
 @main("メンバー一覧 - Shacotter") {
     <div class="container">
         <main class="row">
-        @users.map { user =>
+        @followers.map { user =>
             <div class="col-sm-4">
                 <article class="list-group">
                     <main class="list-group-item">
@@ -13,7 +13,9 @@
 
                         <div class="row-content">
                             <section class="list-group-item-text">
-                                <h2><a href="@routes.TweetController.profile(user.memberId)"> @user.memberName </a></h2>
+                                <h2>
+                                    <a href="@routes.TweetController.profile(user.memberId)"> @user.memberName </a>
+                                </h2>
                                 <div id="@user.memberId">
                                 @if(user.isFollowed) {
                                     <button type="button" class="follow-button btn btn-primary btn-raised">フォロー中</button>

@@ -3,14 +3,17 @@
  */
 $(function () {
 
+    // validate
     $('form').validate({
         errorElement: 'p'
     });
 
     //rotate title logo
     var angle = 0;
+    var $title_logo = $('#eval');
+
     setInterval(function () {
         angle+=1;
-        $('#eval').rotate(angle)
+        $title_logo.rotate(angle)
     },50);
 });

@@ -43,15 +43,14 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
       form => {
         memberDAO.findByEmail(form.email).flatMap {
           case Some(user) => Future.successful(
-            BadRequest(views.html.auth.signup(statusForm.fill(form).withError("mail", "申し訳ございませんが､既に使用されているメールアドレスです｡")))
+            BadRequest(views.html.auth.signup(statusForm.fill(form).withError("mail", "既に使用されているメールアドレスです｡")))
           )
-          case _ => {
+          case _ =>
             for {
               _ <- memberDAO.create(form.email, form.password, form.name)
               newMember <- memberDAO.findByEmail(form.email)
               result <- gotoLoginSucceeded(newMember.get.memberId)
             } yield result
-          }
         }
       }
     )
@@ -65,7 +64,7 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
   def edit() = AsyncStack(AuthorityKey -> None) { implicit rs =>
     memberDAO.findById(loggedIn.memberId).map {
       case Some(member) => Ok(views.html.user.edit(statusForm.fill(StatusForm(member.name, member.email, member.password))))
-      case _ => Ok(views.html.user.edit(statusForm.fill(StatusForm("", "", ""))))
+      case _ => BadRequest
     }
   }
 
@@ -77,12 +76,12 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
   def update() = AsyncStack(AuthorityKey -> None) { implicit rs =>
     statusForm.bindFromRequest.fold(
       formWithErrors => {
-        Future.successful(BadRequest(views.html.user.edit(formWithErrors.withError("invalidForm", "不正な値です｡"))))
+        Future.successful(BadRequest(views.html.user.edit(formWithErrors.withGlobalError("不正な値です｡"))))
       },
       form => {
         memberDAO.findByEmail(form.email).flatMap {
           case Some(user) if user.memberId != loggedIn.memberId => Future.successful(
-            BadRequest(views.html.user.edit(statusForm.fill(StatusForm("", "", "")).withError("mail", "申し訳ございませんが､既に使用されているメールアドレスです｡")))
+            Ok(views.html.user.edit(statusForm.fill(form).withError("mail", "既に使用されているメールアドレスです｡")))
           )
           case _ => memberDAO.update(loggedIn.memberId, form.email, form.password, form.name).map(_ => Redirect(routes.TweetController.index))
         }
