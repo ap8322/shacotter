@@ -1,37 +1,42 @@
 @(form: Form[models.Forms.StatusForm])(implicit flash: Flash)
 
-@auth_template("signin - Shacotter"){<div class="container">
-            <header class="page-header">
-                <div class="well text-center center-block">
-                @helper.form(routes.MemberController.create()) {
-                    <h1>Please Enter Your Profile</h1>
-                    @form.globalError.map { error =>
-                        <p class="error">
-                            @error.message
-                        </p>
-                    }
-                    @flash.get("success").map { message =>
-                        <p class="success">
-                            @message
-                        </p>
-                    }
-                    @for(error <- form("email").errors) {
-                        <p class="text-danger">@error.message</p>
-                    }
-                    <div class="form-group">
-                        <input id="name" class="required form-control col-md-5" type="name" name="name" placeholder="Input Your Name" >
-                    </div>
-                    <div class="form-group">
-                        <input id="email" class="required form-control" type="email" name="email" placeholder="Input Your Email" >
-                    </div>
-                    <div class="form-group">
-                        <input id="password" class="required form-control" type="password" name="password" placeholder="Input Your Password">
-                    </div>
-                    <p>
-                        <button id="signup" class="btn btn-raised btn-primary" type="submit" >Signup</button>
+@auth_template("signin - Shacotter") {
+    <div class="container">
+        <main class="page-header">
+            <div class="well text-center center-block">
+            @helper.form(routes.MemberController.create()) {
+                <h1>Please Enter Your Profile</h1>
+
+                @form.globalError.map { error =>
+                    <p class="error">
+                        @error.message
                     </p>
                 }
+
+                @flash.get("success").map { message =>
+                    <p class="success">
+                        @message
+                    </p>
+                }
+
+                @for(error <- form("email").errors) {
+                    <p class="text-danger">@error.message</p>
+                }
+
+                <div class="form-group">
+                    <input id="name" class="required form-control" type="name" name="name" placeholder="Input Your Name" >
                 </div>
-            </header>
-        </div>
+                <div class="form-group">
+                    <input id="email" class="required form-control" type="email" name="email" placeholder="Input Your Email" >
+                </div>
+                <div class="form-group">
+                    <input id="password" class="required form-control" type="password" name="password" placeholder="Input Your Password">
+                </div>
+                <p>
+                    <input id="signup" class="btn btn-raised btn-primary" type="submit" value="SignUp">
+                </p>
+            }
+            </div>
+        </main>
+    </div>
 }

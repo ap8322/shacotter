@@ -28,18 +28,25 @@ class FollowDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   def selectFollowerList(id: Int): Future[Seq[Follower]] = {
 
-    val dbio = (Member joinLeft Follow on (_.memberId === _.followedId) map {
-      case (member: Member, follow: Rep[Option[Follow]]) => {
-        (member.memberId, member.name, follow.map(_.followerId === id))
-      }
-    }).result
+    val dbio = Member
+      .joinLeft(Follow)
+      .on((m,f) => m.memberId === f.followedId && f.followerId === id)
+      .map {
+        case (member: Member, follow: Rep[Option[Follow]]) => (
+          member.memberId,
+          member.name,
+          follow.isDefined
+          )
+      }.result
 
-    // Rep[Option[Follow]]のままでは扱い辛いのでisFollowedは外側で対処
     db.run(dbio).map { memberlist =>
       memberlist.map {
-        case (memberId, name, isFollowed) => {
-          Follower(memberId, name, isFollowed.getOrElse(false))
-        }
+        case (memberId, name, isFollowed) =>
+          Follower(
+            memberId,
+            name,
+            isFollowed
+          )
       }
     }
   }

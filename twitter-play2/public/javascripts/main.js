@@ -1,150 +1,138 @@
-$('form').validate({
-    rules: {
-        tweet: {
-            required: true,
-            maxlength: 140
+$(function () {
+
+    $('form').validate({
+        rules: {
+            tweet: {
+                required: true,
+                maxlength: 140
+            }
+        },
+        messages: {
+            tweet: {
+                required: "空ツイートはやめてね",
+                maxlength: "140文字以上はツイートはできません｡"
+            }
+        },
+        errorElement: 'p'
+    });
+
+    $('.follow-button').on('click',function () {
+        var $follow_button = $(this);
+        var $member_id = $follow_button.parent().attr('id');
+
+        if (!$follow_button.hasClass('btn-primary')) {
+            $.ajax({
+                url: '/follow',
+                type: 'POST',
+                data: '{"id": ' + $member_id + '}',
+                contentType: 'application/json',
+                dataType: 'json'
+            }).done(function () {
+                $follow_button.addClass('btn-primary');
+                $follow_button.text('フォロー中');
+            });
+        } else {
+            $.ajax({
+                url: '/remove',
+                type: 'POST',
+                data: '{"id": ' + $member_id + '}',
+                contentType: 'application/json',
+                dataType: 'json'
+            }).done(function () {
+                if(confirm("フォローを解除しますか?")){
+                    $follow_button.removeClass('btn-primary');
+                    $follow_button.text('フォロー');
+                }
+            });
         }
-    },
-    messages: {
-        tweet: {
-            required: "空ツイートはやめてね",
-            maxlength: "140文字以上はツイートはできません｡"
-        }
-    },
-    errorElement: 'p'
-});
+    });
 
-$('.follow-button').click(function () {
-    var $follow_button = $(this);
-    var $parent = $(this).parent();
-    var $member_id = $parent.attr('id');
+    // 評価ボタン
+    $('ul').on('click', 'button', function () {
+        var $tweet_box  =  $(this).parent();
+        var $good       =  $tweet_box.children('.jsc-good');
+        var $good_count =  $tweet_box.children('.good-count');
+        var $bad        =  $tweet_box.children('.jsc-bad');
+        var $bad_count  =  $tweet_box.children('.bad-count');
+        var $tweet_id   =  $tweet_box.parent().attr('id');
+        var status = pushedButton($(this));
 
-    if (!$follow_button.hasClass('btn-primary')) {
-        $.ajax({
-            url: '/follow',
-            type: 'POST',
-            data: '{"id": ' + $member_id + '}',
-            contentType: 'application/json',
-            dataType: 'json'
-        }).done(function (data) {
-            $follow_button.addClass('btn-primary');
-            $follow_button.text('フォロー中');
-        });
-    } else {
-        $.ajax({
-            url: '/remove',
-            type: 'POST',
-            data: '{"id": ' + $member_id + '}',
-            contentType: 'application/json',
-            dataType: 'json'
-        }).done(function (data) {
-            confirm("フォローを解除しますか?");
-            $follow_button.removeClass('btn-primary');
-            $follow_button.text('フォロー');
-        });
-    }
-});
-
-// 評価ボタン
-$('.jsc-good').click(function () {
-    var $good = $(this);
-    var $parent = $(this).parent();
-    var $count = $parent.children('.good-count');
-    var $tweet_id = $parent.parent().attr('id');
-    var $bad = $parent.children('.jsc-bad');
-
-    //Non -> good
-    if (!$good.hasClass('btn-success')) {
-        if (!$bad.hasClass('btn-danger')) {
+        //Non -> good or bad (どちらのボタンも押されていない)
+        if(!$good.hasClass('btn-success') && !$bad.hasClass('btn-danger')) {
             $.ajax({
                 url: '/evaluete/add ',
                 type: 'POST',
-                data: '{"tweet_id":' + $tweet_id + ', "eval_status":1}',
+                data: '{"tweet_id":' + $tweet_id + ', "eval_status":' + status + '}',
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
-                $good.addClass('btn-success');
-                $count.text(parseInt($count.text()) + 1);
+                if (status == 1) {
+                    addGoodCount($good,$good_count)
+                } else {
+                    addBadCount($bad,$bad_count)
+                }
             });
-
-            //bad -> good
-        } else {
+            //bad -> good good -> bad (既に押されているボタンと押したボタンが別)
+        } else if(($good.hasClass('btn-success') && status == 0) || ($bad.hasClass('btn-danger') && status == 1)) {
             $.ajax({
                 url: '/evaluete/update',
                 type: 'PUT',
-                data: '{"tweet_id":' + $tweet_id + ', "eval_status":1}',
+                data: '{"tweet_id":' + $tweet_id + ', "eval_status":' + status + '}',
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
-                $good.addClass('btn-success');
-                $count.text(parseInt($count.text()) + 1);
-                $bad.removeClass('btn-danger');
-                $bad.next().text(parseInt($bad.next().text()) - 1)
-            })
+                if (status == 1) {
+                    addGoodCount($good,$good_count);
+                    removeBadCount($bad,$bad_count);
+                } else {
+                    addBadCount($bad,$bad_count);
+                    removeGoodCount($good,$good_count);
+                }
+            });
+            //good or bad -> Non
+        } else {
+            $.ajax({
+                url: '/evaluete/delete',
+                type: 'DELETE',
+                data: '{"tweet_id":' + $tweet_id + ', "eval_status":-1}',
+                contentType: 'application/json',
+                dataType: 'json'
+            }).done(function () {
+                if ($good.hasClass('btn-success')) {
+                    removeGoodCount($good,$good_count);
+                } else {
+                    removeBadCount($bad,$bad_count);
+                }
+            });
         }
+    });
 
-        //good -> Non
-    } else {
-        $.ajax({
-            url: '/evaluete/delete',
-            type: 'DELETE',
-            data: '{"tweet_id":' + $tweet_id + ', "eval_status":10}',
-            contentType: 'application/json',
-            dataType: 'json'
-        }).done(function () {
-            $good.removeClass('btn-success');
-            $count.text(parseInt($count.text()) - 1);
-        })
+    function pushedButton (data) {
+        if (data.text() == "いいね") {
+            return 1;
+        } else if (data.text() == "どうでもいいね") {
+            return 0;
+        }
     }
-});
 
-$('.jsc-bad').click(function () {
-    var $bad = $(this);
-    var $parent = $bad.parent();
-    var $count = $parent.children('.bad-count');
-    var $good = $parent.children('.jsc-good');
-    var $tweet_id = $parent.parent().attr('id');
+    function addGoodCount(good,good_count){
+        good.addClass('btn-success');
+        good_count.text(parseInt(good_count.text()) + 1);
+    }
 
-    //non -> bad
-    if (!$bad.hasClass('btn-danger')) {
-        if (!$good.hasClass('btn-success')) {
-            $.ajax({
-                url: '/evaluete/add ',
-                type: 'POST',
-                data: '{"tweet_id":' + $tweet_id + ', "eval_status":0}',
-                contentType: 'application/json',
-                dataType: 'json'
-            }).done(function () {
-                $bad.addClass('btn-danger');
-                $count.text(parseInt($count.text()) + 1);
-            });
+    function removeGoodCount(good,good_count){
+        good.removeClass('btn-success');
+        good_count.text(parseInt(good_count.text()) - 1);
+    }
 
-            //good -> bad
-        } else {
-            $.ajax({
-                url: '/evaluete/update',
-                type: 'PUT',
-                data: '{"tweet_id":' + $tweet_id + ', "eval_status":0}',
-                contentType: 'application/json',
-                dataType: 'json'
-            }).done(function () {
-                $bad.addClass('btn-danger');
-                $count.text(parseInt($count.text()) + 1);
-                $good.removeClass('btn-success');
-                $good.next().text(parseInt($good.next().text()) - 1)
-            });
-        }
-        //bad -> none
-    } else {
-        $.ajax({
-            url: '/evaluete/delete',
-            type: 'DELETE',
-            data: '{"tweet_id":' + $tweet_id + ', "eval_status":10}',
-            contentType: 'application/json',
-            dataType: 'json'
-        }).done(function () {
-            $bad.toggleClass('btn-danger');
-            $count.text(parseInt($count.text()) - 1);
-        })
+
+    function addBadCount(bad,bad_count){
+        bad.addClass('btn-danger');
+        bad_count.text(parseInt(bad_count.text()) + 1);
+    }
+
+    function removeBadCount(bad,bad_count){
+        bad.removeClass('btn-danger');
+        bad_count.text(parseInt(bad_count.text()) - 1);
     }
 });

@@ -15,15 +15,21 @@ import scala.concurrent.Future
 class EvalDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   extends HasDatabaseConfigProvider[JdbcProfile] {
 
-  def insert(eval: EvalRow): Future[Int] = {
-    db.run(Eval += eval)
+  def insert(tweetId: Int, evalStatus: Int, memberId: Int): Future[Int] = {
+    db.run(Eval += EvalRow(tweetId, evalStatus, memberId))
+  }
+
+  def update(tweetId: Int, evalStatus: Int, memberId: Int): Future[Int] = {
+    db.run(Eval.filter(e =>
+      e.tweetId === tweetId.bind && e.memberId === memberId.bind
+    ).update(
+      EvalRow(tweetId, evalStatus, memberId))
+    )
   }
 
   def delete(tweetId: Int, memberId: Int): Future[Int] = {
-    db.run(Eval.filter(e => e.tweetId === tweetId && e.memberId === memberId).delete)
-  }
-
-  def update(eval: EvalRow): Future[Int] = {
-    db.run(Eval.filter(e => e.tweetId === eval.tweetId && e.memberId === eval.memberId).update(eval))
+    db.run(Eval.filter(e =>
+      e.tweetId === tweetId.bind && e.memberId === memberId
+    ).delete)
   }
 }

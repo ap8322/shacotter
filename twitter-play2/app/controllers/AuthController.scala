@@ -53,7 +53,7 @@ class AuthController @Inject()(val memberDAO: MemberDAO,
       form => {
         memberDAO.authenticate(form.email, form.password).flatMap {
           case Left(error) =>
-            Future.successful(Unauthorized(views.html.auth.login(loginForm.fill(form).withError("auth", error))))
+            Future.successful(BadRequest(views.html.auth.login(loginForm.fill(form).withGlobalError(error))))
           case Right(user) =>
             gotoLoginSucceeded(user.memberId)
         }

@@ -2,7 +2,6 @@
 @main("ツイート") {
     <div class="container">
         <section class="row">
-            @*-----------------------------------------------------------------------------------------*@
             <aside class="col-sm-4">
             @helper.form(routes.TweetController.tweet) {
 
@@ -18,13 +17,12 @@
                 </figure>
                 <main class="form-group label-floating">
                     <textarea class="form-control tweet-area" name="tweet" rows="3" placeholder="let's tweet!"></textarea>
-                    <button type="submit" class="btn btn-raised btn-primary tweet-button">ツイートする</button>
+                    <input type="submit" class="btn btn-raised btn-primary tweet-button" value="ツイートする">
                 </main>
             }
             </aside>
 
             <main class="col-sm-8">
-                @*----------------------------ツイートボックス-----------------------------*@
                 <ul class="tweet-list">
                 @tweetInfo.reverse.map { tweet =>
                     <li>
@@ -55,7 +53,6 @@
                     </li>
                 }
                 </ul>
-                @*----------------------------ツイートボックス-----------------------------*@
             </main>
         </section>
     </div>

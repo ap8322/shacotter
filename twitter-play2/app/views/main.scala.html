@@ -14,17 +14,17 @@
     </head>
     <body>
         <header class="navbar navbar-default navbar-fixed-top">
-            <nav class="container-fluid">
-                <header class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-menu-2">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-menu">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="@routes.TweetController.timeline">Shacotter</a>
-                </header>
+                </div>
 
-                <main class="navbar-collapse collapse navbar-responsive-collapse" id="nav-menu-2">
+                <nav class="navbar-collapse collapse navbar-responsive-collapse" id="nav-menu">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="@routes.TweetController.index">マイページ</a></li>
                         <li><a href="@routes.MemberController.edit">プロフィール編集</a></li>
@@ -32,8 +32,8 @@
                         <li><a href="@routes.MemberController.list">メンバー一覧</a></li>
                         <li><a href="@routes.AuthController.logout">ログアウト</a></li>
                     </ul>
-                </main>
-            </nav>
+                </nav>
+            </div>
         </header>
         @content
         <script src="@routes.Assets.at("javascripts/jquery-3.1.0.min.js")"></script>
