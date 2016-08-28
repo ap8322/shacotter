@@ -5,14 +5,16 @@
             @*-----------------------------------------------------------------------------------------*@
             <aside class="col-sm-4">
             @helper.form(routes.TweetController.tweet) {
-                @form.globalError.map { error =>
+
+                @form.error("mail").map { message =>
                     <p class="error">
-                        @error.message
+                        @message.message
                     </p>
                 }
+
                 <figure class="profile-box">
-                    <img src="@routes.Assets.at("images/egg.png")">
-                    <figcaption class="username">@me</figcaption>
+                    <img class="member-image" src="@routes.Assets.at("images/egg.png")">
+                    <figcaption class="member-name">@me</figcaption>
                 </figure>
                 <main class="form-group label-floating">
                     <textarea class="form-control tweet-area" name="tweet" rows="3" placeholder="let's tweet!"></textarea>
@@ -40,14 +42,14 @@
                                 } else {
                                     <button class="jsc-good btn " type="button">いいね</button>
                                 }
-                                 <span class="good-count count">@tweet.goodCount</span> 
+                                 <span class="good-count count-box">@tweet.goodCount</span> 
 
                                 @if(tweet.currentState == 0) {
                                     <button class="jsc-bad btn btn-danger" type="button">どうでもいいね</button> 
                                 } else {
                                     <button class="jsc-bad btn " type="button">どうでもいいね</button> 
                                 }
-                                <span class="bad-count count">@tweet.badCount</span>
+                                <span class="bad-count count-box">@tweet.badCount</span>
                             </footer>
                         </article>
                     </li>

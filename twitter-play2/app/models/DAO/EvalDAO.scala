@@ -22,7 +22,6 @@ class EvalDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   def delete(tweetId: Int, memberId: Int): Future[Int] = {
     db.run(Eval.filter(e => e.tweetId === tweetId && e.memberId === memberId).delete)
   }
-  val a = 1 :: 2 :: 3 :: Nil
 
   def update(eval: EvalRow): Future[Int] = {
     db.run(Eval.filter(e => e.tweetId === eval.tweetId && e.memberId === eval.memberId).update(eval))
