@@ -1,35 +1,31 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
-
 # auth
-GET           /                    controllers.AuthController.login
-POST          /login               controllers.AuthController.auth
-GET           /logout              controllers.AuthController.logout
-GET           /signup              controllers.AuthController.signup
+GET           /                       controllers.AuthController.login
+POST          /login                  controllers.AuthController.auth
+GET           /logout                 controllers.AuthController.logout
+GET           /signup                 controllers.AuthController.signup
 
 # member curd
-POST          /create              controllers.MemberController.create
-GET           /list                controllers.MemberController.list
-GET           /edit                controllers.MemberController.edit
-POST          /edit                controllers.MemberController.update
+POST          /create                 controllers.MemberController.create
+GET           /list                   controllers.MemberController.list
+GET           /edit                   controllers.MemberController.edit
+POST          /edit                   controllers.MemberController.update
 
 # tweet
-GET           /tweet               controllers.TweetController.index
-POST          /tweet               controllers.TweetController.tweet
-GET           /timeline            controllers.TweetController.timeline
+GET           /tweet                  controllers.TweetController.index
+POST          /tweet                  controllers.TweetController.tweet
+GET           /timeline               controllers.TweetController.timeline
 
-GET           /profile/:id         controllers.TweetController.profile(id: Int)
+GET           /profile/:id            controllers.TweetController.profile(id: Int)
 
 #follow
-POST          /follow              controllers.FollowController.follow
-POST          /remove              controllers.FollowController.remove
-GET           /follower            controllers.FollowController.followerlist
+POST          /follow                 controllers.FollowController.follow
+POST          /remove                 controllers.FollowController.remove
+GET           /follower               controllers.FollowController.followerlist
 
 #eval
-POST          /addEval             controllers.EvalController.addEval
-DELETE        /deleteEval          controllers.EvalController.deleteEval
-PUT           /updateEval          controllers.EvalController.updateEval
+POST          /evaluete/add           controllers.EvalController.addEval
+DELETE        /evaluete/delete        controllers.EvalController.deleteEval
+PUT           /evaluete/update        controllers.EvalController.updateEval
 
 ## Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file        controllers.Assets.at(path="/public", file)
+GET           /assets/*file           controllers.Assets.at(path="/public", file)

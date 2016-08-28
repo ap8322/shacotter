@@ -5,7 +5,6 @@ import javax.inject.Inject
 import com.google.inject.Singleton
 import jp.t2v.lab.play2.auth.{AuthElement, LoginLogout}
 import models.Forms._
-import models.Tables._
 import models.auth.AuthConfigImpl
 import models.dao.{FollowDAO, MemberDAO}
 import play.api.cache.CacheApi
@@ -43,7 +42,9 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
       },
       form => {
         memberDAO.findByEmail(form.email).flatMap {
-          case Some(user) => Future.successful(BadRequest(views.html.auth.signup(statusForm.fill(form).withError("mail", "申し訳ございませんが､既に使用されているメールアドレスです｡"))))
+          case Some(user) => Future.successful(
+            BadRequest(views.html.auth.signup(statusForm.fill(form).withError("mail", "申し訳ございませんが､既に使用されているメールアドレスです｡")))
+          )
           case _ => {
             for {
               _ <- memberDAO.create(form.email, form.password, form.name)
@@ -76,13 +77,14 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
   def update() = AsyncStack(AuthorityKey -> None) { implicit rs =>
     statusForm.bindFromRequest.fold(
       formWithErrors => {
-        Future.successful(BadRequest(views.html.user.edit(formWithErrors.withGlobalError("不正な値です｡"))))
+        Future.successful(BadRequest(views.html.user.edit(formWithErrors.withError("invalidForm", "不正な値です｡"))))
       },
       form => {
-        val member = MemberRow(0, form.email, form.password, form.name)
         memberDAO.findByEmail(form.email).flatMap {
-          case Some(user) => Future.successful(Ok(views.html.user.edit(statusForm.fill(StatusForm("", "", "")).withGlobalError("申し訳ございませんが､既に使用されているメールアドレスです｡"))))
-          case _ => memberDAO.update(member).map(_ => Redirect(routes.TweetController.index))
+          case Some(user) if user.memberId != loggedIn.memberId => Future.successful(
+            BadRequest(views.html.user.edit(statusForm.fill(StatusForm("", "", "")).withError("mail", "申し訳ございませんが､既に使用されているメールアドレスです｡")))
+          )
+          case _ => memberDAO.update(loggedIn.memberId, form.email, form.password, form.name).map(_ => Redirect(routes.TweetController.index))
         }
       }
     )
