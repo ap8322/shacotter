@@ -11,12 +11,13 @@ import org.mindrot.jbcrypt.BCrypt
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
+import utils.SystemClock
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
-  extends HasDatabaseConfigProvider[JdbcProfile] {
+  extends HasDatabaseConfigProvider[JdbcProfile] with SystemClock {
 
   def authenticate(email: String, password: String): Future[Either[String, MemberRow]] = {
     db.run(Member.filter(_.email === email.bind).result.headOption).map {
@@ -25,7 +26,7 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     }
   }
 
-  def findById(id: Int): Future[Option[MemberRow]] = {
+  def findById(id: Long): Future[Option[MemberRow]] = {
     db.run(Member.filter(_.memberId === id.bind).result.headOption)
   }
 
@@ -34,16 +35,42 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   }
 
   def create(email: String, password: String, name: String): Future[Int] = {
-    db.run(Member.map(m => (m.name, m.password, m.name)) += (email, hashPassword(password), name))
+    db.run(Member.map(m =>
+      (
+        m.email,
+        m.password,
+        m.name,
+        m.registerDatetime,
+        m.registerUser,
+        m.updateDatetime,
+        m.updateUser,
+        m.versionNo
+        )
+    ) += (
+      email,
+      hashPassword(password),
+      name,
+      currentTimestamp,
+      name,
+      currentTimestamp,
+      name,
+      1.toLong))
   }
 
-  def update(id: Int, email: String, password: String, name: String): Future[Int] = {
-    val member = MemberRow(id, email, hashPassword(password), name)
+  def update(id: Long, email: String, password: String, name: String): Future[Int] = {
+    val member = MemberRow(
+      id,
+      email,
+      hashPassword(password),
+      name,
+      currentTimestamp,
+      name,
+      currentTimestamp,
+      name,
+      1.toLong
+    )
+
     db.run(Member.filter(_.memberId === member.memberId).update(member))
-  }
-
-  def selectList(): Future[Seq[MemberRow]] = {
-    db.run(Member.sortBy(m => m.memberId).result)
   }
 
   private[this] def hashPassword(rawPasword: String): String = {

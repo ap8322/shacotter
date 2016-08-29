@@ -8,6 +8,7 @@ import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
 import slick.lifted.Rep
+import utils.SystemClock
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -16,17 +17,30 @@ import scala.concurrent.Future
   * Created by yuki.haneda on 2016/08/23.
   */
 class FollowDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
-  extends HasDatabaseConfigProvider[JdbcProfile] {
+  extends HasDatabaseConfigProvider[JdbcProfile] with SystemClock {
 
-  def follow(myId: Int, followId: Int): Future[Int] = {
-    db.run(Follow += FollowRow(myId, followId))
+  def follow(myId: Long, followId: Long): Future[Int] = {
+    db.run(
+      Follow += FollowRow(
+        myId,
+        followId,
+        currentTimestamp,
+        myId.toString,
+        currentTimestamp,
+        myId.toString,
+        1.toLong)
+    )
   }
 
-  def remove(myId: Int, followId: Int): Future[Int] = {
-    db.run(Follow.filter(f => f.followerId === myId && f.followedId === followId.bind).delete)
+  def remove(myId: Long, followId: Long): Future[Int] = {
+    db.run(
+      Follow.filter(f =>
+        f.followerId === myId && f.followedId === followId.bind
+      ).delete
+    )
   }
 
-  def selectFollowerList(id: Int): Future[Seq[Follower]] = {
+  def selectFollowerList(id: Long): Future[Seq[Follower]] = {
 
     val dbio = Member
       .joinLeft(Follow)

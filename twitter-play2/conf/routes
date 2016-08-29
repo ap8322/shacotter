@@ -15,7 +15,7 @@ GET           /tweet                  controllers.TweetController.index
 POST          /tweet                  controllers.TweetController.tweet
 GET           /timeline               controllers.TweetController.timeline
 
-GET           /profile/:id            controllers.TweetController.profile(id: Int)
+GET           /profile/:id            controllers.TweetController.profile(id: Long)
 
 #follow
 POST          /follow                 controllers.FollowController.follow

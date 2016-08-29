@@ -25,8 +25,8 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def list = AsyncStack(AuthorityKey -> None) { implicit rs =>
-    followDAO.selectFollowerList(loggedIn.memberId).map { mem =>
-      Ok(views.html.user.member(loggedIn.name, mem, tweetForm))
+    followDAO.selectFollowerList(loggedIn.memberId).map { memberList =>
+      Ok(views.html.user.member(loggedIn.name, memberList, tweetForm))
     }
   }
 
@@ -63,7 +63,7 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
     */
   def edit() = AsyncStack(AuthorityKey -> None) { implicit rs =>
     memberDAO.findById(loggedIn.memberId).map {
-      case Some(member) => Ok(views.html.user.edit(statusForm.fill(StatusForm(member.name, member.email, member.password))))
+      case Some(member) => Ok(views.html.user.edit(statusForm.fill(StatusForm(member.name, member.email, ""))))
       case _ => BadRequest
     }
   }

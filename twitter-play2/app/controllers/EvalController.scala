@@ -6,11 +6,13 @@ package controllers
 
 import javax.inject.Inject
 
-import controllers.EvalController.TweetIdForm
+import controllers.EvalController.TweetIdJson
 import jp.t2v.lab.play2.auth.AuthElement
 import models.auth.AuthConfigImpl
 import models.dao.{EvalDAO, MemberDAO}
 import play.api.cache.CacheApi
+import play.api.libs.functional.syntax._
+import play.api.libs.json.Reads._
 import play.api.libs.json._
 import play.api.mvc.Controller
 
@@ -28,7 +30,7 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def addStatus() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
-    rs.body.validate[TweetIdForm].map { form =>
+    rs.body.validate[TweetIdJson].map { form =>
       evalDAO.insert(form.tweetId, form.evalStatus, loggedIn.memberId).map(_ =>
         Ok(Json.obj("result" -> form.tweetId, "message" -> form.evalStatus))
       )
@@ -45,7 +47,7 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def updateStatus() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
-    rs.body.validate[TweetIdForm].map { form =>
+    rs.body.validate[TweetIdJson].map { form =>
       evalDAO.update(form.tweetId, form.evalStatus, loggedIn.memberId).map(_ =>
         Ok(Json.obj("result" -> form.tweetId, "message" -> form.evalStatus))
       )
@@ -62,7 +64,7 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def deleteStatus() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
-    rs.body.validate[TweetIdForm].map { form =>
+    rs.body.validate[TweetIdJson].map { form =>
       evalDAO.delete(form.tweetId, loggedIn.memberId).map(_ =>
         Ok(Json.obj("result" -> form.tweetId, "message" -> form.evalStatus))
       )
@@ -76,14 +78,10 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
 
 object EvalController {
 
-  case class TweetIdForm(tweetId: Int, evalStatus: Int)
+  case class TweetIdJson(tweetId: Long, evalStatus: Int)
 
-  implicit val tweetFormFormat: Reads[TweetIdForm] = new Reads[TweetIdForm] {
-    override def reads(json: JsValue): JsResult[TweetIdForm] = {
-      JsSuccess(TweetIdForm(
-        tweetId = (json \ "tweet_id").as[Int],
-        evalStatus = (json \ "eval_status").as[Int]
-      ))
-    }
-  }
+  implicit val tweetJsonReader: Reads[TweetIdJson] = (
+    (__ \ "tweet_id").read[Long] and
+      (__ \ "eval_status").read[Int]
+    ) (TweetIdJson)
 }
