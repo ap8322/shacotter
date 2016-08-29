@@ -7,6 +7,7 @@ import models.Forms._
 import models.auth.AuthConfigImpl
 import models.dao.{FollowDAO, MemberDAO}
 import play.api.cache.CacheApi
+import play.api.libs.json.Reads._
 import play.api.libs.json._
 import play.api.mvc.Controller
 
@@ -75,4 +76,6 @@ object FollowController {
       ))
     }
   }
+
+  implicit val Reader = (__ \ "id").read[Int].map(IdJson)
 }

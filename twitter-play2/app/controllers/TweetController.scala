@@ -32,7 +32,7 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
   /**
     * goto other member profile tweet page
     *
-    * @param other_member_id
+    * @param id other_member_id
     * @return
     */
   def profile(id: Int) = AsyncStack(AuthorityKey -> None) { implicit rs =>

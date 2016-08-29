@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 import controllers.EvalController.TweetIdForm
 import jp.t2v.lab.play2.auth.AuthElement
-import models.Tables._
 import models.auth.AuthConfigImpl
 import models.dao.{EvalDAO, MemberDAO}
 import play.api.cache.CacheApi
@@ -28,7 +27,7 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     *
     * @return
     */
-  def addEval() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
+  def addStatus() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
     rs.body.validate[TweetIdForm].map { form =>
       evalDAO.insert(form.tweetId, form.evalStatus, loggedIn.memberId).map(_ =>
         Ok(Json.obj("result" -> form.tweetId, "message" -> form.evalStatus))
@@ -45,7 +44,7 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     *
     * @return
     */
-  def updateEval() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
+  def updateStatus() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
     rs.body.validate[TweetIdForm].map { form =>
       evalDAO.update(form.tweetId, form.evalStatus, loggedIn.memberId).map(_ =>
         Ok(Json.obj("result" -> form.tweetId, "message" -> form.evalStatus))
@@ -62,7 +61,7 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
     *
     * @return
     */
-  def deleteEval() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
+  def deleteStatus() = AsyncStack(parse.json, AuthorityKey -> None) { implicit rs =>
     rs.body.validate[TweetIdForm].map { form =>
       evalDAO.delete(form.tweetId, loggedIn.memberId).map(_ =>
         Ok(Json.obj("result" -> form.tweetId, "message" -> form.evalStatus))
