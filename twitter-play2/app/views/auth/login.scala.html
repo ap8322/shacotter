@@ -1,46 +1,46 @@
 @(form: Form[models.Forms.LoginForm])(implicit flash: Flash)
 
-@auth_template("Login - Shacotter") {
-    <div class="container">
-        <div id="banner" class="page-header">
-            <article class="row">
+    @auth_template("Login - Shacotter") {
+        <div class="container">
+            <div id="banner" class="page-header">
+                <article class="row">
 
-                <section class="col-sm-6 text-center">
-                    <h1>Welcome</h1>
-                    <p class="lead">
-                        "Shacotter" is Twitter-Clone-Application.<br>
-                        You can evaluate the tweet of friends easily<br>
-                        by using "いいね" or "どうでもいいね".
-                    </p>
-                    <div class="logo-box">
-                        <img id="eval" class="img-responsive center-block" src="@routes.Assets.at("images/eval.png")" alt="icon">
-                    </div>
-                </section>
+                    <section class="col-sm-6 text-center">
+                        <h1>Welcome</h1>
+                        <p class="lead">
+                            "Shacotter" is Twitter-Clone-Application.<br>
+                            You can evaluate the tweet of friends easily<br>
+                            by using "いいね" or "どうでもいいね".
+                        </p>
+                        <div class="logo-box">
+                            <img id="eval" class="img-responsive center-block" src="@routes.Assets.at("images/eval.png")" alt="icon">
+                        </div>
+                    </section>
 
-                <section class="col-sm-6 well text-center">
-                @helper.form(routes.AuthController.auth) {
+                    <section class="col-sm-6 well text-center">
+                    @helper.form(routes.AuthController.auth) {
 
-                    @form.error("auth").map { message =>
-                        <p class="error">
-                            @message.message
+                        @form.globalError.map { message =>
+                            <p class="error">
+                                @message.message
+                            </p>
+                        }
+
+                        <div class="form-group">
+                            <input id="email" class="required form-control" type="email" name="email" placeholder="Email">
+                        </div>
+
+                        <div class="form-group">
+                            <input id="password" class="required form-control" type="password" name="password" placeholder="Password">
+                        </div>
+
+                        <input id="login" class="btn btn-raised btn-primary" type="submit" value="Login">
+                        <p>
+                            if you don't have your account, please <a href="@routes.AuthController.signup()">Sign up!</a>
                         </p>
                     }
-
-                    <div class="form-group">
-                        <input id="email" class="required form-control" type="email" name="email" placeholder="Email">
-                    </div>
-
-                    <div class="form-group">
-                        <input id="password" class="required form-control" type="password" name="password" placeholder="Password">
-                    </div>
-
-                    <input id="login" class="btn btn-raised btn-primary" type="submit" value="Login">
-                    <p>
-                        if you don't have your account, please <a href="@routes.AuthController.signup()">Sign up!</a>
-                    </p>
-                }
-                </section>
-            </article>
+                    </section>
+                </article>
+            </div>
         </div>
-    </div>
-}
+    }

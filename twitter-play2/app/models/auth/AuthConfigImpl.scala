@@ -14,7 +14,7 @@ import scala.reflect.{ClassTag, classTag}
 trait AuthConfigImpl extends AuthConfig {
 
   // Property
-  type Id = Int
+  type Id = Long
   type User = MemberRow
   type Authority = None.type
   val idTag: ClassTag[Id] = classTag[Id]

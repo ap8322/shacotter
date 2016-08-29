@@ -48,6 +48,7 @@ class AuthController @Inject()(val memberDAO: MemberDAO,
   def auth() = Action.async { implicit rs =>
     loginForm.bindFromRequest.fold(
       formWithErrors => {
+        // todo エラーハンドリング
         Future.successful(BadRequest(views.html.auth.login(formWithErrors)))
       },
       form => {

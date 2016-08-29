@@ -1,7 +1,8 @@
 CREATE TABLE Member (
   member_id         BIGINT       NOT NULL AUTO_INCREMENT,
   email             VARCHAR(200) NOT NULL UNIQUE,
-  password          VARCHAR(200) NOT NULL COMMENT 'ハッシュ化したものを保存',
+  password          VARCHAR(200) NOT NULL
+  COMMENT 'ハッシュ化したものを保存',
   name              VARCHAR(200) NOT NULL,
   REGISTER_DATETIME DATETIME     NOT NULL,
   REGISTER_USER     VARCHAR(200) NOT NULL,
@@ -10,7 +11,9 @@ CREATE TABLE Member (
   VERSION_NO        BIGINT       NOT NULL,
   PRIMARY KEY (member_id),
   UNIQUE (email, name)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE Tweet (
   tweet_id          BIGINT       NOT NULL AUTO_INCREMENT,
@@ -24,7 +27,9 @@ CREATE TABLE Tweet (
   VERSION_NO        BIGINT       NOT NULL,
   PRIMARY KEY (Tweet_id),
   FOREIGN KEY (member_id) REFERENCES Member (member_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE Follow (
   follower_id       BIGINT       NOT NULL,
@@ -37,12 +42,17 @@ CREATE TABLE Follow (
   UNIQUE (follower_id, followed_id),
   FOREIGN KEY (followed_id) REFERENCES Member (member_id),
   FOREIGN KEY (follower_id) REFERENCES Member (member_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE TweetEvaluete (
-  tweet_id          INT(10)      NOT NULL COMMENT '評価されるコメントのID',
-  evaluete_status   INT(1)       NOT NULL COMMENT '1ならいいねの状態､0ならどうでもいいねの状態',
-  member_id         INT(10)      NOT NULL COMMENT '評価する人のID',
+  tweet_id          BIGINT       NOT NULL
+  COMMENT '評価されるコメントのID',
+  evaluete_status   INT(1)       NOT NULL
+  COMMENT '1ならいいねの状態､0ならどうでもいいねの状態',
+  member_id         BIGINT       NOT NULL
+  COMMENT '評価する人のID',
   REGISTER_DATETIME DATETIME     NOT NULL,
   REGISTER_USER     VARCHAR(200) NOT NULL,
   UPDATE_DATETIME   DATETIME     NOT NULL,
@@ -51,4 +61,6 @@ CREATE TABLE TweetEvaluete (
   UNIQUE (tweet_id, member_id),
   FOREIGN KEY (tweet_id) REFERENCES Tweet (tweet_id),
   FOREIGN KEY (member_id) REFERENCES Member (member_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;

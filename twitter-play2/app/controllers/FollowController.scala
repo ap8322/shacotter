@@ -69,13 +69,5 @@ object FollowController {
 
   case class IdJson(id: Int)
 
-  implicit val followJsonReader: Reads[IdJson] = new Reads[IdJson] {
-    override def reads(json: JsValue): JsResult[IdJson] = {
-      JsSuccess(IdJson(
-        id = (json \ "id").as[Int]
-      ))
-    }
-  }
-
-  implicit val Reader = (__ \ "id").read[Int].map(IdJson)
+  implicit val Reader: Reads[IdJson] = (__ \ "id").read[Int].map(IdJson)
 }

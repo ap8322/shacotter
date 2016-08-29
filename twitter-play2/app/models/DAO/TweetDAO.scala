@@ -1,7 +1,5 @@
 package models.dao
 
-import java.sql.Timestamp
-import java.util.Date
 import javax.inject.Inject
 
 import models.Forms.TweetInfo
@@ -9,6 +7,7 @@ import models.Tables._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
+import utils.SystemClock
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -21,17 +20,40 @@ import scala.concurrent.Future
 // done ベタ書きSQLから卒業する｡
 // done slick で書きなおした部分でいいね､どうでもいいねどちらも0のものだけ､検索されない｡
 // todo 共通部分が多いので冗長部分をなくす｡
+// todo ページング機能実装
 
 class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
-  extends HasDatabaseConfigProvider[JdbcProfile] {
+  extends HasDatabaseConfigProvider[JdbcProfile] with SystemClock {
 
   /**
     * ツイートを追加
     *
-    * @param tweet
+    * @param myId    Login Member Id
+    * @param myTweet Other Member Id
+    * @return
     */
-  def add(myId: Int, myTweet: String): Future[Int] = {
-    db.run(Tweet.map(t => (t.memberId, t.tweet, t.tweetAt)) += (Some(myId), Some(myTweet), new Timestamp(new Date().getTime)))
+  def add(myId: Long, myTweet: String): Future[Int] = {
+    db.run(
+      Tweet.map(t =>
+        (
+          t.memberId,
+          t.tweet,
+          t.tweetAt,
+          t.registerDatetime,
+          t.registerUser,
+          t.updateDatetime,
+          t.updateUser,
+          t.versionNo)
+      ) += (
+        myId,
+        myTweet,
+        currentTimestamp,
+        currentTimestamp,
+        myId.toString,
+        currentTimestamp,
+        myId.toString,
+        1.toLong)
+    )
   }
 
   /**
@@ -40,7 +62,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param id Login Member Id
     * @return
     */
-  def selectMyTweet(id: Int): Future[Seq[TweetInfo]] = {
+  def selectMyTweet(id: Long): Future[Seq[TweetInfo]] = {
     //  SELECT m.name,
     //    t.tweet_id,
     //    t.tweet,
@@ -52,10 +74,12 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     //    LEFT JOIN Eval e ON t.tweet_id = e.tweet_id
     //  WHERE m.member_id = $id
 
+    val page = 0;
+
     val dbio = Member
       .join(Tweet)
       .on(_.memberId === _.memberId)
-      .joinLeft(Eval)
+      .joinLeft(Tweetevaluete)
       .on {
         case ((m, t), e) =>
           t.tweetId === e.tweetId
@@ -71,7 +95,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         getStatusCount(0, t.tweetId),
         getCurrentEvaluete(id, t.tweetId)
         )
-    }.result
+    }.drop(page * 100).take(100).result
 
     db.run(dbio).map { tweetInfoList =>
       tweetInfoList.map {
@@ -80,7 +104,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         case (name, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(
           name,
           tweetId,
-          tweet.get,
+          tweet,
           goodCount,
           badCount,
           currentState.getOrElse(-1)
@@ -97,11 +121,14 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param friendId Other Member Id
     * @return
     */
-  def selectFriendTweet(myId: Int, friendId: Int): Future[Seq[TweetInfo]] = {
+  def selectFriendTweet(myId: Long, friendId: Long): Future[Seq[TweetInfo]] = {
+
+    val page = 0;
+
     val dbio = Member
       .join(Tweet)
       .on(_.memberId === _.memberId)
-      .joinLeft(Eval)
+      .joinLeft(Tweetevaluete)
       .on {
         case ((m, t), e) =>
           t.tweetId === e.tweetId
@@ -117,14 +144,14 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         getStatusCount(0, t.tweetId),
         getCurrentEvaluete(myId, t.tweetId)
         )
-    }.result
+    }.drop(page * 100).take(100).result
 
     db.run(dbio).map { tweetInfoList =>
       tweetInfoList.map {
         case (name, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(
           name,
           tweetId,
-          tweet.get,
+          tweet,
           goodCount,
           badCount,
           currentState.getOrElse(-1)
@@ -139,11 +166,14 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param id Login Member Id
     * @return
     */
-  def selectFollowerTweet(id: Int): Future[Seq[TweetInfo]] = {
+  def selectFollowerTweet(id: Long): Future[Seq[TweetInfo]] = {
+
+    val page = 0;
+
     val dbio = Member
       .join(Tweet)
       .on(_.memberId === _.memberId)
-      .joinLeft(Eval)
+      .joinLeft(Tweetevaluete)
       .on {
         case ((m, t), e) =>
           t.tweetId === e.tweetId
@@ -158,14 +188,14 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         getStatusCount(1, t.tweetId),
         getStatusCount(0, t.tweetId),
         getCurrentEvaluete(id, t.tweetId))
-    }.result
+    }.drop(page * 100).take(100).result
 
     db.run(dbio).map { tweetInfoList =>
       tweetInfoList.map {
         case (name, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(
           name,
           tweetId,
-          tweet.get,
+          tweet,
           goodCount,
           badCount,
           currentState.getOrElse(-1))
@@ -173,16 +203,16 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     }
   }
 
-  private[this] def getStatusCount(status: Int, tweetId: Rep[Int]): Rep[Int] = {
-    Eval.filter(e => e.evalStatus === status && e.tweetId === tweetId).length
+  private[this] def getStatusCount(status: Int, tweetId: Rep[Long]): Rep[Int] = {
+    Tweetevaluete.filter(e => e.evalueteStatus === status && e.tweetId === tweetId).length
   }
 
   // todo maxは不適切なので､ maxを使わずに Rep[Option[Int]]で返したい｡
-  private[this] def getCurrentEvaluete(memberId: Int, tweetId: Rep[Int]): Rep[Option[Int]] = {
-    Eval.filter(e => e.memberId === memberId && e.tweetId === tweetId).map(_.evalStatus).max
+  private[this] def getCurrentEvaluete(memberId: Long, tweetId: Rep[Long]): Rep[Option[Int]] = {
+    Tweetevaluete.filter(e => e.memberId === memberId && e.tweetId === tweetId).map(_.evalueteStatus).max
   }
 
-  private[this] def getFollowerIdList(id: Int): Query[Rep[Int], Int, Seq] = {
-    Follow.filter(_.followerId === id).map(_.followedId.asColumnOf[Int])
+  private[this] def getFollowerIdList(id: Long): Query[Rep[Long], Long, Seq] = {
+    Follow.filter(_.followerId === id).map(_.followedId.asColumnOf[Long])
   }
 }
