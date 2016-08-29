@@ -31,7 +31,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param tweet
     */
   def add(myId: Int, myTweet: String): Future[Int] = {
-    db.run(Tweet.map(t => (t.memberId,t.tweet,t.tweetAt)) += (Some(myId), Some(myTweet), new Timestamp(new Date().getTime)))
+    db.run(Tweet.map(t => (t.memberId, t.tweet, t.tweetAt)) += (Some(myId), Some(myTweet), new Timestamp(new Date().getTime)))
   }
 
   /**

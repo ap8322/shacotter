@@ -30,7 +30,7 @@ class FollowDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
     val dbio = Member
       .joinLeft(Follow)
-      .on((m,f) => m.memberId === f.followedId && f.followerId === id)
+      .on((m, f) => m.memberId === f.followedId && f.followerId === id)
       .map {
         case (member: Member, follow: Rep[Option[Follow]]) => (
           member.memberId,
