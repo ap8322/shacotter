@@ -78,10 +78,10 @@ class EvalController @Inject()(val memberDAO: MemberDAO,
 
 object EvalController {
 
-  case class TweetIdJson(tweetId: Long, evalStatus: Int)
+  case class TweetIdJson(tweetId: Long, evalStatus: String)
 
   implicit val tweetJsonReader: Reads[TweetIdJson] = (
     (__ \ "tweet_id").read[Long] and
-      (__ \ "eval_status").read[Int]
+      (__ \ "eval_status").read[String]
     ) (TweetIdJson)
 }

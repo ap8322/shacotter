@@ -1,41 +1,41 @@
 @(form: Form[models.Forms.StatusForm])(implicit flash: Flash)
-    @main("Edit - Shacotter") {
-        <div class="container">
-            <main class="well text-center">
-            @helper.form(routes.MemberController.update) {
-                <h1>Edit Your Profile</h1>
+@main("Edit - Shacotter") {
+    <div class="container">
+        <main class="well text-center">
+        @helper.form(routes.MemberController.update) {
+            <h1>Edit Your Profile</h1>
 
-                @form.error("mail").map { message =>
-                    <p class="error">
-                        @message.message
-                    </p>
-                }
-
-                @form.error("invalidForm").map { message =>
-                    <p class="error">
-                        @message.message
-                    </p>
-                }
-
-                @form.value.map { data =>
-                    <div class="form-group">
-                        <p>
-                            <input type="name" class="required form-control" name="name" placeholder="Your name" id="name" value="@data.name">
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <p>
-                            <input type="email" class="required form-control" name="email" placeholder="Your Email" id="email" value="@data.email">
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <p>
-                            <input type="password" class="required form-control" name="password" placeholder="Your password" id="password" value="">
-                        </p>
-                    </div>
-                    <input class="btn btn-raised btn-primary" type="submit" value="編集">
-                }
+            @form.error("mail").map { message =>
+                <p class="error">
+                    @message.message
+                </p>
             }
-            </main>
-        </div>
-    }
+
+            @form.globalError.map { message =>
+                <p class="error">
+                    @message.message
+                </p>
+            }
+
+            @form.value.map { data =>
+                <div class="form-group">
+                    <p>
+                        <input type="name" class="required form-control" name="name" placeholder="Your name" id="name" value="@data.name">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <input type="email" class="required form-control" name="email" placeholder="Your Email" id="email" value="@data.email">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <input type="password" class="required form-control" name="password" placeholder="Your password" id="password" value="">
+                    </p>
+                </div>
+                <input class="btn btn-raised btn-primary" type="submit" value="編集">
+            }
+        }
+        </main>
+    </div>
+}

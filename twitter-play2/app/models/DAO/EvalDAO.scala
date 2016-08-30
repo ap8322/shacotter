@@ -2,7 +2,7 @@ package models.dao
 
 import javax.inject.Inject
 
-import models.Tables.{Tweetevaluete, TweetevalueteRow}
+import models.Tables.{TweetEvaluate, TweetEvaluateRow}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
@@ -16,10 +16,10 @@ import scala.concurrent.Future
 class EvalDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   extends HasDatabaseConfigProvider[JdbcProfile] with SystemClock {
 
-  def insert(tweetId: Long, evalStatus: Int, memberId: Long): Future[Int] = {
-    db.run(Tweetevaluete += TweetevalueteRow(
+  def insert(tweetId: Long, evaluateStatus: String, memberId: Long): Future[Int] = {
+    db.run(TweetEvaluate += TweetEvaluateRow(
       tweetId,
-      evalStatus,
+      evaluateStatus,
       memberId,
       currentTimestamp,
       memberId.toString,
@@ -29,14 +29,14 @@ class EvalDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     )
   }
 
-  def update(tweetId: Long, evalStatus: Int, memberId: Long): Future[Int] = {
-    db.run(Tweetevaluete.filter(e =>
+  def update(tweetId: Long, evaluateStatus: String, memberId: Long): Future[Int] = {
+    db.run(TweetEvaluate.filter(e =>
       e.tweetId === tweetId.bind && e.memberId === memberId.bind
     ).map(e =>
-      (e.evalueteStatus, e.updateDatetime, e.updateUser)
+      (e.evaluateStatus, e.updateDatetime, e.updateUser)
     ).update(
       (
-        evalStatus,
+        evaluateStatus,
         currentTimestamp,
         memberId.toString)
     )
@@ -44,7 +44,7 @@ class EvalDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   }
 
   def delete(tweetId: Long, memberId: Long): Future[Int] = {
-    db.run(Tweetevaluete.filter(e =>
+    db.run(TweetEvaluate.filter(e =>
       e.tweetId === tweetId.bind && e.memberId === memberId
     ).delete)
   }

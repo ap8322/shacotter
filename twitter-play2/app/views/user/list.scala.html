@@ -1,11 +1,12 @@
 @(me: String, tweetInfo: Seq[models.Forms.TweetInfo], form: Form[models.Forms.Tweet])
+@import utils.EvaluateStatesCode._
 @main("ツイート") {
     <div class="container">
         <section class="row">
             <aside class="col-sm-4">
             @helper.form(routes.TweetController.tweet) {
 
-                @form.error("mail").map { message =>
+                @form.error("tweet").map { message =>
                     <p class="error">
                         @message.message
                     </p>
@@ -35,14 +36,14 @@
                                 <i>@tweet.tweet</i>
                             </main>
                             <footer> 
-                                @if(tweet.currentState == 1) {
+                                @if(tweet.currentState == good) {
                                     <button class="jsc-good btn btn-success" type="button">いいね</button>
                                 } else {
                                     <button class="jsc-good btn " type="button">いいね</button>
                                 }
                                  <span class="good-count count-box">@tweet.goodCount</span> 
 
-                                @if(tweet.currentState == 0) {
+                                @if(tweet.currentState == bad) {
                                     <button class="jsc-bad btn btn-danger" type="button">どうでもいいね</button> 
                                 } else {
                                     <button class="jsc-bad btn " type="button">どうでもいいね</button> 
