@@ -7,6 +7,7 @@ import models.Tables._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
 import slick.driver.MySQLDriver.api._
+import utils.EvaluateStatesCode._
 import utils.SystemClock
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -74,12 +75,12 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     //    LEFT JOIN Eval e ON t.tweet_id = e.tweet_id
     //  WHERE m.member_id = $id
 
-    val page = 0;
+    val page = 0
 
     val dbio = Member
       .join(Tweet)
       .on(_.memberId === _.memberId)
-      .joinLeft(Tweetevaluete)
+      .joinLeft(TweetEvaluate)
       .on {
         case ((m, t), e) =>
           t.tweetId === e.tweetId
@@ -91,9 +92,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         m.name,
         t.tweetId,
         t.tweet,
-        getStatusCount(1, t.tweetId),
-        getStatusCount(0, t.tweetId),
-        getCurrentEvaluete(id, t.tweetId)
+        getStatusCount(good, t.tweetId),
+        getStatusCount(bad, t.tweetId),
+        getCurrentEvaluate(id, t.tweetId)
         )
     }.drop(page * 100).take(100).result
 
@@ -107,7 +108,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
           tweet,
           goodCount,
           badCount,
-          currentState.getOrElse(-1)
+          currentState.getOrElse(no)
         )
       }
     }
@@ -123,12 +124,12 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     */
   def selectFriendTweet(myId: Long, friendId: Long): Future[Seq[TweetInfo]] = {
 
-    val page = 0;
+    val page = 0
 
     val dbio = Member
       .join(Tweet)
       .on(_.memberId === _.memberId)
-      .joinLeft(Tweetevaluete)
+      .joinLeft(TweetEvaluate)
       .on {
         case ((m, t), e) =>
           t.tweetId === e.tweetId
@@ -140,9 +141,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         m.name,
         t.tweetId,
         t.tweet,
-        getStatusCount(1, t.tweetId),
-        getStatusCount(0, t.tweetId),
-        getCurrentEvaluete(myId, t.tweetId)
+        getStatusCount(good, t.tweetId),
+        getStatusCount(bad, t.tweetId),
+        getCurrentEvaluate(myId, t.tweetId)
         )
     }.drop(page * 100).take(100).result
 
@@ -154,7 +155,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
           tweet,
           goodCount,
           badCount,
-          currentState.getOrElse(-1)
+          currentState.getOrElse(no)
         )
       }
     }
@@ -168,12 +169,12 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     */
   def selectFollowerTweet(id: Long): Future[Seq[TweetInfo]] = {
 
-    val page = 0;
+    val page = 0
 
     val dbio = Member
       .join(Tweet)
       .on(_.memberId === _.memberId)
-      .joinLeft(Tweetevaluete)
+      .joinLeft(TweetEvaluate)
       .on {
         case ((m, t), e) =>
           t.tweetId === e.tweetId
@@ -185,9 +186,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         m.name,
         t.tweetId,
         t.tweet,
-        getStatusCount(1, t.tweetId),
-        getStatusCount(0, t.tweetId),
-        getCurrentEvaluete(id, t.tweetId))
+        getStatusCount(good, t.tweetId),
+        getStatusCount(bad, t.tweetId),
+        getCurrentEvaluate(id, t.tweetId))
     }.drop(page * 100).take(100).result
 
     db.run(dbio).map { tweetInfoList =>
@@ -198,18 +199,18 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
           tweet,
           goodCount,
           badCount,
-          currentState.getOrElse(-1))
+          currentState.getOrElse(no))
       }
     }
   }
 
-  private[this] def getStatusCount(status: Int, tweetId: Rep[Long]): Rep[Int] = {
-    Tweetevaluete.filter(e => e.evalueteStatus === status && e.tweetId === tweetId).length
+  private[this] def getStatusCount(status: String, tweetId: Rep[Long]): Rep[Int] = {
+    TweetEvaluate.filter(e => e.evaluateStatus === status && e.tweetId === tweetId).length
   }
 
   // todo maxは不適切なので､ maxを使わずに Rep[Option[Int]]で返したい｡
-  private[this] def getCurrentEvaluete(memberId: Long, tweetId: Rep[Long]): Rep[Option[Int]] = {
-    Tweetevaluete.filter(e => e.memberId === memberId && e.tweetId === tweetId).map(_.evalueteStatus).max
+  private[this] def getCurrentEvaluate(memberId: Long, tweetId: Rep[Long]): Rep[Option[String]] = {
+    TweetEvaluate.filter(e => e.memberId === memberId && e.tweetId === tweetId).map(_.evaluateStatus).max
   }
 
   private[this] def getFollowerIdList(id: Long): Query[Rep[Long], Long, Seq] = {
