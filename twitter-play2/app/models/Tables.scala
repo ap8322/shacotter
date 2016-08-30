@@ -14,7 +14,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = Follow.schema ++ Member.schema ++ SchemaVersion.schema ++ Tweet.schema ++ TweetEvaluate.schema
+  lazy val schema: profile.SchemaDescription = Array(Follow.schema, Image.schema, Member.schema, SchemaVersion.schema, Tweet.schema, TweetEvaluate.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -63,6 +63,41 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table Follow */
   lazy val Follow = new TableQuery(tag => new Follow(tag))
+
+  /** Entity class storing rows of table Image
+   *  @param imageId Database column IMAGE_ID SqlType(BIGINT), AutoInc, PrimaryKey
+   *  @param memberId Database column MEMBER_ID SqlType(BIGINT)
+   *  @param imageName Database column IMAGE_NAME SqlType(VARCHAR), Length(200,true)
+   *  @param imageData Database column IMAGE_DATA SqlType(MEDIUMBLOB)
+   *  @param imageDataLength Database column IMAGE_DATA_LENGTH SqlType(BIGINT) */
+  case class ImageRow(imageId: Long, memberId: Long, imageName: String, imageData: java.sql.Blob, imageDataLength: Long)
+  /** GetResult implicit for fetching ImageRow objects using plain SQL queries */
+  implicit def GetResultImageRow(implicit e0: GR[Long], e1: GR[String], e2: GR[java.sql.Blob]): GR[ImageRow] = GR{
+    prs => import prs._
+    ImageRow.tupled((<<[Long], <<[Long], <<[String], <<[java.sql.Blob], <<[Long]))
+  }
+  /** Table description of table IMAGE. Objects of this class serve as prototypes for rows in queries. */
+  class Image(_tableTag: Tag) extends Table[ImageRow](_tableTag, "IMAGE") {
+    def * = (imageId, memberId, imageName, imageData, imageDataLength) <> (ImageRow.tupled, ImageRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(imageId), Rep.Some(memberId), Rep.Some(imageName), Rep.Some(imageData), Rep.Some(imageDataLength)).shaped.<>({r=>import r._; _1.map(_=> ImageRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column IMAGE_ID SqlType(BIGINT), AutoInc, PrimaryKey */
+    val imageId: Rep[Long] = column[Long]("IMAGE_ID", O.AutoInc, O.PrimaryKey)
+    /** Database column MEMBER_ID SqlType(BIGINT) */
+    val memberId: Rep[Long] = column[Long]("MEMBER_ID")
+    /** Database column IMAGE_NAME SqlType(VARCHAR), Length(200,true) */
+    val imageName: Rep[String] = column[String]("IMAGE_NAME", O.Length(200,varying=true))
+    /** Database column IMAGE_DATA SqlType(MEDIUMBLOB) */
+    val imageData: Rep[java.sql.Blob] = column[java.sql.Blob]("IMAGE_DATA")
+    /** Database column IMAGE_DATA_LENGTH SqlType(BIGINT) */
+    val imageDataLength: Rep[Long] = column[Long]("IMAGE_DATA_LENGTH")
+
+    /** Foreign key referencing Member (database name image_ibfk_1) */
+    lazy val memberFk = foreignKey("image_ibfk_1", memberId, Member)(r => r.memberId, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+  }
+  /** Collection-like TableQuery object for table Image */
+  lazy val Image = new TableQuery(tag => new Image(tag))
 
   /** Entity class storing rows of table Member
    *  @param memberId Database column MEMBER_ID SqlType(BIGINT), AutoInc, PrimaryKey
