@@ -27,5 +27,9 @@ POST          /evaluate/add           controllers.EvalController.addStatus
 DELETE        /evaluate/delete        controllers.EvalController.deleteStatus
 PUT           /evaluate/update        controllers.EvalController.updateStatus
 
+#imageFile
+POST          /image/upload           controllers.ImageFileController.upload
+
+
 ## Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file           controllers.Assets.at(path="/public", file)
