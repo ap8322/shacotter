@@ -1,4 +1,4 @@
-@(me: String, tweetInfo: Seq[models.Forms.TweetInfo], form: Form[models.Forms.Tweet])
+@(memberInfo: models.Forms.MemberInfo, tweetInfo: Seq[models.Forms.TweetInfo], form: Form[models.Forms.Tweet])
 @import utils.EvaluateStatesCode._
 @main("ツイート") {
     <div class="container">
@@ -13,8 +13,12 @@
                 }
 
                 <figure class="profile-box">
-                    <img class="member-image" src="@routes.Assets.at("images/egg.png")">
-                    <figcaption class="member-name">@me</figcaption>
+                    @if(memberInfo.image.isDefined) {
+                        <img class="member-image" src="data:image/png;base64,@memberInfo.image.get.imageData">
+                    } else {
+                        <img class="member-image" src="@routes.Assets.at("images/egg.png")">
+                    }
+                    <figcaption class="member-name">@memberInfo.name</figcaption>
                 </figure>
                 <main class="form-group label-floating">
                     <textarea class="form-control tweet-area" name="tweet" rows="3" placeholder="let's tweet!"></textarea>
@@ -29,7 +33,11 @@
                     <li>
                         <article id="@tweet.tweet_id" class="tweet-box panel panel-default well">
                             <figure>
-                                <img class="member-image" src="@routes.Assets.at("images/egg.png")">
+                                @if(tweet.icon.isDefined) {
+                                    <img class="member-image" src="data:image/png;base64,@tweet.icon.get.imageData">
+                                } else {
+                                    <img class="member-image" src="@routes.Assets.at("images/egg.png")">
+                                }
                                 <figcaption class="member-name">@tweet.name</figcaption>
                             </figure>
                             <main class="tweet-contents">
@@ -39,7 +47,7 @@
                                 @if(tweet.currentState == good) {
                                     <button class="jsc-good btn btn-success" type="button">いいね</button>
                                 } else {
-                                    <button class="jsc-good btn " type="button">いいね</button>
+                                    <button class="jsc-good btn" type="button">いいね</button>
                                 }
                                  <span class="good-count count-box">@tweet.goodCount</span> 
 

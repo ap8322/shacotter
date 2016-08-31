@@ -80,16 +80,17 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     val dbio = Member
       .join(Tweet)
       .on(_.memberId === _.memberId)
-      .joinLeft(TweetEvaluate)
+      .joinLeft(Image)
       .on {
-        case ((m, t), e) =>
-          t.tweetId === e.tweetId
+        case ((m, t), i) =>
+          t.memberId === i.memberId
       }.filter {
-      case ((m, t), e) =>
+      case ((m, t), i) =>
         m.memberId === id
     }.map {
-      case ((m, t), e) => (
+      case ((m, t), i) => (
         m.name,
+        i,
         t.tweetId,
         t.tweet,
         getStatusCount(good, t.tweetId),
@@ -100,10 +101,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
     db.run(dbio).map { tweetInfoList =>
       tweetInfoList.map {
-        // tweet.get は本来not null なのですが､codegenで生成した時にnot null制約が抜けていたので今は一旦getにしています｡
-        // 共通カラム追加時のcodegenをした後に修正します｡
-        case (name, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(
+        case (name, icon, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(
           name,
+          icon,
           tweetId,
           tweet,
           goodCount,
@@ -129,16 +129,17 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     val dbio = Member
       .join(Tweet)
       .on(_.memberId === _.memberId)
-      .joinLeft(TweetEvaluate)
+      .joinLeft(Image)
       .on {
-        case ((m, t), e) =>
-          t.tweetId === e.tweetId
+        case ((m, t), i) =>
+          t.memberId === i.memberId
       }.filter {
-      case ((m, t), e) =>
+      case ((m, t), i) =>
         m.memberId === friendId.bind
     }.map {
-      case ((m, t), e) => (
+      case ((m, t), i) => (
         m.name,
+        i,
         t.tweetId,
         t.tweet,
         getStatusCount(good, t.tweetId),
@@ -149,8 +150,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
     db.run(dbio).map { tweetInfoList =>
       tweetInfoList.map {
-        case (name, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(
+        case (name, icon, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(
           name,
+          icon,
           tweetId,
           tweet,
           goodCount,
@@ -174,16 +176,17 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     val dbio = Member
       .join(Tweet)
       .on(_.memberId === _.memberId)
-      .joinLeft(TweetEvaluate)
+      .joinLeft(Image)
       .on {
-        case ((m, t), e) =>
-          t.tweetId === e.tweetId
+        case ((m, t), i) =>
+          t.memberId === i.memberId
       }.filter {
-      case ((m, t), e) =>
+      case ((m, t), i) =>
         (m.memberId in getFollowerIdList(id)) || m.memberId === id
     }.map {
-      case ((m, t), e) => (
+      case ((m, t), i) => (
         m.name,
+        i,
         t.tweetId,
         t.tweet,
         getStatusCount(good, t.tweetId),
@@ -193,8 +196,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
     db.run(dbio).map { tweetInfoList =>
       tweetInfoList.map {
-        case (name, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(
+        case (name, icon, tweetId, tweet, goodCount, badCount, currentState) => TweetInfo(
           name,
+          icon,
           tweetId,
           tweet,
           goodCount,

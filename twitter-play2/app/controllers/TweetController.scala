@@ -24,9 +24,11 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def index() = AsyncStack(AuthorityKey -> None) { implicit rs =>
-    tweetDAO.selectMyTweet(loggedIn.memberId).map { tweetInfo =>
-      Ok(views.html.user.list(loggedIn.name, tweetInfo, tweetForm))
-    }
+    val id = loggedIn.memberId
+    for {
+      tweetInfo <- tweetDAO.selectMyTweet(id)
+      memberInfo <- memberDAO.selectMemberInfo(id)
+    } yield Ok(views.html.user.list(memberInfo, tweetInfo, tweetForm))
   }
 
   /**
@@ -36,10 +38,11 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def profile(id: Long) = AsyncStack(AuthorityKey -> None) { implicit rs =>
+    val loginId = loggedIn.memberId
     for {
-      tweetInfo <- tweetDAO.selectFriendTweet(loggedIn.memberId, id)
-      member <- memberDAO.findById(id)
-    } yield Ok(views.html.user.list(member.get.name, tweetInfo, tweetForm))
+      tweetInfo <- tweetDAO.selectFriendTweet(loginId, id)
+      memberInfo <- memberDAO.selectMemberInfo(id)
+    } yield Ok(views.html.user.list(memberInfo, tweetInfo, tweetForm))
   }
 
   /**
@@ -48,9 +51,11 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
     * @return
     */
   def timeline() = AsyncStack(AuthorityKey -> None) { implicit rs =>
-    tweetDAO.selectFollowerTweet(loggedIn.memberId).map { tweetInfo =>
-      Ok(views.html.user.list(loggedIn.name, tweetInfo, tweetForm))
-    }
+    val id = loggedIn.memberId
+    for {
+      tweetInfo <- tweetDAO.selectFollowerTweet(id)
+      memberInfo <- memberDAO.selectMemberInfo(id)
+    } yield Ok(views.html.user.list(memberInfo, tweetInfo, tweetForm))
   }
 
   /**

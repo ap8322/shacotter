@@ -6,6 +6,7 @@ package models.dao
 
 import javax.inject.Inject
 
+import models.Forms.MemberInfo
 import models.Tables.{Member, MemberRow}
 import org.mindrot.jbcrypt.BCrypt
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
@@ -16,7 +17,8 @@ import utils.SystemClock
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
+class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider,
+                          val imageDAO: ImageDAO)
   extends HasDatabaseConfigProvider[JdbcProfile] with SystemClock {
 
   def authenticate(email: String, password: String): Future[Either[String, MemberRow]] = {
@@ -32,6 +34,17 @@ class MemberDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
 
   def findByEmail(email: String): Future[Option[MemberRow]] = {
     db.run(Member.filter(_.email === email.bind).result.headOption)
+  }
+
+  def selectMemberInfo(memberId: Long): Future[MemberInfo] = {
+    for {
+      imageData <- imageDAO.fetch(memberId)
+      memberData <- findById(memberId)
+    } yield MemberInfo(
+      memberData.get.memberId,
+      memberData.get.name,
+      imageData
+    )
   }
 
   def create(email: String, password: String, name: String): Future[Int] = {

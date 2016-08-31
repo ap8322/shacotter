@@ -68,19 +68,18 @@ trait Tables {
    *  @param imageId Database column IMAGE_ID SqlType(BIGINT), AutoInc, PrimaryKey
    *  @param memberId Database column MEMBER_ID SqlType(BIGINT)
    *  @param imageName Database column IMAGE_NAME SqlType(VARCHAR), Length(200,true)
-   *  @param imageData Database column IMAGE_DATA SqlType(MEDIUMBLOB)
-   *  @param imageDataLength Database column IMAGE_DATA_LENGTH SqlType(BIGINT) */
-  case class ImageRow(imageId: Long, memberId: Long, imageName: String, imageData: java.sql.Blob, imageDataLength: Long)
+   *  @param imageData Database column image_data SqlType(MEDIUMTEXT), Length(16777215,true) */
+  case class ImageRow(imageId: Long, memberId: Long, imageName: String, imageData: String)
   /** GetResult implicit for fetching ImageRow objects using plain SQL queries */
-  implicit def GetResultImageRow(implicit e0: GR[Long], e1: GR[String], e2: GR[java.sql.Blob]): GR[ImageRow] = GR{
+  implicit def GetResultImageRow(implicit e0: GR[Long], e1: GR[String]): GR[ImageRow] = GR{
     prs => import prs._
-    ImageRow.tupled((<<[Long], <<[Long], <<[String], <<[java.sql.Blob], <<[Long]))
+    ImageRow.tupled((<<[Long], <<[Long], <<[String], <<[String]))
   }
-  /** Table description of table IMAGE. Objects of this class serve as prototypes for rows in queries. */
-  class Image(_tableTag: Tag) extends Table[ImageRow](_tableTag, "IMAGE") {
-    def * = (imageId, memberId, imageName, imageData, imageDataLength) <> (ImageRow.tupled, ImageRow.unapply)
+  /** Table description of table image. Objects of this class serve as prototypes for rows in queries. */
+  class Image(_tableTag: Tag) extends Table[ImageRow](_tableTag, "image") {
+    def * = (imageId, memberId, imageName, imageData) <> (ImageRow.tupled, ImageRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(imageId), Rep.Some(memberId), Rep.Some(imageName), Rep.Some(imageData), Rep.Some(imageDataLength)).shaped.<>({r=>import r._; _1.map(_=> ImageRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = (Rep.Some(imageId), Rep.Some(memberId), Rep.Some(imageName), Rep.Some(imageData)).shaped.<>({r=>import r._; _1.map(_=> ImageRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column IMAGE_ID SqlType(BIGINT), AutoInc, PrimaryKey */
     val imageId: Rep[Long] = column[Long]("IMAGE_ID", O.AutoInc, O.PrimaryKey)
@@ -88,13 +87,14 @@ trait Tables {
     val memberId: Rep[Long] = column[Long]("MEMBER_ID")
     /** Database column IMAGE_NAME SqlType(VARCHAR), Length(200,true) */
     val imageName: Rep[String] = column[String]("IMAGE_NAME", O.Length(200,varying=true))
-    /** Database column IMAGE_DATA SqlType(MEDIUMBLOB) */
-    val imageData: Rep[java.sql.Blob] = column[java.sql.Blob]("IMAGE_DATA")
-    /** Database column IMAGE_DATA_LENGTH SqlType(BIGINT) */
-    val imageDataLength: Rep[Long] = column[Long]("IMAGE_DATA_LENGTH")
+    /** Database column image_data SqlType(MEDIUMTEXT), Length(16777215,true) */
+    val imageData: Rep[String] = column[String]("image_data", O.Length(16777215,varying=true))
 
     /** Foreign key referencing Member (database name image_ibfk_1) */
     lazy val memberFk = foreignKey("image_ibfk_1", memberId, Member)(r => r.memberId, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
+
+    /** Uniqueness Index over (memberId) (database name MEMBER_ID) */
+    val index1 = index("MEMBER_ID", memberId, unique=true)
   }
   /** Collection-like TableQuery object for table Image */
   lazy val Image = new TableQuery(tag => new Image(tag))
