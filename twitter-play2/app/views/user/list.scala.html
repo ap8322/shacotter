@@ -1,7 +1,13 @@
-@(memberInfo: models.Forms.MemberInfo, tweetInfo: Seq[models.Forms.TweetInfo], form: Form[models.Forms.Tweet])
-@import utils.EvaluateStatesCode._
+@(memberInfo: models.Forms.MemberInfo, tweetInfo: Seq[models.Forms.TweetInfo], form: Form[models.Forms.Tweet])(implicit flash: Flash)
+    @import utils.EvaluateStatesCode._
 @main("ツイート") {
     <div class="container">
+        @flash.get("message").map { success =>
+            <div class="success text-center">
+                @success
+            </div>
+        }
+
         <section class="row">
             <aside class="col-sm-4">
             @helper.form(routes.TweetController.tweet) {
@@ -14,7 +20,9 @@
 
                 <figure class="profile-box">
                     @if(memberInfo.image.isDefined) {
-                        <img class="member-image" src="data:image/png;base64,@memberInfo.image.get.imageData">
+                        <a id="image-link" href="@routes.ImageFileController.download(memberInfo.memberId)" title="クリックでダウンロード">
+                            <img class="member-image" src="data:image/png;base64,@memberInfo.image.get.imageData">
+                        </a>
                     } else {
                         <img class="member-image" src="@routes.Assets.at("images/egg.png")">
                     }

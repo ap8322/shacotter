@@ -68,18 +68,23 @@ trait Tables {
    *  @param imageId Database column IMAGE_ID SqlType(BIGINT), AutoInc, PrimaryKey
    *  @param memberId Database column MEMBER_ID SqlType(BIGINT)
    *  @param imageName Database column IMAGE_NAME SqlType(VARCHAR), Length(200,true)
-   *  @param imageData Database column image_data SqlType(MEDIUMTEXT), Length(16777215,true) */
-  case class ImageRow(imageId: Long, memberId: Long, imageName: String, imageData: String)
+   *  @param imageData Database column IMAGE_DATA SqlType(MEDIUMTEXT), Length(16777215,true)
+   *  @param registerDatetime Database column REGISTER_DATETIME SqlType(DATETIME)
+   *  @param registerUser Database column REGISTER_USER SqlType(VARCHAR), Length(200,true)
+   *  @param updateDatetime Database column UPDATE_DATETIME SqlType(DATETIME)
+   *  @param updateUser Database column UPDATE_USER SqlType(VARCHAR), Length(200,true)
+   *  @param versionNo Database column VERSION_NO SqlType(BIGINT) */
+  case class ImageRow(imageId: Long, memberId: Long, imageName: String, imageData: String, registerDatetime: java.sql.Timestamp, registerUser: String, updateDatetime: java.sql.Timestamp, updateUser: String, versionNo: Long)
   /** GetResult implicit for fetching ImageRow objects using plain SQL queries */
-  implicit def GetResultImageRow(implicit e0: GR[Long], e1: GR[String]): GR[ImageRow] = GR{
+  implicit def GetResultImageRow(implicit e0: GR[Long], e1: GR[String], e2: GR[java.sql.Timestamp]): GR[ImageRow] = GR{
     prs => import prs._
-    ImageRow.tupled((<<[Long], <<[Long], <<[String], <<[String]))
+    ImageRow.tupled((<<[Long], <<[Long], <<[String], <<[String], <<[java.sql.Timestamp], <<[String], <<[java.sql.Timestamp], <<[String], <<[Long]))
   }
-  /** Table description of table image. Objects of this class serve as prototypes for rows in queries. */
-  class Image(_tableTag: Tag) extends Table[ImageRow](_tableTag, "image") {
-    def * = (imageId, memberId, imageName, imageData) <> (ImageRow.tupled, ImageRow.unapply)
+  /** Table description of table IMAGE. Objects of this class serve as prototypes for rows in queries. */
+  class Image(_tableTag: Tag) extends Table[ImageRow](_tableTag, "IMAGE") {
+    def * = (imageId, memberId, imageName, imageData, registerDatetime, registerUser, updateDatetime, updateUser, versionNo) <> (ImageRow.tupled, ImageRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(imageId), Rep.Some(memberId), Rep.Some(imageName), Rep.Some(imageData)).shaped.<>({r=>import r._; _1.map(_=> ImageRow.tupled((_1.get, _2.get, _3.get, _4.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = (Rep.Some(imageId), Rep.Some(memberId), Rep.Some(imageName), Rep.Some(imageData), Rep.Some(registerDatetime), Rep.Some(registerUser), Rep.Some(updateDatetime), Rep.Some(updateUser), Rep.Some(versionNo)).shaped.<>({r=>import r._; _1.map(_=> ImageRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get, _8.get, _9.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column IMAGE_ID SqlType(BIGINT), AutoInc, PrimaryKey */
     val imageId: Rep[Long] = column[Long]("IMAGE_ID", O.AutoInc, O.PrimaryKey)
@@ -87,14 +92,21 @@ trait Tables {
     val memberId: Rep[Long] = column[Long]("MEMBER_ID")
     /** Database column IMAGE_NAME SqlType(VARCHAR), Length(200,true) */
     val imageName: Rep[String] = column[String]("IMAGE_NAME", O.Length(200,varying=true))
-    /** Database column image_data SqlType(MEDIUMTEXT), Length(16777215,true) */
-    val imageData: Rep[String] = column[String]("image_data", O.Length(16777215,varying=true))
+    /** Database column IMAGE_DATA SqlType(MEDIUMTEXT), Length(16777215,true) */
+    val imageData: Rep[String] = column[String]("IMAGE_DATA", O.Length(16777215,varying=true))
+    /** Database column REGISTER_DATETIME SqlType(DATETIME) */
+    val registerDatetime: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("REGISTER_DATETIME")
+    /** Database column REGISTER_USER SqlType(VARCHAR), Length(200,true) */
+    val registerUser: Rep[String] = column[String]("REGISTER_USER", O.Length(200,varying=true))
+    /** Database column UPDATE_DATETIME SqlType(DATETIME) */
+    val updateDatetime: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("UPDATE_DATETIME")
+    /** Database column UPDATE_USER SqlType(VARCHAR), Length(200,true) */
+    val updateUser: Rep[String] = column[String]("UPDATE_USER", O.Length(200,varying=true))
+    /** Database column VERSION_NO SqlType(BIGINT) */
+    val versionNo: Rep[Long] = column[Long]("VERSION_NO")
 
     /** Foreign key referencing Member (database name image_ibfk_1) */
     lazy val memberFk = foreignKey("image_ibfk_1", memberId, Member)(r => r.memberId, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)
-
-    /** Uniqueness Index over (memberId) (database name MEMBER_ID) */
-    val index1 = index("MEMBER_ID", memberId, unique=true)
   }
   /** Collection-like TableQuery object for table Image */
   lazy val Image = new TableQuery(tag => new Image(tag))

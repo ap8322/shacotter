@@ -61,3 +61,8 @@ article figcaption {
     font-size: 15px;
     padding: 5px;
 }
+
+.success {
+    color: green;
+    margin-bottom: 20px;
+}
