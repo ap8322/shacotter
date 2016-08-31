@@ -72,7 +72,7 @@ class ImageFileController @Inject()(val memberDAO: MemberDAO,
     */
   private[this] def base64ToImage(filename: String, base64Text: String): File = {
     val bytes: Array[Byte] = Base64.getDecoder.decode(base64Text)
-    val path: Path = new File(filename).toPath
+    val path: Path = new File(s"/tmp/$filename").toPath
     Files.write(path, bytes).toFile
   }
 }
