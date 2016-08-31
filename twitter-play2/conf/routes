@@ -1,35 +1,35 @@
 # auth
-GET           /                       controllers.AuthController.login
-POST          /login                  controllers.AuthController.auth
-GET           /logout                 controllers.AuthController.logout
-GET           /signup                 controllers.AuthController.signup
+GET           /                          controllers.AuthController.login
+POST          /login                     controllers.AuthController.auth
+GET           /logout                    controllers.AuthController.logout
+GET           /signup                    controllers.AuthController.signup
 
 # member curd
-POST          /create                 controllers.MemberController.create
-GET           /list                   controllers.MemberController.list
-GET           /edit                   controllers.MemberController.edit
-POST          /edit                   controllers.MemberController.update
+POST          /create                    controllers.MemberController.create
+GET           /list                      controllers.MemberController.list
+GET           /edit                      controllers.MemberController.edit
+POST          /edit                      controllers.MemberController.update
 
 # tweet
-GET           /tweet                  controllers.TweetController.index
-POST          /tweet                  controllers.TweetController.tweet
-GET           /timeline               controllers.TweetController.timeline
+GET           /tweet                     controllers.TweetController.index
+POST          /tweet                     controllers.TweetController.tweet
+GET           /timeline                  controllers.TweetController.timeline
 
-GET           /profile/:id            controllers.TweetController.profile(id: Long)
+GET           /profile/:id               controllers.TweetController.profile(id: Long)
 
 #follow
-POST          /follow                 controllers.FollowController.follow
-POST          /remove                 controllers.FollowController.remove
-GET           /follower               controllers.FollowController.followerlist
+POST          /follow                    controllers.FollowController.follow
+POST          /remove                    controllers.FollowController.remove
+GET           /follower                  controllers.FollowController.followerlist
 
 #eval
-POST          /evaluate/add           controllers.EvalController.addStatus
-DELETE        /evaluate/delete        controllers.EvalController.deleteStatus
-PUT           /evaluate/update        controllers.EvalController.updateStatus
+POST          /evaluate/add              controllers.EvalController.addStatus
+DELETE        /evaluate/delete           controllers.EvalController.deleteStatus
+PUT           /evaluate/update           controllers.EvalController.updateStatus
 
 #imageFile
-POST          /image/upload           controllers.ImageFileController.upload
-
+POST          /image/upload              controllers.ImageFileController.upload
+GET           /image/download/:id        controllers.ImageFileController.download(id: Long)
 
 ## Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file           controllers.Assets.at(path="/public", file)
+GET           /assets/*file              controllers.Assets.at(path="/public", file)

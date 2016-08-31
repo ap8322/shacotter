@@ -15,6 +15,13 @@ $(function () {
         errorElement: 'p'
     });
 
+    $('#image-link').balloon({
+        css: {
+            fontSize: '15px'
+        },
+        position: 'right'
+    });
+
     $('.follow-button').on('click', function () {
         var $follow_button = $(this);
         var $member_id = $follow_button.parent().attr('id');
