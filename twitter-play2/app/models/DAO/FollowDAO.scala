@@ -45,20 +45,23 @@ class FollowDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     val dbio = Member
       .joinLeft(Follow)
       .on((m, f) => m.memberId === f.followedId && f.followerId === id)
+      .joinLeft(Image).on { case ((m, f), i) => m.memberId === i.memberId }
       .map {
-        case (member: Member, follow: Rep[Option[Follow]]) => (
+        case ((member: Member, follow: Rep[Option[Follow]]), image: Rep[Option[Image]]) => (
           member.memberId,
           member.name,
+          image,
           follow.isDefined
           )
       }.result
 
     db.run(dbio).map { memberlist =>
       memberlist.map {
-        case (memberId, name, isFollowed) =>
+        case (memberId, name, icon, isFollowed) =>
           Follower(
             memberId,
             name,
+            icon,
             isFollowed
           )
       }

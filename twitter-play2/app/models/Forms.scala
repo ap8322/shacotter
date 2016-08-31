@@ -1,5 +1,6 @@
 package models
 
+import models.Tables.ImageRow
 import play.api.data.Form
 import play.api.data.Forms._
 
@@ -10,12 +11,15 @@ object Forms {
 
   // todo バリデーションを固める｡
 
-  case class Follower(memberId: Long, memberName: String, isFollowed: Boolean)
+  case class Follower(memberId: Long, memberName: String, icon: Option[ImageRow], isFollowed: Boolean)
 
   case class LoginForm(email: String, password: String)
 
+  //ログインユーザの情報(名前､アイコン画像)
+  case class MemberInfo(memberId: Long, name: String, image: Option[ImageRow])
+
   // ツイートした人の名前、ツイートのユニークID、ツイートの内容、いいねの数、悪いねの数､現在の評価状態
-  case class TweetInfo(name: String, tweet_id: Long, tweet: String, goodCount: Int, badCount: Int, currentState: String)
+  case class TweetInfo(name: String, icon: Option[ImageRow], tweet_id: Long, tweet: String, goodCount: Int, badCount: Int, currentState: String)
 
   val loginForm = Form(
     mapping(

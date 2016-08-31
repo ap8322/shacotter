@@ -27,6 +27,11 @@ aside figcaption {
     margin-top: 10px;
 }
 
+aside .member-image {
+    width: 120px;
+    height: 120px;
+}
+
 .tweet-area {
     resize: none;
 }
