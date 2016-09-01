@@ -18,6 +18,18 @@ ul {
     list-style: none;
 }
 
+.paging-nav {
+    text-align: center;
+}
+
+.paging-nav > li {
+    display: inline-block;
+}
+
+.paging-nav > li:not(:first-child) {
+    margin-left: 30px;
+}
+
 .profile-box {
     padding: 12px;
 }
