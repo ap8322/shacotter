@@ -66,11 +66,13 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
   def tweet() = AsyncStack(AuthorityKey -> None) { implicit rs =>
     tweetForm.bindFromRequest.fold(
       formWithErrors => {
-        Future.successful(Redirect(routes.TweetController.timeline()))
+        Future.successful(Redirect(routes.TweetController.timeline()).flashing("message" -> "ツイート出来ませんでした｡"))
       },
       form => {
         tweetDAO.add(loggedIn.memberId, form.tweet).map { _ =>
-          Redirect(routes.TweetController.timeline())
+          Redirect(routes.TweetController.timeline()).flashing(
+            "message" -> "ツイートが完了しました｡"
+          )
         }
       }
     )

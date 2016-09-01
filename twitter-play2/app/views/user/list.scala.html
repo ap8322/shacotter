@@ -1,6 +1,6 @@
 @(memberInfo: models.Forms.MemberInfo, tweetInfo: Seq[models.Forms.TweetInfo], form: Form[models.Forms.Tweet], currentPage: Int = 0)(implicit flash: Flash)
-@import utils.EvaluateStatesCode._
-@main("ツイート") {
+    @import utils.EvaluateStatesCode._
+@main("Shacotter") {
     <div class="container">
         @flash.get("message").map { success =>
             <div class="success text-center">
@@ -41,11 +41,11 @@
                     ツイートはありません｡
                 </div>
             } else {
-                <ul class="paging-nav well">
+                <ul class="paging-nav">
                     <li>
                     @if(currentPage != 0) {
                         <a href="@routes.TweetController.timeline(Some(currentPage - 1))">
-                            前の50件へ
+                            前の30件へ
                         </a>
                     }
                     </li>
@@ -54,16 +54,16 @@
                     </li>
                     <li>
 
-                    @if(tweetInfo.length == 50) {
+                    @if(tweetInfo.length == 30) {
                         <a href="@routes.TweetController.timeline(Some(currentPage + 1))">
-                            次の50件へ
+                            次の30件へ
                         </a>
                     }
                     </li>
                 </ul>
 
                 <ul class="tweet-list">
-                @tweetInfo.reverse.map { tweet =>
+                @tweetInfo.map { tweet =>
                     <li>
                         <article id="@tweet.tweet_id" class="tweet-box panel panel-default well">
                             <figure>
@@ -96,11 +96,12 @@
                     </li>
                 }
                 </ul>
-                <ul class="paging-nav well">
+
+                <ul class="paging-nav">
                     <li>
                     @if(currentPage != 0) {
                         <a href="@routes.TweetController.timeline(Some(currentPage - 1))">
-                            前の50件へ
+                            前の30件へ
                         </a>
                     }
                     </li>
@@ -109,9 +110,9 @@
                     </li>
                     <li>
 
-                    @if(tweetInfo.length == 50) {
+                    @if(tweetInfo.length == 30) {
                         <a href="@routes.TweetController.timeline(Some(currentPage + 1))">
-                            次の50件へ
+                            次の30件へ
                         </a>
                     }
                     </li>
