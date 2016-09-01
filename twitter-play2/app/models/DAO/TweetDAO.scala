@@ -85,6 +85,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
       }.filter {
       case ((m, t), i) =>
         m.memberId === id
+    }.sortBy {
+      case ((m, t), i) =>
+        t.tweetId.desc
     }.map {
       case ((m, t), i) => (
         m.name,
@@ -95,7 +98,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         getStatusCount(bad, t.tweetId),
         getCurrentEvaluate(id, t.tweetId)
         )
-    }.drop(page * 50).take(50).result
+    }.drop(page * 30).take(30).result
 
     db.run(dbio).map { tweetInfoList =>
       tweetInfoList.map {
@@ -132,6 +135,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
       }.filter {
       case ((m, t), i) =>
         m.memberId === friendId.bind
+    }.sortBy {
+      case ((m, t), i) =>
+        t.tweetId.desc
     }.map {
       case ((m, t), i) => (
         m.name,
@@ -177,6 +183,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
       }.filter {
       case ((m, t), i) =>
         (m.memberId in getFollowerIdList(id)) || m.memberId === id
+    }.sortBy {
+      case ((m, t), i) =>
+        t.tweetId.desc
     }.map {
       case ((m, t), i) => (
         m.name,
@@ -186,7 +195,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         getStatusCount(good, t.tweetId),
         getStatusCount(bad, t.tweetId),
         getCurrentEvaluate(id, t.tweetId))
-    }.drop(page * 50).take(50).result
+    }.drop(page * 30).take(30).result
 
     db.run(dbio).map { tweetInfoList =>
       tweetInfoList.map {
