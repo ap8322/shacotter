@@ -27,11 +27,11 @@ class ImageFileController @Inject()(val memberDAO: MemberDAO,
     request.body.file("picture").map { picture =>
       val id = loggedIn.memberId
       val imageFile = picture.ref.file
-      val filename = picture.filename
+      val imageName = picture.filename
 
       imageDAO.fetch(id).map {
-        case Some(_) => imageDAO.update(id, filename, imageToBase64(imageFile))
-        case _ => imageDAO.insert(id, filename, imageToBase64(imageFile))
+        case Some(_) => imageDAO.update(id, imageName, imageToBase64(imageFile))
+        case _ => imageDAO.insert(id, imageName, imageToBase64(imageFile))
       }.map(_ =>
         Redirect(routes.TweetController.timeline).flashing(
           "message" -> "アイコンが変更されました｡"
@@ -47,7 +47,9 @@ class ImageFileController @Inject()(val memberDAO: MemberDAO,
 
   def download(id: Long) = Action.async { implicit rs =>
     imageDAO.fetch(id).map {
-      case Some(image) => Ok.sendFile(base64ToImage(image.imageName, image.imageData)).withHeaders(CONTENT_TYPE -> "application/force-download")
+      case Some(image) => Ok.sendFile(
+        base64ToImage(image.imageName, image.imageData)
+      ).withHeaders(CONTENT_TYPE -> "application/force-download")
       case _ => BadRequest
     }
   }
@@ -66,13 +68,13 @@ class ImageFileController @Inject()(val memberDAO: MemberDAO,
   /**
     * base64 -> image
     *
-    * @param filename
+    * @param imageName
     * @param base64Text
     * @return
     */
-  private[this] def base64ToImage(filename: String, base64Text: String): File = {
+  private[this] def base64ToImage(imageName: String, base64Text: String): File = {
     val bytes: Array[Byte] = Base64.getDecoder.decode(base64Text)
-    val path: Path = new File(s"/tmp/$filename").toPath
+    val path: Path = new File(s"/tmp/$imageName").toPath
     Files.write(path, bytes).toFile
   }
 }
