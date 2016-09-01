@@ -16,10 +16,10 @@ object Forms {
   case class LoginForm(email: String, password: String)
 
   //ログインユーザの情報(名前､アイコン画像)
-  case class MemberInfo(memberId: Long, name: String, image: Option[ImageRow])
+  case class MemberInfo(memberId: Long, memberName: String, icon: Option[ImageRow])
 
   // ツイートした人の名前、ツイートのユニークID、ツイートの内容、いいねの数、悪いねの数､現在の評価状態
-  case class TweetInfo(name: String, icon: Option[ImageRow], tweet_id: Long, tweet: String, goodCount: Int, badCount: Int, currentState: String)
+  case class TweetInfo(memberName: String, icon: Option[ImageRow], tweet_id: Long, tweet: String, goodCount: Int, badCount: Int, currentState: String)
 
   val loginForm = Form(
     mapping(

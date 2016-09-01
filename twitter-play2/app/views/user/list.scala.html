@@ -19,14 +19,14 @@
                 }
 
                 <figure class="profile-box">
-                    @if(memberInfo.image.isDefined) {
+                    @if(memberInfo.icon.isDefined) {
                         <a id="image-link" href="@routes.ImageFileController.download(memberInfo.memberId)" title="クリックでダウンロード">
-                            <img class="member-image" src="data:image/png;base64,@memberInfo.image.get.imageData">
+                            <img class="member-image" src="data:image/png;base64,@memberInfo.icon.get.imageData">
                         </a>
                     } else {
                         <img class="member-image" src="@routes.Assets.at("images/egg.png")">
                     }
-                    <figcaption class="member-name">@memberInfo.name</figcaption>
+                    <figcaption class="member-name">@memberInfo.memberName</figcaption>
                 </figure>
                 <main class="form-group label-floating">
                     <textarea class="form-control tweet-area" name="tweet" rows="3" placeholder="let's tweet!"></textarea>
@@ -46,7 +46,7 @@
                                 } else {
                                     <img class="member-image" src="@routes.Assets.at("images/egg.png")">
                                 }
-                                <figcaption class="member-name">@tweet.name</figcaption>
+                                <figcaption class="member-name">@tweet.memberName</figcaption>
                             </figure>
                             <main class="tweet-contents">
                                 <i>@tweet.tweet</i>
