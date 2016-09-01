@@ -2,8 +2,8 @@ package models.auth
 
 import controllers.routes
 import jp.t2v.lab.play2.auth.{AsyncIdContainer, AuthConfig, CookieTokenAccessor}
-import models.dao.MemberDAO
 import models.Tables.MemberRow
+import models.dao.MemberDAO
 import play.api.cache.CacheApi
 import play.api.mvc.Results._
 import play.api.mvc.{RequestHeader, Result}
@@ -27,7 +27,7 @@ trait AuthConfigImpl extends AuthConfig {
   def resolveUser(id: Id)(implicit ctx: ExecutionContext): Future[Option[User]] = memberDAO.findById(id)
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] = {
-    Future.successful(Redirect(routes.TweetController.timeline))
+    Future.successful(Redirect(routes.TweetController.timeline()))
   }
 
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] =
