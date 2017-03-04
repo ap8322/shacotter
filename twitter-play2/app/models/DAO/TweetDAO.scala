@@ -63,7 +63,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param id Login Member Id
     * @return
     */
-  def selectMyTweet(id: Long): Future[Seq[TweetInfo]] = {
+  def selectMyTweet(id: Long, page: Int = 0): Future[Seq[TweetInfo]] = {
     //  SELECT m.name,
     //    t.tweet_id,
     //    t.tweet,
@@ -75,8 +75,6 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     //    LEFT JOIN Eval e ON t.tweet_id = e.tweet_id
     //  WHERE m.member_id = $id
 
-    val page = 0
-
     val dbio = Member
       .join(Tweet)
       .on(_.memberId === _.memberId)
@@ -87,6 +85,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
       }.filter {
       case ((m, t), i) =>
         m.memberId === id
+    }.sortBy {
+      case ((m, t), i) =>
+        t.tweetId.desc
     }.map {
       case ((m, t), i) => (
         m.name,
@@ -97,7 +98,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         getStatusCount(bad, t.tweetId),
         getCurrentEvaluate(id, t.tweetId)
         )
-    }.drop(page * 100).take(100).result
+    }.drop(page * 30).take(30).result
 
     db.run(dbio).map { tweetInfoList =>
       tweetInfoList.map {
@@ -122,9 +123,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param friendId Other Member Id
     * @return
     */
-  def selectFriendTweet(myId: Long, friendId: Long): Future[Seq[TweetInfo]] = {
-
-    val page = 0
+  def selectFriendTweet(myId: Long, friendId: Long, page: Int = 0): Future[Seq[TweetInfo]] = {
 
     val dbio = Member
       .join(Tweet)
@@ -136,6 +135,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
       }.filter {
       case ((m, t), i) =>
         m.memberId === friendId.bind
+    }.sortBy {
+      case ((m, t), i) =>
+        t.tweetId.desc
     }.map {
       case ((m, t), i) => (
         m.name,
@@ -169,9 +171,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
     * @param id Login Member Id
     * @return
     */
-  def selectFollowerTweet(id: Long): Future[Seq[TweetInfo]] = {
-
-    val page = 0
+  def selectFollowerTweet(id: Long, page: Int = 0): Future[Seq[TweetInfo]] = {
 
     val dbio = Member
       .join(Tweet)
@@ -183,6 +183,9 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
       }.filter {
       case ((m, t), i) =>
         (m.memberId in getFollowerIdList(id)) || m.memberId === id
+    }.sortBy {
+      case ((m, t), i) =>
+        t.tweetId.desc
     }.map {
       case ((m, t), i) => (
         m.name,
@@ -192,7 +195,7 @@ class TweetDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
         getStatusCount(good, t.tweetId),
         getStatusCount(bad, t.tweetId),
         getCurrentEvaluate(id, t.tweetId))
-    }.drop(page * 100).take(100).result
+    }.drop(page * 30).take(30).result
 
     db.run(dbio).map { tweetInfoList =>
       tweetInfoList.map {

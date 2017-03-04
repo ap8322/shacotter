@@ -37,12 +37,12 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
     * @param id other_member_id
     * @return
     */
-  def profile(id: Long) = AsyncStack(AuthorityKey -> None) { implicit rs =>
+  def profile(id: Long, page: Option[Int]) = AsyncStack(AuthorityKey -> None) { implicit rs =>
     val loginId = loggedIn.memberId
     for {
-      tweetInfo <- tweetDAO.selectFriendTweet(loginId, id)
+      tweetInfo <- tweetDAO.selectFriendTweet(loginId, id, page.getOrElse(0))
       memberInfo <- memberDAO.selectMemberInfo(id)
-    } yield Ok(views.html.user.list(memberInfo, tweetInfo, tweetForm))
+    } yield Ok(views.html.user.list(memberInfo, tweetInfo, tweetForm, page.getOrElse(0)))
   }
 
   /**
@@ -50,12 +50,12 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
     *
     * @return
     */
-  def timeline() = AsyncStack(AuthorityKey -> None) { implicit rs =>
+  def timeline(page: Option[Int]) = AsyncStack(AuthorityKey -> None) { implicit rs =>
     val id = loggedIn.memberId
     for {
-      tweetInfo <- tweetDAO.selectFollowerTweet(id)
+      tweetInfo <- tweetDAO.selectFollowerTweet(id, page.getOrElse(0))
       memberInfo <- memberDAO.selectMemberInfo(id)
-    } yield Ok(views.html.user.list(memberInfo, tweetInfo, tweetForm))
+    } yield Ok(views.html.user.list(memberInfo, tweetInfo, tweetForm, page.getOrElse(0)))
   }
 
   /**
@@ -66,11 +66,16 @@ class TweetController @Inject()(val memberDAO: MemberDAO,
   def tweet() = AsyncStack(AuthorityKey -> None) { implicit rs =>
     tweetForm.bindFromRequest.fold(
       formWithErrors => {
-        Future.successful(Redirect(routes.TweetController.timeline))
+        Future.successful(Redirect(routes.TweetController.timeline()).flashing("message" -> "ツイート出来ませんでした｡"))
       },
       form => {
-        tweetDAO.add(loggedIn.memberId, form.tweet).map(_ => Redirect(routes.TweetController.timeline))
+        tweetDAO.add(loggedIn.memberId, form.tweet).map { _ =>
+          Redirect(routes.TweetController.timeline()).flashing(
+            "message" -> "ツイートが完了しました｡"
+          )
+        }
       }
     )
   }
+
 }

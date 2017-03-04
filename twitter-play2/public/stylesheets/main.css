@@ -18,8 +18,26 @@ ul {
     list-style: none;
 }
 
+/*ページングのナビゲーション*/
+.paging-nav {
+    text-align: center;
+    padding: 10px;
+}
+
+.paging-nav > li {
+    display: inline-block;
+}
+
+.paging-nav > li:not(:first-child) {
+    margin-left: 50px;
+}
+
 .profile-box {
     padding: 12px;
+}
+
+aside > form {
+    position: fixed;
 }
 
 aside figcaption {

@@ -22,14 +22,14 @@
                         <span class="icon-bar"></span>
                     </button>
                     @* h1にするとbootstrapのデザインが崩れる為保留*@
-                    <a class="navbar-brand" href="@routes.TweetController.timeline">Shacotter</a>
+                    <a class="navbar-brand" href="@routes.TweetController.timeline()">Shacotter</a>
                 </div>
 
                 <nav class="navbar-collapse collapse navbar-responsive-collapse" id="nav-menu">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="@routes.TweetController.index">マイページ</a></li>
                         <li><a href="@routes.MemberController.edit">プロフィール編集</a></li>
-                        <li><a href="@routes.TweetController.timeline">タイムライン</a></li>
+                        <li><a href="@routes.TweetController.timeline()">タイムライン</a></li>
                         <li><a href="@routes.MemberController.list">メンバー一覧</a></li>
                         <li><a href="@routes.AuthController.logout">ログアウト</a></li>
                     </ul>

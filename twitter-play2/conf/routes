@@ -13,9 +13,9 @@ POST          /edit                      controllers.MemberController.update
 # tweet
 GET           /tweet                     controllers.TweetController.index
 POST          /tweet                     controllers.TweetController.tweet
-GET           /timeline                  controllers.TweetController.timeline
+GET           /timeline                  controllers.TweetController.timeline(page: Option[Int] ?= None)
 
-GET           /profile/:id               controllers.TweetController.profile(id: Long)
+GET           /profile/:id               controllers.TweetController.profile(id: Long,page: Option[Int] ?= None)
 
 #follow
 POST          /follow                    controllers.FollowController.follow

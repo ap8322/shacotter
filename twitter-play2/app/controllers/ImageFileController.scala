@@ -33,7 +33,7 @@ class ImageFileController @Inject()(val memberDAO: MemberDAO,
         case Some(_) => imageDAO.update(id, imageName, imageToBase64(imageFile))
         case _ => imageDAO.insert(id, imageName, imageToBase64(imageFile))
       }.map(_ =>
-        Redirect(routes.TweetController.timeline).flashing(
+        Redirect(routes.TweetController.timeline()).flashing(
           "message" -> "アイコンが変更されました｡"
         ))
     }.getOrElse {

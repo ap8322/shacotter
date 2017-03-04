@@ -1,6 +1,6 @@
-@(memberInfo: models.Forms.MemberInfo, tweetInfo: Seq[models.Forms.TweetInfo], form: Form[models.Forms.Tweet])(implicit flash: Flash)
+@(memberInfo: models.Forms.MemberInfo, tweetInfo: Seq[models.Forms.TweetInfo], form: Form[models.Forms.Tweet], currentPage: Int = 0)(implicit flash: Flash)
     @import utils.EvaluateStatesCode._
-@main("ツイート") {
+@main("Shacotter") {
     <div class="container">
         @flash.get("message").map { success =>
             <div class="success text-center">
@@ -36,8 +36,34 @@
             </aside>
 
             <main class="col-sm-8">
+            @if(tweetInfo.isEmpty) {
+                <div class="well text-center">
+                    ツイートはありません｡
+                </div>
+            } else {
+                <ul class="paging-nav">
+                    <li>
+                    @if(currentPage != 0) {
+                        <a href="@routes.TweetController.timeline(Some(currentPage - 1))">
+                            前の30件へ
+                        </a>
+                    }
+                    </li>
+                    <li>
+                        @(currentPage + 1)ページ目
+                    </li>
+                    <li>
+
+                    @if(tweetInfo.length == 30) {
+                        <a href="@routes.TweetController.timeline(Some(currentPage + 1))">
+                            次の30件へ
+                        </a>
+                    }
+                    </li>
+                </ul>
+
                 <ul class="tweet-list">
-                @tweetInfo.reverse.map { tweet =>
+                @tweetInfo.map { tweet =>
                     <li>
                         <article id="@tweet.tweet_id" class="tweet-box panel panel-default well">
                             <figure>
@@ -70,6 +96,28 @@
                     </li>
                 }
                 </ul>
+
+                <ul class="paging-nav">
+                    <li>
+                    @if(currentPage != 0) {
+                        <a href="@routes.TweetController.timeline(Some(currentPage - 1))">
+                            前の30件へ
+                        </a>
+                    }
+                    </li>
+                    <li>
+                        @(currentPage + 1)ページ目
+                    </li>
+                    <li>
+
+                    @if(tweetInfo.length == 30) {
+                        <a href="@routes.TweetController.timeline(Some(currentPage + 1))">
+                            次の30件へ
+                        </a>
+                    }
+                    </li>
+                </ul>
+            }
             </main>
         </section>
     </div>
