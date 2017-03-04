@@ -1,35 +1,42 @@
-@(me: String, followers: Seq[(models.Forms.Follower)], form: Form[models.Forms.Tweet])
+@(myId: Long, followers: Seq[(models.Forms.Follower)], form: Form[models.Forms.Tweet])
 
-@main("メンバー一覧 - Shacotter") {
-    <div class="container">
-        <main class="row">
-        @followers.map { user =>
-            <div class="col-sm-4">
-                <article class="list-group">
-                    <main class="list-group-item">
-                        <figure class="row-picture">
-                            <img src="@routes.Assets.at("images/egg.png")" alt="icon">
-                        </figure>
-
-                        <div class="row-content">
-                            <section class="list-group-item-text">
-                                <h2>
-                                    <a href="@routes.TweetController.profile(user.memberId)"> @user.memberName </a>
-                                </h2>
-                                <div id="@user.memberId">
-                                @if(user.isFollowed) {
-                                    <button type="button" class="follow-button btn btn-primary btn-raised">フォロー中</button>
+    @main("メンバー一覧 - Shacotter") {
+        <div class="container">
+            <main class="row">
+            @followers.map { user =>
+                <div class="col-sm-4">
+                    <article class="list-group">
+                        <main class="list-group-item">
+                            <figure class="row-picture">
+                                @if(user.icon.isDefined) {
+                                    <img src="data:image/png;base64,@user.icon.get.imageData">
                                 } else {
-                                    <button type="button" class="follow-button btn btn-raised">フォロー</button>
-                                }
-                                </div>
-                            </section>
-                        </div>
-                    </main>
-                    <div class="list-group-separator"></div>
-                </article>
-            </div>
-        }
-        </main>
-    </div>
-}
+                                    <img src="@routes.Assets.at("images/egg.png")" alt="icon">
+                                    }
+                            </figure>
+
+                            <div class="row-content">
+                                <section class="list-group-item-text">
+                                    <h2>
+                                        <a href="@routes.TweetController.profile(user.memberId)"> @user.memberName </a>
+                                    </h2>
+                                    <div id="@user.memberId">
+                                    @if(user.memberId != myId) {
+                                        @if(user.isFollowed) {
+                                            <button type="button" class="follow-button btn btn-primary btn-raised">
+                                                フォロー中</button>
+                                        } else {
+                                            <button type="button" class="follow-button btn btn-raised">フォロー</button>
+                                        }
+                                    }
+                                    </div>
+                                </section>
+                            </div>
+                        </main>
+                        <div class="list-group-separator"></div>
+                    </article>
+                </div>
+            }
+            </main>
+        </div>
+    }

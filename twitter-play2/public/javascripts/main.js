@@ -1,5 +1,4 @@
 $(function () {
-
     $('form').validate({
         rules: {
             tweet: {
@@ -14,6 +13,13 @@ $(function () {
             }
         },
         errorElement: 'p'
+    });
+
+    $('#image-link').balloon({
+        css: {
+            fontSize: '15px'
+        },
+        position: 'right'
     });
 
     $('.follow-button').on('click', function () {
@@ -47,6 +53,10 @@ $(function () {
         }
     });
 
+    var good_status = "GOOD";
+    var bad_status = "BAD";
+    var no_evaluate = "NO_EVALUATE";
+
     // 評価ボタン
     $('ul').on('click', 'button', function () {
         var $button = $(this)
@@ -63,26 +73,26 @@ $(function () {
             $.ajax({
                 url: '/evaluate/add ',
                 type: 'POST',
-                data: '{"tweet_id":' + $tweet_id + ', "eval_status":' + status + '}',
+                data: '{"tweet_id":' + $tweet_id + ', "eval_status":"' + status + '"}',
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
-                if (status == 1) {
+                if (status == good_status) {
                     addGoodCount($good, $good_count)
                 } else {
                     addBadCount($bad, $bad_count)
                 }
             });
             //bad -> good good -> bad (既に押されているボタンと押したボタンが別)
-        } else if (($good.hasClass('btn-success') && status == 0) || ($bad.hasClass('btn-danger') && status == 1)) {
+        } else if (($good.hasClass('btn-success') && status == bad_status) || ($bad.hasClass('btn-danger') && status == good_status)) {
             $.ajax({
                 url: '/evaluate/update',
                 type: 'PUT',
-                data: '{"tweet_id":' + $tweet_id + ', "eval_status":' + status + '}',
+                data: '{"tweet_id":' + $tweet_id + ', "eval_status":"' + status + '"}',
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
-                if (status == 1) {
+                if (status == good_status) {
                     addGoodCount($good, $good_count);
                     removeBadCount($bad, $bad_count);
                 } else {
@@ -95,7 +105,7 @@ $(function () {
             $.ajax({
                 url: '/evaluate/delete',
                 type: 'DELETE',
-                data: '{"tweet_id":' + $tweet_id + ', "eval_status":-1}',
+                data: '{"tweet_id":' + $tweet_id + ', "eval_status":"' + no_evaluate + '"}',
                 contentType: 'application/json',
                 dataType: 'json'
             }).done(function () {
@@ -108,11 +118,12 @@ $(function () {
         }
     });
 
+    //どちらのボタンが押されたか判定
     function pushedButton(data) {
         if (data.text() == "いいね") {
-            return 1;
+            return good_status;
         } else if (data.text() == "どうでもいいね") {
-            return 0;
+            return bad_status;
         }
     }
 

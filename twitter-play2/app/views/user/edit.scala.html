@@ -2,40 +2,55 @@
     @main("Edit - Shacotter") {
         <div class="container">
             <main class="well text-center">
-            @helper.form(routes.MemberController.update) {
-                <h1>Edit Your Profile</h1>
 
-                @form.error("mail").map { message =>
-                    <p class="error">
-                        @message.message
+                @flash.get("message").map { message =>
+                    <p class="success">
+                        @message
                     </p>
                 }
 
-                @form.error("invalidForm").map { message =>
-                    <p class="error">
-                        @message.message
-                    </p>
+                @helper.form(routes.MemberController.update) {
+                    <h2>Edit Your Profile</h2>
+
+                    @form.error("mail").map { message =>
+                        <p class="error">
+                            @message.message
+                        </p>
+                    }
+
+                    @form.globalError.map { message =>
+                        <p class="error">
+                            @message.message
+                        </p>
+                    }
+
+                    @form.value.map { data =>
+                        <div class="form-group">
+                            <p>
+                                <input type="name" class="required form-control" name="name" placeholder="Your name" id="name" value="@data.name">
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <input type="email" class="required form-control" name="email" placeholder="Your Email" id="email" value="@data.email">
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <input type="password" class="required form-control" name="password" placeholder="Your password" id="password" value="">
+                            </p>
+                        </div>
+                        <input class="btn btn-raised btn-primary" type="submit" value="編集">
+                    }
                 }
 
-                @form.value.map { data =>
-                    <div class="form-group">
-                        <p>
-                            <input type="name" class="required form-control" name="name" placeholder="Your name" id="name" value="@data.name">
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <p>
-                            <input type="email" class="required form-control" name="email" placeholder="Your Email" id="email" value="@data.email">
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <p>
-                            <input type="password" class="required form-control" name="password" placeholder="Your password" id="password" value="">
-                        </p>
-                    </div>
-                    <input class="btn btn-raised btn-primary" type="submit" value="編集">
+                @helper.form(action = routes.ImageFileController.upload, 'enctype -> "multipart/form-data") {
+                    <h2>Edit Your Icon</h2>
+                    <input class="btn" type="file" name="picture">
+                    <p>
+                        <input class="btn btn-raised btn-primary" type="submit">
+                    </p>
                 }
-            }
             </main>
         </div>
     }

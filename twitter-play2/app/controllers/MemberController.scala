@@ -26,7 +26,7 @@ class MemberController @Inject()(val memberDAO: MemberDAO,
     */
   def list = AsyncStack(AuthorityKey -> None) { implicit rs =>
     followDAO.selectFollowerList(loggedIn.memberId).map { memberList =>
-      Ok(views.html.user.member(loggedIn.name, memberList, tweetForm))
+      Ok(views.html.user.member(loggedIn.memberId, memberList, tweetForm))
     }
   }
 
