@@ -20,3 +20,8 @@ addSbtPlugin("org.irundaia.sbt" % "sbt-sassify" % "1.4.2")
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "4.0.0")
 
 addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
+
+libraryDependencies ++= Seq(
+  "mysql"                         % "mysql-connector-java"  % "5.1.26",
+  "com.typesafe.slick"            %% "slick-codegen"        % "3.1.0"
+)

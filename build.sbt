@@ -1,8 +1,6 @@
-name := """twitter-play2"""
+name := "twitter-play2"
 
 version := "1.0-SNAPSHOT"
-
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.11.7"
 
@@ -23,6 +21,8 @@ libraryDependencies ++= Seq(
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 //slick <<= slickCodeGenTask
 //
