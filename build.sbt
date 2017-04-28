@@ -1,4 +1,4 @@
-name := "twitter-play2"
+name := "shacotter"
 
 version := "1.0-SNAPSHOT"
 
