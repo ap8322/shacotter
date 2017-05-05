@@ -14,7 +14,6 @@ libraryDependencies ++= Seq(
   "jp.t2v" %% "play2-auth" % "0.14.2",
   "jp.t2v" %% "play2-auth-social" % "0.14.2",
   "jp.t2v" %% "play2-auth-test" % "0.14.2" % "test",
-  "org.flywaydb" %% "flyway-play" % "3.0.1",
   "com.github.mumoshu" %% "play2-memcached-play24" % "0.7.0",
   "org.mindrot" % "jbcrypt" % "0.3m",
   "mysql" % "mysql-connector-java" % "5.1.34"
@@ -23,6 +22,11 @@ libraryDependencies ++= Seq(
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
+
+flywayUrl := "jdbc:mysql://localhost/shacotter?useUnicode:=true&chracterEncoding:=utf8mb4"
+flywayLocations += "filesystem:conf/db/migration/default"
+flywayUser := "root"
+flywayPassword := ""
 
 //slick <<= slickCodeGenTask
 //
