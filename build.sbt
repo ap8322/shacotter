@@ -23,10 +23,8 @@ resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-flywayUrl := "jdbc:mysql://localhost/shacotter?useUnicode:=true&chracterEncoding:=utf8mb4"
-flywayLocations += "filesystem:conf/db/migration/default"
-flywayUser := "root"
-flywayPassword := ""
+lazy val flyway = (project in file("modules/flyway"))
+  .enablePlugins(FlywayPlugin)
 
 //slick <<= slickCodeGenTask
 //
