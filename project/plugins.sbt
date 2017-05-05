@@ -25,3 +25,7 @@ libraryDependencies ++= Seq(
   "mysql"                         % "mysql-connector-java"  % "5.1.26",
   "com.typesafe.slick"            %% "slick-codegen"        % "3.1.0"
 )
+
+addSbtPlugin("org.flywaydb" % "flyway-sbt" % "4.2.0")
+
+resolvers += "Flyway" at "https://flywaydb.org/repo"
