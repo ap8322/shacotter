@@ -1,0 +1,16 @@
+mysql:
+  container_name: shacotter-mysql
+  image: mysql:5.7
+  ports:
+    - "3310:3306"
+  environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  volumes:
+    - "./mysql/my.cnf:/etc/mysql/my.cnf"
+    - "./mysql/init.d:/docker-entrypoint-initdb.d"
+
+memcached:
+  container_name: shacotter-memcached
+  image: memcached:1.4
+  ports:
+    - '11111:11211'
