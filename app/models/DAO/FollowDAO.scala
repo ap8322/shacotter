@@ -3,10 +3,9 @@ package models.dao
 import javax.inject.Inject
 
 import models.Forms.Follower
-import models.Tables._
+import models.Tables._, profile.api._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.driver.JdbcProfile
-import slick.driver.MySQLDriver.api._
 import slick.lifted.Rep
 import utils.SystemClock
 
@@ -18,6 +17,8 @@ import scala.concurrent.Future
   */
 class FollowDAO @Inject()(val dbConfigProvider: DatabaseConfigProvider)
   extends HasDatabaseConfigProvider[JdbcProfile] with SystemClock {
+
+//  import dbConfig.driver.api._
 
   def follow(myId: Long, followId: Long): Future[Int] = {
     db.run(
