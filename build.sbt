@@ -16,7 +16,8 @@ libraryDependencies ++= Seq(
   "jp.t2v" %% "play2-auth-test" % "0.14.2" % "test",
   "com.github.mumoshu" %% "play2-memcached-play24" % "0.7.0",
   "org.mindrot" % "jbcrypt" % "0.3m",
-  "mysql" % "mysql-connector-java" % "5.1.34"
+  "mysql" % "mysql-connector-java" % "5.1.34",
+  "org.scalaz" %% "scalaz-core" % "7.2.14"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
