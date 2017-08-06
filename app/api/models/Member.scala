@@ -2,5 +2,6 @@ package api.models
 
 case class Member(
     memberId: Long,
-    name: String
+    name: String,
+    password: HashedPassword
 )

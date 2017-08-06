@@ -2,27 +2,21 @@ package api.services
 
 import javax.inject.Inject
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
+import api.models.{Email, Member, Password}
 import api.repositories.MemberRepository
-import org.mindrot.jbcrypt.BCrypt
 
 class AuthService @Inject()(
     val repo: MemberRepository
+)(
+  implicit val ec: ExecutionContext
 ) {
 
-  def invalidPasswordOrValid(
-      email: String,
-      password: String): Future[Either[String, Long]] = {
+  def invalidPasswordOrValid(email: Email, password: Password): Future[Either[String, Member]] = {
     repo.findBy(email).map {
-      case Some(user) if checkpw(password, user.password) =>
-        Right(user.memberId)
+      case Some(user) if user.password.checkpw(password) => Right(user)
       case _ => Left("メールまたはパスワードが違います｡")
     }
-  }
-
-  private[this] def checkpw(password: String,
-                            storedPassword: String): Boolean = {
-    BCrypt.checkpw(password, storedPassword)
   }
 }

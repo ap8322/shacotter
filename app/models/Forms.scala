@@ -23,8 +23,8 @@ object Forms {
 
   val loginForm = Form(
     mapping(
-      "email" -> nonEmptyText(maxLength = 200),
-      "password" -> nonEmptyText(maxLength = 200)
+      "email" -> nonEmptyText(maxLength = 100),
+      "password" -> nonEmptyText(maxLength = 100)
     )(LoginForm.apply)(LoginForm.unapply)
   )
 

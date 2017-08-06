@@ -33,12 +33,11 @@ trait AuthConfigImpl extends AuthConfig {
   val cacheApi: CacheApi
 
   def resolveUser(id: Id)(
-      implicit ctx: ExecutionContext): Future[Option[User]] =
-    memberDAO.findBy(id).map(_.map(m => Member(m.memberId, m.name)))
+      implicit ctx: ExecutionContext): Future[Option[User]] = memberDAO.findBy(id)
 
   def loginSucceeded(request: RequestHeader)(
       implicit ctx: ExecutionContext): Future[Result] = {
-    Future.successful(Redirect(routes.TweetController.timeline()))
+    Future.successful(Ok)
   }
 
   def logoutSucceeded(request: RequestHeader)(
